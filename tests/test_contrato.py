@@ -6,7 +6,7 @@
 import unittest
 
 from src.api import app as api
-from src.api.contrato import validar_grafo, validar_rotas
+from src.api.contrato import validar_desempenho, validar_grafo, validar_rotas
 
 CENARIOS = [
     {"veiculos": 3, "capacidade": 150},
@@ -34,6 +34,11 @@ class TestRotas(unittest.TestCase):
                         self.assertEqual(validar_rotas(self.grafo, res, c["veiculos"], c["capacidade"]), [])
 
 
+class TestDesempenho(unittest.TestCase):
+    def test_formato(self):
+        self.assertEqual(validar_desempenho(api.medir_desempenho([5, 10])), [])
+
+
 class TestApi(unittest.TestCase):
     def setUp(self):
         self.cliente = api.app.test_client()
@@ -50,6 +55,12 @@ class TestApi(unittest.TestCase):
                                                   "algoritmo": "clarke_wright", "usar_2opt": True})
         self.assertEqual(r.status_code, 200)
         self.assertIn("tempo_execucao_ms", r.get_json())
+
+    def test_desempenho(self):
+        self.assertEqual(self.cliente.get("/api/desempenho?tamanhos=5,10").status_code, 200)
+        for q in ("abc", "1", "9999"):
+            with self.subTest(tamanhos=q):
+                self.assertEqual(self.cliente.get(f"/api/desempenho?tamanhos={q}").status_code, 400)
 
     def test_entradas_invalidas(self):
         for corpo in ({"algoritmo": "x"}, {"veiculos": 0}, {"capacidade": "abc"}):

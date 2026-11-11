@@ -17,14 +17,19 @@ from src.api import mock  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # PONTO DE INTEGRAÇÃO
-# Quando o código real estiver pronto, troque estas duas funções:
-#   carregar_grafo  -> função da Dupla 1 (src/grafo)
-#   calcular_rotas  -> função da Dupla 2 (src/algoritmos)
+# Quando o código real estiver pronto, troque estas funções:
+#   carregar_grafo    -> função da Dupla 1 (src/grafo)
+#   calcular_rotas    -> função da Dupla 2 (src/algoritmos)
+#   medir_desempenho  -> benchmark das Duplas 1 e 2 (inclui a comparação com NetworkX)
 # e mude FONTE para "real".
 # ---------------------------------------------------------------------------
 carregar_grafo = mock.gerar_grafo
 calcular_rotas = mock.calcular_rotas
+medir_desempenho = mock.medir_desempenho
 FONTE = "mock"
+
+TAMANHOS_PADRAO = [10, 25, 50, 100, 200]
+TAMANHO_MAXIMO = 500
 
 ALGORITMOS = {"nn": "Vizinho mais próximo", "clarke_wright": "Clarke-Wright"}
 
@@ -66,6 +71,20 @@ def api_rotas():
     inicio = time.perf_counter()
     resultado = calcular_rotas(_grafo, veiculos, capacidade, algoritmo, usar_2opt)
     resultado["tempo_execucao_ms"] = round((time.perf_counter() - inicio) * 1000, 3)
+    resultado["fonte"] = FONTE
+    return jsonify(resultado)
+
+
+@app.get("/api/desempenho")
+def api_desempenho():
+    bruto = request.args.get("tamanhos")
+    try:
+        tamanhos = sorted({int(x) for x in bruto.split(",")}) if bruto else TAMANHOS_PADRAO
+    except ValueError:
+        return jsonify({"erro": "tamanhos deve ser uma lista de inteiros, ex.: 10,50,100"}), 400
+    if not tamanhos or tamanhos[0] < 2 or tamanhos[-1] > TAMANHO_MAXIMO:
+        return jsonify({"erro": f"use tamanhos entre 2 e {TAMANHO_MAXIMO}"}), 400
+    resultado = medir_desempenho(tamanhos)
     resultado["fonte"] = FONTE
     return jsonify(resultado)
 

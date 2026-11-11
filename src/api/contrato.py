@@ -7,7 +7,8 @@ Cada função devolve uma lista de problemas (vazia = tudo certo).
 
 CAMPOS_VERTICE = {"id", "nome", "lat", "lon", "demanda", "janela", "prioridade", "deposito"}
 CAMPOS_ARESTA = {"u", "v", "distancia", "tempo"}
-CAMPOS_ROTA = {"veiculo", "paradas", "chegadas", "distancia", "tempo", "carga", "ocupacao"}
+CAMPOS_ROTA = {"veiculo", "paradas", "chegadas", "saida", "retorno", "distancia", "tempo", "carga", "ocupacao"}
+CAMPOS_CHEGADA = {"id", "chegada", "inicio", "fim", "atrasado"}
 CAMPOS_METRICAS = {"distancia_total", "tempo_total", "veiculos_usados", "atrasos"}
 
 
@@ -78,10 +79,48 @@ def validar_rotas(grafo, resultado, veiculos, capacidade):
             erros.append(f"rota {r['veiculo']} excede a capacidade ({carga} > {capacidade})")
         if carga != r["carga"]:
             erros.append(f"rota {r['veiculo']}: carga informada {r['carga']} != soma das demandas {carga}")
+        erros += _validar_horarios(r, meio)
 
     if len(visitados) != len(set(visitados)):
         erros.append("algum cliente foi visitado mais de uma vez")
     cobertos = set(visitados) | set(resultado["nao_atendidos"])
     if cobertos != clientes:
         erros.append(f"clientes nem roteados nem em nao_atendidos: {sorted(clientes - cobertos)}")
+    return erros
+
+
+def _validar_horarios(rota, clientes_da_rota):
+    """Horários em minutos desde 00:00, em ordem: saida <= chegada <= inicio <= fim <= ... <= retorno."""
+    erros = []
+    ch = rota["chegadas"]
+    for c in ch:
+        faltando = CAMPOS_CHEGADA - c.keys()
+        if faltando:
+            return [f"rota {rota['veiculo']}: chegada {c.get('id')} sem os campos {sorted(faltando)}"]
+    if [c["id"] for c in ch] != clientes_da_rota:
+        erros.append(f"rota {rota['veiculo']}: 'chegadas' fora da ordem das paradas")
+    relogio = rota["saida"]
+    for c in ch:
+        if not (relogio <= c["chegada"] <= c["inicio"] <= c["fim"]):
+            erros.append(f"rota {rota['veiculo']}: horários fora de ordem no cliente {c['id']}")
+        relogio = c["fim"]
+    if rota["retorno"] < relogio:
+        erros.append(f"rota {rota['veiculo']}: retorno antes da última entrega")
+    return erros
+
+
+def validar_desempenho(resultado):
+    erros = []
+    series = resultado.get("series")
+    if not series:
+        return ["desempenho sem 'series'"]
+    for s in series:
+        if "nome" not in s or "pontos" not in s:
+            erros.append(f"série sem 'nome' ou 'pontos': {s}")
+            continue
+        for p in s["pontos"]:
+            if "n" not in p or "ms" not in p:
+                erros.append(f"série {s['nome']}: ponto sem 'n' ou 'ms'")
+            elif p["ms"] < 0:
+                erros.append(f"série {s['nome']}: tempo negativo")
     return erros

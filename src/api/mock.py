@@ -6,6 +6,7 @@ FORMATO (contrato) que o código real deve devolver.
 """
 import math
 import random
+import time
 
 VELOCIDADE_KMH = 30      # velocidade média urbana usada para estimar o tempo
 TEMPO_SERVICO_MIN = 10   # minutos parado em cada entrega
@@ -105,14 +106,17 @@ def calcular_rotas(grafo, veiculos, capacidade, algoritmo, usar_2opt):
             relogio += aresta["tempo"]
             if b != dep["id"]:
                 ini, fim = vs[b]["janela"]
-                relogio = max(relogio, ini)  # espera abrir a janela
-                atrasado = relogio > fim
+                chegada = relogio
+                inicio = max(chegada, ini)  # espera a janela abrir
+                atrasado = inicio > fim
                 atrasos += atrasado
-                chegadas.append({"id": b, "chegada": round(relogio), "atrasado": atrasado})
-                relogio += TEMPO_SERVICO_MIN
+                relogio = inicio + TEMPO_SERVICO_MIN
                 t += TEMPO_SERVICO_MIN
+                chegadas.append({"id": b, "chegada": round(chegada, 1), "inicio": round(inicio, 1),
+                                 "fim": round(relogio, 1), "atrasado": atrasado})
         carga = sum(c["demanda"] for c in g)
         rotas.append({"veiculo": k, "paradas": paradas, "chegadas": chegadas,
+                      "saida": INICIO_EXPEDIENTE, "retorno": round(relogio, 1),
                       "distancia": round(d, 2), "tempo": round(t, 1), "carga": carga,
                       "ocupacao": round(carga / capacidade, 3)})
         total_d += d
@@ -124,3 +128,26 @@ def calcular_rotas(grafo, veiculos, capacidade, algoritmo, usar_2opt):
         "metricas": {"distancia_total": round(total_d, 2), "tempo_total": round(total_t, 1),
                      "veiculos_usados": len(rotas), "atrasos": atrasos},
     }
+
+
+def medir_desempenho(tamanhos, repeticoes=3):
+    """Contrato de GET /api/desempenho.
+
+    Mede o tempo (em ms) de cada algoritmo para grafos de vários tamanhos.
+    Aqui mede só a heurística de exemplo; a Dupla 2 troca pelos algoritmos
+    reais e a Dupla 1 acrescenta as séries de comparação com o NetworkX
+    (ex.: "Dijkstra (nosso)" e "Dijkstra (NetworkX)").
+    """
+    configs = [("Vizinho mais próximo", "nn", False), ("Clarke-Wright", "clarke_wright", False),
+               ("Clarke-Wright + 2-opt", "clarke_wright", True)]
+    series = [{"nome": nome, "pontos": []} for nome, _, _ in configs]
+    for n in tamanhos:
+        grafo = gerar_grafo(n_clientes=n, semente=n)
+        for serie, (_, alg, opt) in zip(series, configs):
+            melhor = float("inf")
+            for _ in range(repeticoes):
+                inicio = time.perf_counter()
+                calcular_rotas(grafo, veiculos=n, capacidade=150, algoritmo=alg, usar_2opt=opt)
+                melhor = min(melhor, time.perf_counter() - inicio)
+            serie["pontos"].append({"n": n, "ms": round(melhor * 1000, 3)})
+    return {"series": series}

@@ -24,9 +24,10 @@ Regras do enunciado: **todos os membros participam**. A apresentação presencia
 **Demo ao vivo (slide 10), passo a passo:**
 1. Abrir o sistema e mostrar o cenário e as arestas do grafo.
 2. Calcular com 3 veículos, usando Clarke-Wright + 2-opt.
-3. Clicar numa rota para destacá-la e abrir "Ver entregas", mostrando janelas e chegadas.
-4. Reduzir para 1 veículo e mostrar o aviso de frota insuficiente.
-5. Clicar em "Comparar algoritmos" e mostrar a tabela e o gráfico.
+3. Apertar **▶ Simular o dia** e deixar os caminhões andarem por uns 10 s. Mostrar os ✓ e os **!** aparecendo e o cursor andando na linha do tempo.
+4. Passar o mouse numa entrega atrasada da linha do tempo para mostrar a janela de tempo.
+5. Reduzir para 1 veículo e mostrar o aviso de frota insuficiente.
+6. Na aba Comparação, mostrar a tabela e o gráfico.
 
 > **Plano B:** grave a demo antes. Se a internet cair, o mapa de fundo não carrega.
 
@@ -43,8 +44,8 @@ Foco no **funcionamento** e em **quem fez cada feature**. Cada pessoa grava o pr
 | Dados e Dijkstra | Bruna | 2:30 | Leitura da base, montagem do grafo, Dijkstra e a matriz de distâncias, comparação com o NetworkX |
 | Construção de rotas | Kethellen | 2:30 | Vizinho Mais Próximo e Clarke-Wright no código, tratamento de capacidade, janela e prioridade |
 | Melhoria e métricas | Rafael | 2:30 | 2-opt, métricas, experimentos e ganhos |
-| Interface | Filipe | 2:00 | Mapa, rotas, detalhes das entregas, comparação e exportação |
-| API e integração | Vitor | 2:00 | Rotas da API, contrato JSON, testes de contrato rodando, como o front fala com o núcleo |
+| Interface | Filipe | 2:30 | Guia de uso, mapa, rotas, **simulação do dia**, **linha do tempo**, comparação e exportação |
+| API e integração | Vitor | 2:00 | Rotas da API, contrato JSON, testes de contrato rodando, **aba Desempenho**, diagramas UML da arquitetura |
 | Encerramento | Vitor | 0:30 | Resultados principais e limitações |
 
 > Ajustem os blocos ao que cada um fez de fato. O vídeo precisa bater com a tabela de responsabilidades do relatório.

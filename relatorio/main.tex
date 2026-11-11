@@ -220,23 +220,64 @@ para várias combinações de frota, capacidade e algoritmo, que:
 
 \subsection{Interface}
 
-A interface (Figura~\ref{fig:tela-principal}) é dividida em um painel lateral e um
-mapa. Suas funcionalidades são:
+A interface (Figura~\ref{fig:tela-principal}) é dividida em um painel lateral com
+três abas (Rotas, Comparação e Desempenho), um mapa e uma linha do tempo. Suas
+funcionalidades são:
 \begin{itemize}
   \item \textbf{Cenário}: número de vértices e arestas, demanda total, clientes de
         alta prioridade e uma estimativa do número mínimo de veículos
         ($\lceil \sum q_i / Q \rceil$). As arestas do grafo podem ser exibidas
         sobre o mapa;
   \item \textbf{Configuração}: número de veículos, capacidade, algoritmo e uso do 2-opt;
-  \item \textbf{Rotas}: cada veículo é desenhado com uma cor. Para cada rota, a
-        interface mostra a distância, o tempo, a ocupação da carga e a lista de
-        entregas com janela de tempo e horário de chegada (atrasos destacados).
-        Clicar em uma rota a destaca no mapa;
+  \item \textbf{Rotas}: cada veículo é desenhado com uma cor, e as cores seguem uma
+        paleta validada para daltonismo. Cada rota tem um cartão com distância,
+        tempo, ocupação da carga e lista de entregas. Clicar em uma rota a destaca
+        no mapa e na linha do tempo;
+  \item \textbf{Simulação do dia}: um controle de reprodução anima os veículos
+        percorrendo as rotas conforme os horários calculados. Os clientes mudam de
+        estado (aguardando, em atendimento, entregue no prazo, entregue com atraso)
+        e uma barra permite ir a qualquer horário
+        (Figura~\ref{fig:tela-simulacao});
+  \item \textbf{Linha do tempo}: um diagrama de Gantt com uma linha por veículo
+        mostra as viagens, as esperas pela abertura da janela e as entregas.
+        Entregas atrasadas são destacadas e, ao passar o mouse sobre uma entrega,
+        a janela de tempo do cliente aparece ao fundo. Assim, as restrições de
+        tempo do VRPTW ficam visíveis de forma direta;
   \item \textbf{Comparação}: executa todas as combinações de algoritmo, com e sem
         2-opt, e mostra uma tabela e um gráfico de barras com a melhor configuração
-        destacada;
+        destacada (Figura~\ref{fig:tela-comparacao});
+  \item \textbf{Desempenho}: mede o tempo de execução dos algoritmos para grafos
+        de vários tamanhos e o exibe em um gráfico de linhas, o que permite
+        confrontar o comportamento empírico com a complexidade teórica
+        (Seção~\ref{sec:resultados});
+  \item \textbf{Guia de uso}: um tour interativo, exibido no primeiro acesso,
+        destaca cada parte da tela e explica como usá-la;
   \item \textbf{Exportação}: salva o resultado em JSON para análise posterior.
 \end{itemize}
+
+Os diagramas de componentes, de sequência e de estados da interface estão
+nas Figuras~\ref{fig:uml-componentes}, \ref{fig:uml-sequencia} e
+\ref{fig:uml-estados}.
+
+% TODO: exportar os diagramas de docs/diagramas.md para relatorio/figuras/
+% \begin{figure}[ht]
+%   \centering
+%   \includegraphics[width=.95\textwidth]{figuras/uml-componentes.png}
+%   \caption{Diagrama de componentes do RotaGrafo.}
+%   \label{fig:uml-componentes}
+% \end{figure}
+% \begin{figure}[ht]
+%   \centering
+%   \includegraphics[width=.95\textwidth]{figuras/uml-sequencia.png}
+%   \caption{Diagrama de sequência do cálculo de rotas.}
+%   \label{fig:uml-sequencia}
+% \end{figure}
+% \begin{figure}[ht]
+%   \centering
+%   \includegraphics[width=.7\textwidth]{figuras/uml-estados-simulacao.png}
+%   \caption{Diagrama de estados da simulação.}
+%   \label{fig:uml-estados}
+% \end{figure}
 
 % TODO: prints das telas (tirar com o sistema integrado)
 % \begin{figure}[ht]
@@ -244,6 +285,12 @@ mapa. Suas funcionalidades são:
 %   \includegraphics[width=\textwidth]{figuras/tela-principal.png}
 %   \caption{Tela principal com as rotas calculadas.}
 %   \label{fig:tela-principal}
+% \end{figure}
+% \begin{figure}[ht]
+%   \centering
+%   \includegraphics[width=\textwidth]{figuras/tela-simulacao.png}
+%   \caption{Simulação do dia com a linha do tempo.}
+%   \label{fig:tela-simulacao}
 % \end{figure}
 % \begin{figure}[ht]
 %   \centering
@@ -294,8 +341,8 @@ Dupla & Membro & Atividades \\
 1 & Bruna     & TODO \\
 2 & Kethellen & TODO \\
 2 & Rafael    & TODO \\
-3 & Filipe    & Interface web (mapa, rotas, comparação), integração com a API, relatório \\
-3 & Vitor     & TODO \\
+3 & Filipe    & Interface web: mapa, rotas, simulação do dia, linha do tempo e guia de uso; relatório \\
+3 & Vitor     & API Flask, contrato e testes de integração, aba de desempenho, diagramas UML da arquitetura \\
 \bottomrule
 \end{tabular}
 \end{table}

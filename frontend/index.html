@@ -11,58 +11,145 @@
   <aside id="painel">
     <header>
       <h1>🚚 RotaGrafo</h1>
-      <span id="fonte" class="selo" hidden>dados de exemplo</span>
+      <span id="fonte" class="selo" hidden title="A API ainda está usando dados de exemplo (src/api/mock.py)">dados de exemplo</span>
+      <button type="button" id="btn-ajuda" class="ajuda" title="Abrir o guia de uso">❓ Ajuda</button>
     </header>
 
-    <section>
-      <h2>Cenário</h2>
-      <div id="resumo" class="metricas"></div>
-      <p id="dica" class="dica"></p>
-      <label class="check">
-        <input type="checkbox" id="mostrar-arestas"> Mostrar arestas do grafo
-      </label>
-    </section>
+    <nav class="abas" role="tablist">
+      <button type="button" role="tab" data-aba="rotas" class="ativa">Rotas</button>
+      <button type="button" role="tab" data-aba="comparacao">Comparação</button>
+      <button type="button" role="tab" data-aba="desempenho">Desempenho</button>
+    </nav>
 
-    <section>
-      <h2>Configuração</h2>
-      <form id="form-config">
-        <label>Veículos
-          <input type="number" id="veiculos" min="1" value="3">
-        </label>
-        <label>Capacidade por veículo
-          <input type="number" id="capacidade" min="1" value="150">
-        </label>
-        <label>Algoritmo
-          <select id="algoritmo"></select>
-        </label>
+    <!-- ===================== ABA ROTAS ===================== -->
+    <div id="aba-rotas" class="aba">
+      <section id="sec-cenario">
+        <h2>Cenário</h2>
+        <div id="resumo" class="metricas"></div>
+        <p id="dica" class="dica"></p>
         <label class="check">
-          <input type="checkbox" id="usar2opt" checked> Melhorar com 2-opt
+          <input type="checkbox" id="mostrar-arestas"> Mostrar arestas do grafo
         </label>
-        <div class="botoes">
-          <button type="submit">Calcular rotas</button>
-          <button type="button" id="btn-comparar" class="secundario">Comparar algoritmos</button>
-        </div>
-      </form>
-      <p id="erro" class="erro" hidden></p>
-    </section>
+      </section>
 
-    <section id="sec-metricas" hidden>
-      <h2>Resultado</h2>
-      <div id="metricas" class="metricas"></div>
-      <p id="nao-atendidos" class="aviso" hidden></p>
-      <div id="lista-rotas"></div>
-      <button type="button" id="btn-exportar" class="secundario largo">Exportar resultado (JSON)</button>
-    </section>
+      <section>
+        <h2>Configuração</h2>
+        <form id="form-config">
+          <label>Veículos
+            <input type="number" id="veiculos" min="1" value="3">
+          </label>
+          <label>Capacidade por veículo
+            <input type="number" id="capacidade" min="1" value="150">
+          </label>
+          <label>Algoritmo
+            <select id="algoritmo"></select>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="usar2opt" checked> Melhorar com 2-opt
+          </label>
+          <button type="submit" id="btn-calcular">Calcular rotas</button>
+        </form>
+        <p id="erro" class="erro" hidden></p>
+      </section>
 
-    <section id="sec-comparacao" hidden>
-      <h2>Comparação</h2>
-      <div class="tabela-wrap"><table id="tabela-comparacao"></table></div>
-      <h3 class="subtitulo">Distância total (km)</h3>
-      <div id="grafico-comparacao" class="grafico"></div>
-    </section>
+      <section id="sec-metricas" hidden>
+        <h2>Resultado</h2>
+        <div id="metricas" class="metricas"></div>
+        <p id="nao-atendidos" class="aviso" hidden></p>
+        <div id="lista-rotas"></div>
+        <button type="button" id="btn-exportar" class="secundario largo">Exportar resultado (JSON)</button>
+      </section>
+    </div>
+
+    <!-- ===================== ABA COMPARAÇÃO ===================== -->
+    <div id="aba-comparacao" class="aba" hidden>
+      <section>
+        <h2>Comparação de algoritmos</h2>
+        <p class="dica">Roda todas as combinações (algoritmo, com e sem 2-opt) usando a frota e a capacidade da aba <b>Rotas</b>.</p>
+        <button type="button" id="btn-comparar" class="largo">Comparar algoritmos</button>
+        <p id="erro-comparacao" class="erro" hidden></p>
+      </section>
+      <section id="sec-comparacao" hidden>
+        <h3 class="subtitulo">Distância total (km): menor é melhor</h3>
+        <div id="grafico-comparacao" class="grafico"></div>
+        <div class="tabela-wrap"><table id="tabela-comparacao"></table></div>
+      </section>
+    </div>
+
+    <!-- ===================== ABA DESEMPENHO ===================== -->
+    <div id="aba-desempenho" class="aba" hidden>
+      <section>
+        <h2>Desempenho</h2>
+        <p class="dica">Mede o tempo de execução de cada algoritmo em grafos de tamanhos diferentes. Serve para conferir na prática a complexidade analisada no relatório.</p>
+        <label>Tamanhos (nº de clientes, separados por vírgula)
+          <input type="text" id="tamanhos" value="10, 25, 50, 100, 200">
+        </label>
+        <button type="button" id="btn-desempenho" class="largo">Medir desempenho</button>
+        <p id="erro-desempenho" class="erro" hidden></p>
+      </section>
+      <section id="sec-desempenho" hidden>
+        <h3 class="subtitulo">Tempo de execução (ms) × nº de clientes</h3>
+        <div id="legenda-desempenho" class="legenda-serie"></div>
+        <div id="grafico-desempenho" class="grafico-linha"></div>
+        <p id="nota-networkx" class="aviso" hidden>A comparação com o <b>NetworkX</b> aparece aqui quando o benchmark da Dupla 1 for integrado.</p>
+        <details>
+          <summary>Ver tabela</summary>
+          <div class="tabela-wrap"><table id="tabela-desempenho"></table></div>
+        </details>
+      </section>
+    </div>
   </aside>
 
-  <main id="mapa"></main>
+  <div id="area">
+    <div id="mapa-wrap">
+      <main id="mapa"></main>
+
+      <div id="player" hidden>
+        <button type="button" id="btn-play" title="Simular o dia (espaço)">▶</button>
+        <button type="button" id="btn-reiniciar" class="secundario" title="Voltar à visão geral">⟲</button>
+        <span id="relogio">08:00</span>
+        <input type="range" id="linha-relogio" min="0" max="1" step="0.5" value="0" aria-label="Horário da simulação">
+        <select id="velocidade" title="Velocidade da simulação">
+          <option value="5">5 min/s</option>
+          <option value="15" selected>15 min/s</option>
+          <option value="30">30 min/s</option>
+          <option value="60">1 h/s</option>
+        </select>
+      </div>
+    </div>
+
+    <section id="linha-tempo" hidden>
+      <div class="lt-cabecalho">
+        <h2>Linha do tempo</h2>
+        <div class="lt-legenda">
+          <span><i class="g-viagem"></i>viagem</span>
+          <span><i class="g-espera"></i>espera pela janela</span>
+          <span><i class="g-entrega"></i>entrega</span>
+          <span><i class="g-atraso">!</i>entrega atrasada</span>
+          <span class="dica">Passe o mouse numa entrega para ver a janela de tempo.</span>
+        </div>
+      </div>
+      <div id="gantt"></div>
+      <div id="tooltip" class="tooltip" hidden></div>
+    </section>
+  </div>
+
+  <!-- Guia de uso (tour) -->
+  <div id="tour" hidden>
+    <div id="tour-foco"></div>
+    <div id="tour-cartao" role="dialog" aria-live="polite">
+      <div class="tour-passo" id="tour-passo"></div>
+      <h3 id="tour-titulo"></h3>
+      <p id="tour-texto"></p>
+      <div class="tour-botoes">
+        <button type="button" id="tour-pular" class="link">Pular guia</button>
+        <span>
+          <button type="button" id="tour-voltar" class="secundario">Voltar</button>
+          <button type="button" id="tour-avancar">Próximo</button>
+        </span>
+      </div>
+    </div>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="app.js"></script>
