@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RotaGrafo</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside id="painel">
+    <header>
+      <h1>🚚 RotaGrafo</h1>
+      <span id="fonte" class="selo" hidden>dados de exemplo</span>
+    </header>
+
+    <section>
+      <h2>Cenário</h2>
+      <div id="resumo" class="metricas"></div>
+      <p id="dica" class="dica"></p>
+      <label class="check">
+        <input type="checkbox" id="mostrar-arestas"> Mostrar arestas do grafo
+      </label>
+    </section>
+
+    <section>
+      <h2>Configuração</h2>
+      <form id="form-config">
+        <label>Veículos
+          <input type="number" id="veiculos" min="1" value="3">
+        </label>
+        <label>Capacidade por veículo
+          <input type="number" id="capacidade" min="1" value="150">
+        </label>
+        <label>Algoritmo
+          <select id="algoritmo"></select>
+        </label>
+        <label class="check">
+          <input type="checkbox" id="usar2opt" checked> Melhorar com 2-opt
+        </label>
+        <div class="botoes">
+          <button type="submit">Calcular rotas</button>
+          <button type="button" id="btn-comparar" class="secundario">Comparar algoritmos</button>
+        </div>
+      </form>
+      <p id="erro" class="erro" hidden></p>
+    </section>
+
+    <section id="sec-metricas" hidden>
+      <h2>Resultado</h2>
+      <div id="metricas" class="metricas"></div>
+      <p id="nao-atendidos" class="aviso" hidden></p>
+      <div id="lista-rotas"></div>
+      <button type="button" id="btn-exportar" class="secundario largo">Exportar resultado (JSON)</button>
+    </section>
+
+    <section id="sec-comparacao" hidden>
+      <h2>Comparação</h2>
+      <div class="tabela-wrap"><table id="tabela-comparacao"></table></div>
+      <h3 class="subtitulo">Distância total (km)</h3>
+      <div id="grafico-comparacao" class="grafico"></div>
+    </section>
+  </aside>
+
+  <main id="mapa"></main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
