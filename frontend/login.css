@@ -358,9 +358,6 @@ label { font-size: .875rem; font-weight: 500; color: var(--texto-2); }
   from { opacity: 0; filter: blur(4px); transform: translateY(20px) scale(.95); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-  }
-}
+/* As animações rodam sempre, sem reagir a prefers-reduced-motion. Para voltar a respeitar
+   a preferência do sistema, reative aqui um @media (prefers-reduced-motion: reduce) que
+   desligue animation e transition. */

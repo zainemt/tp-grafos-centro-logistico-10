@@ -73,11 +73,4 @@ form.addEventListener("submit", async (evento) => {
 
 [campoEmail, campoSenha].forEach((campo) => campo.addEventListener("input", esconderErro));
 
-// Com movimento reduzido, congela a animação do caminhão (SMIL não obedece ao CSS).
-const ilustracao = document.querySelector(".grafo svg");
-if (ilustracao && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  ilustracao.setCurrentTime(3.5);
-  ilustracao.pauseAnimations();
-}
-
 campoEmail.focus({ preventScroll: true });
