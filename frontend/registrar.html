@@ -146,20 +146,15 @@
         </svg>
       </div>
 
-      <div class="cartoes">
-        <article class="cartao" style="--d:1.5s">
-          <span class="icone"><svg viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="12" cy="8" r="2"/><circle cx="19" cy="14" r="2"/><path d="m6.2 16.2 4.6-6.4M13.9 9.1l3.7 3.7"/></svg></span>
-          <div><h2>Dijkstra</h2><p>Menor caminho entre dois pontos</p></div>
-        </article>
-        <article class="cartao" style="--d:1.65s">
-          <span class="icone"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="12" r="2"/><path d="m7 6.8 10 4.4M7 17.2l10-4.4"/></svg></span>
-          <div><h2>Clarke-Wright</h2><p>Junta rotas que mais economizam</p></div>
-        </article>
-        <article class="cartao" style="--d:1.8s">
-          <span class="icone"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 6h10M7 18h10"/></svg></span>
-          <div><h2>2-opt</h2><p>Desfaz cruzamentos no trajeto</p></div>
-        </article>
-      </div>
+      <footer class="legenda">
+        <p class="frase">Rotas de entrega calculadas com grafos.</p>
+        <ul class="veiculos">
+          <li style="--cor:#6db4ff; --d:.9s"><i></i>Veículo 1 · 3 clientes</li>
+          <li style="--cor:#ffb454; --d:1.15s"><i></i>Veículo 2 · 3 clientes</li>
+          <li style="--cor:#5ed39a; --d:1.4s"><i></i>Veículo 3 · 3 clientes</li>
+        </ul>
+        <p class="metodos">Dijkstra · Clarke-Wright · 2-opt</p>
+      </footer>
     </aside>
 
   </div>

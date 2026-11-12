@@ -336,46 +336,52 @@ label { font-size: .875rem; font-weight: 500; color: var(--texto-2); }
   .grafo { flex: 1; min-height: 0; padding: 24px 16px 4px; display: grid; place-items: center; }
   .grafo svg { width: 100%; height: 100%; max-width: 760px; }
 
-  .cartoes {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    padding: 8px 24px 28px;
-  }
-  .cartao:nth-child(n+2) { display: none; }
 }
 
-@container (min-width: 460px) { .cartao:nth-child(2) { display: flex; } }
-@container (min-width: 660px) { .cartao:nth-child(3) { display: flex; } }
-
-.cartao {
+/* rodapé do painel: frase + legenda que liga cada cor à rota desenhada */
+.legenda {
+  padding: 8px 40px 36px;
+  color: #fff;
+}
+.frase {
+  max-width: 17em;
+  margin: 0;
+  font-size: clamp(1.5rem, 4.6cqi, 2.25rem);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+  animation: entrar calc(.7s * var(--lento)) var(--ease) calc(1.2s * var(--lento)) backwards;
+}
+.veiculos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: .875rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, .86);
+}
+.veiculos li {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex: 1 1 0;
-  max-width: 14.5rem;
-  padding: 14px 16px;
-  border: 1px solid rgba(255, 255, 255, .14);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, .07);
-  backdrop-filter: blur(16px);
-  color: #fff;
-  animation: entrarCartao calc(.7s * var(--lento)) var(--ease) calc(var(--d, 0s) * var(--lento)) backwards;
+  gap: 10px;
+  animation: aparecer calc(.8s * var(--lento)) var(--ease) calc(var(--d, 0s) * var(--lento)) backwards;
 }
-.cartao h2 { margin: 0; font-size: .9375rem; font-weight: 600; letter-spacing: -.01em; }
-.cartao p { margin: 2px 0 0; font-size: .8125rem; line-height: 1.35; color: rgba(255, 255, 255, .78); }
-.icone {
+.veiculos i {
   flex: none;
-  display: grid;
-  place-items: center;
-  width: 40px; height: 40px;
-  border-radius: 12px;
-  background: rgba(109, 180, 255, .18);
-  color: #9ccaff;
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--cor);
 }
-.icone svg {
-  width: 22px; height: 22px;
-  fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+.metodos {
+  margin: 14px 0 0;
+  font-size: .8125rem;
+  color: rgba(255, 255, 255, .68);
+  animation: aparecer calc(.8s * var(--lento)) var(--ease) calc(1.7s * var(--lento)) backwards;
 }
 
 /* desenho do grafo */
@@ -404,9 +410,6 @@ label { font-size: .875rem; font-weight: 500; color: var(--texto-2); }
 }
 @keyframes entrarDireita {
   from { opacity: 0; filter: blur(4px); transform: translateX(40px); }
-}
-@keyframes entrarCartao {
-  from { opacity: 0; filter: blur(4px); transform: translateY(20px) scale(.95); }
 }
 
 /* As animações rodam sempre, sem reagir a prefers-reduced-motion. Para voltar a respeitar
