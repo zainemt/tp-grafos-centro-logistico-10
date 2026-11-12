@@ -42,6 +42,9 @@ class TestDesempenho(unittest.TestCase):
 class TestApi(unittest.TestCase):
     def setUp(self):
         self.cliente = api.app.test_client()
+        # As rotas exigem login; este teste verifica o contrato, não a autenticação.
+        with self.cliente.session_transaction() as sessao:
+            sessao["email"] = "contrato@teste"
 
     def test_pagina_e_grafo(self):
         for caminho in ("/", "/app.js", "/style.css", "/api/grafo"):
