@@ -1,11 +1,14 @@
 """Autenticação do RotaGrafo: login por sessão (cookie assinado) e proteção das rotas.
 
-Os usuários ficam em dados/usuarios.json, só com o hash da senha. Para criar um usuário:
+Os usuários ficam em dados/usuarios.json (fixos, como o de demonstração) e em
+dados/usuarios.local.json (contas criadas pela tela de cadastro, fora do git), sempre só com o
+hash da senha. Para criar um usuário pelo terminal:
     python -m src.api.auth criar <email> <nome>
 """
 import getpass
 import json
 import os
+import re
 import secrets
 import sys
 import threading
@@ -18,19 +21,28 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 RAIZ = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 USUARIOS_PADRAO = os.path.join(RAIZ, "dados", "usuarios.json")
+NOME_ARQUIVO_LOCAL = "usuarios.local.json"
 
 MAX_FALHAS = 5
 JANELA_BLOQUEIO_S = 900
 DURACAO_SESSAO_PERMANENTE = timedelta(days=30)
 MAX_EMAIL = 254
+MIN_SENHA = 8
 MAX_SENHA = 128
+MIN_NOME = 2
+MAX_NOME = 80
+MAX_CADASTROS = 10          # contas criadas por IP...
+JANELA_CADASTRO_S = 3600    # ...a cada hora
+EMAIL_VALIDO = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
 
 MSG_INVALIDO = "E-mail ou senha inválidos."
 MSG_BLOQUEADO = "Muitas tentativas. Tente novamente em alguns minutos."
 MSG_SEM_SESSAO = "Sessão expirada. Entre novamente."
+MSG_CADASTRO_BLOQUEADO = "Muitas contas criadas deste endereço. Tente novamente mais tarde."
 
-# Caminhos que não exigem sessão (a tela de login e o que ela precisa para abrir).
-LIBERADOS = {"/login", "/api/auth/login", "/login.css", "/login.js", "/logo.svg", "/favicon.ico"}
+# Caminhos que não exigem sessão (as telas de login e de cadastro e o que elas precisam).
+LIBERADOS = {"/login", "/api/auth/login", "/login.css", "/login.js", "/logo.svg", "/favicon.ico",
+             "/registrar", "/api/auth/registrar", "/registrar.js"}
 
 # Hash fictício: a verificação roda mesmo para e-mails inexistentes, para o tempo de
 # resposta não revelar quais e-mails existem.
@@ -78,9 +90,13 @@ class LimitadorTentativas:
 
 
 class EstadoAuth:
-    def __init__(self, usuarios: dict, limitador: LimitadorTentativas):
+    def __init__(self, usuarios: dict, limitador: LimitadorTentativas,
+                 limitador_cadastro: LimitadorTentativas | None = None, caminho_local: str | None = None):
         self.usuarios = usuarios
         self.limitador = limitador
+        self.limitador_cadastro = limitador_cadastro or LimitadorTentativas(MAX_CADASTROS, JANELA_CADASTRO_S)
+        self.caminho_local = caminho_local            # arquivo das contas criadas pelo cadastro
+        self.trava_cadastro = threading.Lock()        # evita dois cadastros gravando ao mesmo tempo
 
 
 def carregar_usuarios(caminho: str) -> dict[str, dict]:
@@ -128,6 +144,38 @@ def _ler_credenciais() -> tuple[str, str, bool] | None:
     return email, senha, bool(corpo.get("manter"))
 
 
+def _validar_cadastro(corpo) -> tuple[dict | None, tuple[str | None, str] | None]:
+    """Devolve (valores, None) ou (None, (campo, mensagem)); `campo` é None quando o corpo é malformado."""
+    if not isinstance(corpo, dict) or not all(isinstance(corpo.get(k), str) for k in ("nome", "email", "senha")):
+        return None, (None, "Preencha nome, e-mail e senha.")
+    nome_bruto, email, senha = corpo["nome"], corpo["email"].strip().lower(), corpo["senha"]
+    nome = " ".join(nome_bruto.split())
+    if not nome_bruto.isprintable() or not MIN_NOME <= len(nome) <= MAX_NOME:
+        return None, ("nome", f"Informe seu nome, com {MIN_NOME} a {MAX_NOME} caracteres.")
+    if len(email) > MAX_EMAIL or not EMAIL_VALIDO.match(email):
+        return None, ("email", "Digite um e-mail válido.")
+    try:  # surrogate solitário (ex.: "\ud83d") é JSON válido, mas não vira UTF-8
+        senha.encode("utf-8"), email.encode("utf-8"), nome.encode("utf-8")
+    except UnicodeEncodeError:
+        return None, ("senha", "A senha contém caracteres inválidos.")
+    if not MIN_SENHA <= len(senha) <= MAX_SENHA:
+        return None, ("senha", f"A senha deve ter de {MIN_SENHA} a {MAX_SENHA} caracteres.")
+    return {"nome": nome, "email": email, "senha": senha}, None
+
+
+def _gravar_usuario_local(caminho: str | None, email: str, dados: dict) -> None:
+    """Acrescenta a conta ao arquivo local (grava em arquivo temporário e troca, para não corromper)."""
+    if not caminho:
+        raise OSError("caminho do arquivo local não configurado")
+    contas = carregar_usuarios(caminho)
+    contas[email] = dados
+    temporario = caminho + ".tmp"
+    with open(temporario, "w", encoding="utf-8") as f:
+        json.dump(contas, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    os.replace(temporario, caminho)
+
+
 def _estado() -> EstadoAuth:
     return current_app.extensions["rotagrafo_auth"]
 
@@ -146,6 +194,40 @@ def pagina_login():
     if _usuario_da_sessao():
         return redirect("/")
     return send_from_directory(current_app.static_folder, "login.html")
+
+
+@bp.get("/registrar")
+def pagina_registrar():
+    if _usuario_da_sessao():
+        return redirect("/")
+    return send_from_directory(current_app.static_folder, "registrar.html")
+
+
+@bp.post("/api/auth/registrar")
+def registrar():
+    corpo = request.get_json(silent=True) if request.is_json else None
+    valores, erro = _validar_cadastro(corpo)
+    if erro:
+        return jsonify({"erro": erro[1], "campo": erro[0]}), 400
+    estado = _estado()
+    ip = request.remote_addr
+    if estado.limitador_cadastro.bloqueado(ip):
+        return jsonify({"erro": MSG_CADASTRO_BLOQUEADO}), 429
+    estado.limitador_cadastro.registrar_falha(ip)  # conta toda tentativa válida, criada ou não
+    email = valores["email"]
+    nova = {"nome": valores["nome"], "hash": generate_password_hash(valores["senha"])}
+    with estado.trava_cadastro:
+        if email in estado.usuarios:
+            return jsonify({"erro": "Este e-mail já está cadastrado.", "campo": "email"}), 409
+        try:
+            _gravar_usuario_local(estado.caminho_local, email, nova)
+        except (OSError, ValueError):
+            return jsonify({"erro": "Não foi possível salvar a conta. Tente novamente."}), 500
+        estado.usuarios[email] = nova
+    session.clear()
+    session["email"] = email
+    session.permanent = False
+    return jsonify({"usuario": {"nome": nova["nome"], "email": email}}), 201
 
 
 @bp.post("/api/auth/login")
@@ -204,7 +286,9 @@ def registrar_auth(app: Flask, caminho_usuarios: str = USUARIOS_PADRAO) -> None:
         SESSION_COOKIE_SECURE=os.environ.get("SESSION_COOKIE_SECURE") == "1",
         PERMANENT_SESSION_LIFETIME=DURACAO_SESSAO_PERMANENTE,
     )
-    app.extensions["rotagrafo_auth"] = EstadoAuth(carregar_usuarios(caminho_usuarios), LimitadorTentativas())
+    caminho_local = os.path.join(os.path.dirname(caminho_usuarios), NOME_ARQUIVO_LOCAL)
+    usuarios = {**carregar_usuarios(caminho_local), **carregar_usuarios(caminho_usuarios)}  # fixos têm prioridade
+    app.extensions["rotagrafo_auth"] = EstadoAuth(usuarios, LimitadorTentativas(), caminho_local=caminho_local)
     app.register_blueprint(bp)
     app.before_request(_proteger)
 

@@ -16,6 +16,9 @@
   --painel-1: #0f2a4a;
   --painel-2: #0a1b33;
   --ease: cubic-bezier(.16, 1, .3, 1);
+  /* Velocidade das animações de entrada: 1 = velocidade base; maior = mais lento.
+     (O caminhão do SVG usa begin="4.2s" nos HTMLs; se mudar este valor, acompanhe esse tempo.) */
+  --lento: 1.7;
 }
 
 * { box-sizing: border-box; }
@@ -210,7 +213,36 @@ label { font-size: .875rem; font-weight: 500; color: var(--texto-2); }
   flex: none; width: 18px; height: 18px; margin-top: 1px;
   fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round;
 }
-#erro-login:empty, #erro-login:has(.erro[hidden]) { margin-top: -20px; }
+#erro-login:has(.erro[hidden]), #erro-registro:has(.erro[hidden]) { margin-top: -20px; }
+
+/* erro por campo (tela de cadastro) */
+.campo-erro {
+  margin: 0;
+  font-size: .8125rem;
+  font-weight: 500;
+  color: var(--critico);
+}
+.vidro.invalido { border-color: var(--critico); background: var(--critico-fundo); }
+.vidro.invalido:focus-within { border-color: var(--critico); box-shadow: 0 0 0 4px rgba(180, 35, 24, .14); }
+
+/* dica de tamanho da senha */
+.dica-senha {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: .8125rem;
+  color: var(--texto-2);
+  transition: color .2s;
+}
+.dica-senha svg {
+  width: 14px; height: 14px;
+  fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+  opacity: .45;
+  transition: opacity .2s;
+}
+.dica-senha.ok { color: #166534; }
+.dica-senha.ok svg { opacity: 1; }
 
 @keyframes tremer {
   20% { transform: translateX(-5px); }
@@ -254,8 +286,22 @@ label { font-size: .875rem; font-weight: 500; color: var(--texto-2); }
 .entrar.carregando .giro { display: block; }
 @keyframes girar { to { transform: rotate(360deg); } }
 
+.alt {
+  margin: 24px 0 0;
+  text-align: center;
+  color: var(--texto-2);
+}
+.alt a {
+  color: var(--primaria-botao);
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.alt a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.alt a:focus-visible { outline: 2px solid var(--primaria); outline-offset: 3px; }
+
 .rodape {
-  margin: 40px 0 0;
+  margin: 28px 0 0;
   text-align: center;
   font-size: .8125rem;
   color: var(--texto-2);
@@ -265,12 +311,17 @@ label { font-size: .875rem; font-weight: 500; color: var(--texto-2); }
 .painel { display: none; }
 
 @media (min-width: 768px) {
-  .pagina { grid-template-columns: 1fr 1fr; height: 100dvh; }
+  .pagina { grid-template-columns: 1fr 1fr; }
 
+  /* o painel fica parado na tela enquanto o formulário (mais alto no cadastro) rola */
   .painel {
     display: flex;
     flex-direction: column;
     container-type: inline-size;
+    position: sticky;
+    top: 16px;
+    align-self: start;
+    height: calc(100dvh - 32px);
     margin: 16px 16px 16px 0;
     min-height: 0;
     overflow: hidden;
@@ -279,7 +330,7 @@ label { font-size: .875rem; font-weight: 500; color: var(--texto-2); }
       radial-gradient(circle at 28% 18%, rgba(42, 120, 214, .38), transparent 55%),
       radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1.2px) 0 0 / 24px 24px,
       linear-gradient(160deg, var(--painel-1), var(--painel-2));
-    animation: entrarDireita .8s var(--ease) .3s backwards;
+    animation: entrarDireita calc(.8s * var(--lento)) var(--ease) calc(.3s * var(--lento)) backwards;
   }
 
   .grafo { flex: 1; min-height: 0; padding: 24px 16px 4px; display: grid; place-items: center; }
@@ -309,7 +360,7 @@ label { font-size: .875rem; font-weight: 500; color: var(--texto-2); }
   background: rgba(255, 255, 255, .07);
   backdrop-filter: blur(16px);
   color: #fff;
-  animation: entrarCartao .7s var(--ease) var(--d, 0s) backwards;
+  animation: entrarCartao calc(.7s * var(--lento)) var(--ease) calc(var(--d, 0s) * var(--lento)) backwards;
 }
 .cartao h2 { margin: 0; font-size: .9375rem; font-weight: 600; letter-spacing: -.01em; }
 .cartao p { margin: 2px 0 0; font-size: .8125rem; line-height: 1.35; color: rgba(255, 255, 255, .78); }
@@ -328,25 +379,25 @@ label { font-size: .875rem; font-weight: 500; color: var(--texto-2); }
 }
 
 /* desenho do grafo */
-.arestas { animation: aparecer 1s var(--ease) .6s backwards; }
+.arestas { animation: aparecer calc(1s * var(--lento)) var(--ease) calc(.6s * var(--lento)) backwards; }
 .rota {
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
-  animation: tracar 1.6s var(--ease) var(--d, 0s) backwards;
+  animation: tracar calc(1.6s * var(--lento)) var(--ease) calc(var(--d, 0s) * var(--lento)) backwards;
 }
 .clientes > g, .deposito {
   transform-box: fill-box;
   transform-origin: center;
 }
-.clientes > g { animation: surgir .5s var(--ease) var(--d, 0s) backwards; }
-.deposito { animation: surgir .6s var(--ease) .5s backwards; }
+.clientes > g { animation: surgir calc(.5s * var(--lento)) var(--ease) calc(var(--d, 0s) * var(--lento)) backwards; }
+.deposito { animation: surgir calc(.6s * var(--lento)) var(--ease) calc(.5s * var(--lento)) backwards; }
 
 @keyframes tracar { from { stroke-dashoffset: 1; } }
 @keyframes aparecer { from { opacity: 0; } }
 @keyframes surgir { from { opacity: 0; scale: .4; } }
 
 /* ------------------------------------------------------------ entrada em cascata */
-.entra { animation: entrar .6s var(--ease) var(--d, 0s) backwards; }
+.entra { animation: entrar calc(.6s * var(--lento)) var(--ease) calc(var(--d, 0s) * var(--lento)) backwards; }
 
 @keyframes entrar {
   from { opacity: 0; filter: blur(4px); transform: translateY(20px); }

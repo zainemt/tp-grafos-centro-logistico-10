@@ -7,10 +7,11 @@ import os
 import tempfile
 import unittest
 
+from flask import Flask
 from werkzeug.security import generate_password_hash
 
 from src.api import app as api
-from src.api.auth import LimitadorTentativas, carregar_usuarios
+from src.api.auth import LimitadorTentativas, carregar_usuarios, registrar_auth
 
 EMAIL = "demo@rotagrafo.com"
 SENHA = "senha-teste-123"
@@ -22,11 +23,16 @@ class BaseAuth(unittest.TestCase):
         self.agora = 1000.0
         self.client = api.app.test_client()
         self.estado = api.app.extensions["rotagrafo_auth"]
-        original = (self.estado.usuarios, self.estado.limitador)
-        self.addCleanup(lambda: (setattr(self.estado, "usuarios", original[0]),
-                                 setattr(self.estado, "limitador", original[1])))
+        campos = ("usuarios", "limitador", "limitador_cadastro", "caminho_local")
+        original = {c: getattr(self.estado, c) for c in campos}
+        self.addCleanup(lambda: [setattr(self.estado, c, v) for c, v in original.items()])
+        pasta = tempfile.TemporaryDirectory()
+        self.addCleanup(pasta.cleanup)
+        self.caminho_local = os.path.join(pasta.name, "usuarios.local.json")
         self.estado.usuarios = {EMAIL: {"nome": "Demo", "hash": HASH}}
         self.estado.limitador = LimitadorTentativas(relogio=lambda: self.agora)
+        self.estado.limitador_cadastro = LimitadorTentativas(maximo=10, janela_s=3600, relogio=lambda: self.agora)
+        self.estado.caminho_local = self.caminho_local
 
     def entrar(self, email=EMAIL, senha=SENHA, manter=False):
         return self.client.post("/api/auth/login", json={"email": email, "senha": senha, "manter": manter})
@@ -171,6 +177,106 @@ class TestProtecao(BaseAuth):
     def test_sem_usuarios_cadastrados_todo_login_falha(self):
         self.estado.usuarios = {}
         self.assertEqual(self.entrar().status_code, 401)
+
+
+class TestCadastro(BaseAuth):
+    def cadastrar(self, nome="Ana Souza", email="ana@teste.com", senha="senha-da-ana-1", cliente=None):
+        return (cliente or self.client).post(
+            "/api/auth/registrar", json={"nome": nome, "email": email, "senha": senha})
+
+    def test_cadastro_cria_conta_e_ja_entra(self):
+        resp = self.cadastrar()
+        self.assertEqual(resp.status_code, 201)
+        self.assertEqual(resp.get_json(), {"usuario": {"nome": "Ana Souza", "email": "ana@teste.com"}})
+        self.assertEqual(self.client.get("/api/auth/me").get_json()["nome"], "Ana Souza")
+        self.client.post("/api/auth/logout")
+        self.assertEqual(self.entrar("ana@teste.com", "senha-da-ana-1").status_code, 200)
+
+    def test_cadastro_grava_so_o_hash_no_arquivo_local(self):
+        self.cadastrar()
+        with open(self.caminho_local, encoding="utf-8") as f:
+            texto = f.read()
+        self.assertNotIn("senha-da-ana-1", texto)
+        self.assertIn("ana@teste.com", carregar_usuarios(self.caminho_local))
+
+    def test_cadastro_normaliza_nome_e_email(self):
+        resp = self.cadastrar(nome="  Ana   Souza ", email=" ANA@Teste.COM ")
+        self.assertEqual(resp.get_json()["usuario"], {"nome": "Ana Souza", "email": "ana@teste.com"})
+
+    def test_email_repetido_devolve_409(self):
+        for email in (EMAIL, "  DEMO@rotagrafo.com"):
+            with self.subTest(email=email):
+                resp = self.cadastrar(email=email)
+                self.assertEqual(resp.status_code, 409)
+                self.assertEqual(resp.get_json()["campo"], "email")
+        self.assertEqual(self.cadastrar().status_code, 201)
+        self.assertEqual(self.cadastrar(cliente=api.app.test_client()).status_code, 409)
+
+    def test_entradas_invalidas_devolvem_400_com_o_campo(self):
+        casos = [("nome", {"nome": "", "email": "a@b.co", "senha": "12345678"}),
+                 ("nome", {"nome": "A", "email": "a@b.co", "senha": "12345678"}),
+                 ("nome", {"nome": "x" * 81, "email": "a@b.co", "senha": "12345678"}),
+                 ("nome", {"nome": "Ana\nSouza", "email": "a@b.co", "senha": "12345678"}),
+                 ("email", {"nome": "Ana", "email": "semarroba", "senha": "12345678"}),
+                 ("email", {"nome": "Ana", "email": "a@b", "senha": "12345678"}),
+                 ("email", {"nome": "Ana", "email": "a" * 250 + "@b.com", "senha": "12345678"}),
+                 ("senha", {"nome": "Ana", "email": "a@b.co", "senha": "1234567"}),
+                 ("senha", {"nome": "Ana", "email": "a@b.co", "senha": "x" * 129}),
+                 ("senha", {"nome": "Ana", "email": "a@b.co", "senha": "\ud83d1234567"})]
+        for campo, corpo in casos:
+            with self.subTest(campo=campo, corpo=str(corpo)[:40]):
+                resp = self.client.post("/api/auth/registrar", json=corpo)
+                self.assertEqual(resp.status_code, 400)
+                self.assertEqual(resp.get_json()["campo"], campo)
+                self.assertTrue(resp.get_json()["erro"])
+
+    def test_corpo_malformado_devolve_400(self):
+        for corpo in ([], "texto", None, {}, {"nome": 1, "email": 2, "senha": 3}):
+            with self.subTest(corpo=str(corpo)):
+                self.assertEqual(self.client.post("/api/auth/registrar", json=corpo).status_code, 400)
+        self.assertEqual(self.client.post("/api/auth/registrar", data="nome=a").status_code, 400)
+
+    def test_limite_de_cadastros_por_ip(self):
+        for i in range(10):
+            self.assertEqual(self.cadastrar(email=f"pessoa{i}@teste.com",
+                                            cliente=api.app.test_client()).status_code, 201)
+        self.assertEqual(self.cadastrar(email="onze@teste.com", cliente=api.app.test_client()).status_code, 429)
+        self.agora += 3601
+        self.assertEqual(self.cadastrar(email="onze@teste.com", cliente=api.app.test_client()).status_code, 201)
+
+    def test_falha_ao_gravar_nao_cria_a_conta(self):
+        self.estado.caminho_local = os.path.join(os.path.dirname(self.caminho_local), "nao", "existe", "u.json")
+        resp = self.cadastrar()
+        self.assertEqual(resp.status_code, 500)
+        self.assertTrue(resp.get_json()["erro"])
+        self.assertNotIn("ana@teste.com", self.estado.usuarios)
+
+    def test_pagina_de_cadastro(self):
+        resp = self.client.get("/registrar")
+        self.assertEqual(resp.status_code, 200)
+        resp.close()
+        for caminho in ("/registrar.js", "/login.css"):
+            with self.subTest(caminho=caminho):
+                resp = self.client.get(caminho)
+                self.assertEqual(resp.status_code, 200)
+                resp.close()
+        self.entrar()
+        resp = self.client.get("/registrar")
+        self.assertEqual(resp.status_code, 302)
+        self.assertTrue(resp.headers["Location"].endswith("/"))
+
+    def test_registrar_auth_carrega_usuarios_do_arquivo_local(self):
+        with tempfile.TemporaryDirectory() as pasta:
+            base = os.path.join(pasta, "usuarios.json")
+            local = os.path.join(pasta, "usuarios.local.json")
+            for caminho, email in ((base, "base@teste.com"), (local, "local@teste.com")):
+                with open(caminho, "w", encoding="utf-8") as f:
+                    json.dump({email: {"nome": "X", "hash": HASH}}, f)
+            app = Flask("teste")
+            registrar_auth(app, base)
+            usuarios = app.extensions["rotagrafo_auth"].usuarios
+            self.assertEqual(set(usuarios), {"base@teste.com", "local@teste.com"})
+            self.assertEqual(app.extensions["rotagrafo_auth"].caminho_local, local)
 
 
 class TestUsuarios(unittest.TestCase):

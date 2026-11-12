@@ -15,3 +15,7 @@ venv/
 *.fls
 *.bbl
 *.blg
+
+# Contas criadas pela tela de cadastro (nunca commitar)
+dados/usuarios.local.json
+dados/usuarios.local.json.tmp
