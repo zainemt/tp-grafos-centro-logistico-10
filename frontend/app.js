@@ -65,13 +65,17 @@ async function api(caminho, corpo) {
   const resp = await fetch(caminho, corpo
     ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(corpo) }
     : undefined);
+  if (resp.status === 401) {
+    location.replace("/login");
+    throw new Error("Sessão expirada. Entre novamente.");
+  }
   const json = await resp.json();
   if (!resp.ok) throw new Error(json.erro || `Erro ${resp.status}`);
   return json;
 }
 
 async function comBotoesTravados(idErro, fn) {
-  const botoes = document.querySelectorAll("#painel button:not(.ajuda):not([role=tab])");
+  const botoes = document.querySelectorAll("#painel button:not(.ajuda):not([role=tab]):not(#btn-sair)");
   botoes.forEach((b) => (b.disabled = true));
   $(idErro).hidden = true;
   try { return await fn(); }
@@ -794,7 +798,22 @@ async function iniciar() {
   if (!armazenamento.ler("rotagrafo-tour-visto")) iniciarTour();
 }
 
+// ------------------------------------------------------------ sessão
+async function mostrarUsuario() {
+  try {
+    const { nome } = await api("/api/auth/me");
+    $("usuario").textContent = `Olá, ${nome}`;
+    $("barra-usuario").hidden = false;
+  } catch { /* sem sessão: api() já redirecionou para /login */ }
+}
+
+async function sair() {
+  try { await fetch("/api/auth/logout", { method: "POST" }); } catch { /* segue para o login mesmo assim */ }
+  location.replace("/login");
+}
+
 // ------------------------------------------------------------ eventos
+$("btn-sair").addEventListener("click", sair);
 $("form-config").addEventListener("submit", (ev) => { ev.preventDefault(); calcularRotas(); });
 $("btn-comparar").addEventListener("click", comparar);
 $("btn-desempenho").addEventListener("click", medirDesempenho);
@@ -844,4 +863,5 @@ window.addEventListener("resize", () => {
   }, 120);
 });
 
+mostrarUsuario();
 iniciar();
