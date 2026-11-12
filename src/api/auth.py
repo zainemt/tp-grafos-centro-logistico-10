@@ -8,6 +8,7 @@ import json
 import os
 import secrets
 import sys
+import threading
 import time
 from datetime import timedelta
 from typing import Callable
@@ -47,22 +48,33 @@ class LimitadorTentativas:
         self.janela_s = janela_s
         self.relogio = relogio
         self._falhas: dict[str, tuple[int, float]] = {}
+        self._trava = threading.Lock()  # o servidor do Flask atende requisições em threads
 
     def _contagem_valida(self, chave: str) -> int:
         contagem, ultima = self._falhas.get(chave, (0, 0.0))
         if contagem and self.relogio() - ultima >= self.janela_s:
-            del self._falhas[chave]
+            self._falhas.pop(chave, None)
             return 0
         return contagem
 
+    def _descartar_expiradas(self) -> None:
+        agora = self.relogio()
+        for chave, (_, ultima) in list(self._falhas.items()):
+            if agora - ultima >= self.janela_s:
+                self._falhas.pop(chave, None)
+
     def bloqueado(self, chave: str) -> bool:
-        return self._contagem_valida(chave) >= self.maximo
+        with self._trava:
+            return self._contagem_valida(chave) >= self.maximo
 
     def registrar_falha(self, chave: str) -> None:
-        self._falhas[chave] = (self._contagem_valida(chave) + 1, self.relogio())
+        with self._trava:
+            self._descartar_expiradas()
+            self._falhas[chave] = (self._contagem_valida(chave) + 1, self.relogio())
 
     def zerar(self, chave: str) -> None:
-        self._falhas.pop(chave, None)
+        with self._trava:
+            self._falhas.pop(chave, None)
 
 
 class EstadoAuth:
@@ -76,7 +88,7 @@ def carregar_usuarios(caminho: str) -> dict[str, dict]:
     if not os.path.exists(caminho):
         return {}
     try:
-        with open(caminho, encoding="utf-8") as f:
+        with open(caminho, encoding="utf-8-sig") as f:  # aceita o BOM que o Bloco de Notas grava
             bruto = json.load(f)
     except (OSError, ValueError) as erro:
         raise ValueError(f"Arquivo de usuários inválido ({caminho}): {erro}") from erro
@@ -85,6 +97,11 @@ def carregar_usuarios(caminho: str) -> dict[str, dict]:
         for v in bruto.values()
     ):
         raise ValueError(f"Arquivo de usuários inválido ({caminho}): esperado {{email: {{nome, hash}}}}")
+    for email, dados in bruto.items():
+        try:
+            check_password_hash(dados["hash"], "")  # hash malformado levanta ValueError
+        except ValueError as erro:
+            raise ValueError(f"Arquivo de usuários inválido ({caminho}): hash malformado para {email}") from erro
     return {email.strip().lower(): dados for email, dados in bruto.items()}
 
 
@@ -104,6 +121,10 @@ def _ler_credenciais() -> tuple[str, str, bool] | None:
     email = email.strip().lower()
     if not email or len(email) > MAX_EMAIL or not senha or len(senha) > MAX_SENHA:
         return None
+    try:  # surrogate solitário (ex.: "\ud83d") é JSON válido, mas não vira UTF-8
+        email.encode("utf-8"), senha.encode("utf-8")
+    except UnicodeEncodeError:
+        return None
     return email, senha, bool(corpo.get("manter"))
 
 
@@ -111,9 +132,18 @@ def _estado() -> EstadoAuth:
     return current_app.extensions["rotagrafo_auth"]
 
 
+def _usuario_da_sessao() -> dict | None:
+    """Usuário da sessão atual, desde que ele ainda exista em usuarios.json; senão encerra a sessão."""
+    email = session.get("email")
+    usuario = _estado().usuarios.get(email) if email else None
+    if email and usuario is None:
+        session.clear()
+    return usuario
+
+
 @bp.get("/login")
 def pagina_login():
-    if session.get("email"):
+    if _usuario_da_sessao():
         return redirect("/")
     return send_from_directory(current_app.static_folder, "login.html")
 
@@ -147,15 +177,14 @@ def logout():
 
 @bp.get("/api/auth/me")
 def me():
-    usuario = _estado().usuarios.get(session.get("email", ""))
+    usuario = _usuario_da_sessao()
     if usuario is None:
-        session.clear()
         return jsonify({"erro": MSG_SEM_SESSAO}), 401
     return jsonify({"nome": usuario["nome"], "email": session["email"]})
 
 
 def _proteger():
-    if request.path in LIBERADOS or session.get("email"):
+    if request.path in LIBERADOS or _usuario_da_sessao():
         return None
     if request.path.startswith("/api/"):
         return jsonify({"erro": MSG_SEM_SESSAO}), 401

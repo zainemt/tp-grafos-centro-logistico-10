@@ -43,6 +43,10 @@ class TestApi(unittest.TestCase):
     def setUp(self):
         self.cliente = api.app.test_client()
         # As rotas exigem login; este teste verifica o contrato, não a autenticação.
+        estado = api.app.extensions["rotagrafo_auth"]
+        usuarios_originais = estado.usuarios
+        self.addCleanup(lambda: setattr(estado, "usuarios", usuarios_originais))
+        estado.usuarios = {**usuarios_originais, "contrato@teste": {"nome": "Contrato", "hash": "x"}}
         with self.cliente.session_transaction() as sessao:
             sessao["email"] = "contrato@teste"
 

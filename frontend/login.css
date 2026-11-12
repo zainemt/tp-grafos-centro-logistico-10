@@ -3,10 +3,10 @@
 :root {
   --fundo: #f5f7fa;
   --superficie: #ffffff;
-  --borda: #d5dbe3;
+  --borda: #7c8896;            /* bordas de campos e caixas: ≥ 3:1 sobre o fundo (WCAG 1.4.11) */
   --texto: #1f2933;
   --texto-2: #52606d;
-  --placeholder: #66707c;
+  --placeholder: #596470;      /* ≥ 4.5:1 sobre o campo */
   --primaria: #2a78d6;
   --primaria-botao: #1f5fae;
   --primaria-botao-hover: #194f93;
@@ -105,7 +105,7 @@ label { font-size: .875rem; font-weight: 500; color: var(--texto-2); }
   backdrop-filter: blur(4px);
   transition: border-color .2s, background-color .2s, box-shadow .2s;
 }
-.vidro:hover { border-color: #b4bdc9; }
+.vidro:hover { border-color: #5f6b7a; }
 .vidro:focus-within {
   border-color: var(--primaria);
   background: rgba(42, 120, 214, .07);
@@ -170,7 +170,7 @@ label { font-size: .875rem; font-weight: 500; color: var(--texto-2); }
   position: relative;
   flex: none;
   width: 20px; height: 20px;
-  border: 1.5px solid #9aa5b2;
+  border: 1.5px solid var(--borda);
   border-radius: 6px;
   background: var(--superficie);
   transition: background-color .15s, border-color .15s;

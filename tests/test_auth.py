@@ -21,9 +21,12 @@ class BaseAuth(unittest.TestCase):
     def setUp(self):
         self.agora = 1000.0
         self.client = api.app.test_client()
-        estado = api.app.extensions["rotagrafo_auth"]
-        estado.usuarios = {EMAIL: {"nome": "Demo", "hash": HASH}}
-        estado.limitador = LimitadorTentativas(relogio=lambda: self.agora)
+        self.estado = api.app.extensions["rotagrafo_auth"]
+        original = (self.estado.usuarios, self.estado.limitador)
+        self.addCleanup(lambda: (setattr(self.estado, "usuarios", original[0]),
+                                 setattr(self.estado, "limitador", original[1])))
+        self.estado.usuarios = {EMAIL: {"nome": "Demo", "hash": HASH}}
+        self.estado.limitador = LimitadorTentativas(relogio=lambda: self.agora)
 
     def entrar(self, email=EMAIL, senha=SENHA, manter=False):
         return self.client.post("/api/auth/login", json={"email": email, "senha": senha, "manter": manter})
@@ -51,7 +54,8 @@ class TestLogin(BaseAuth):
     def test_corpo_invalido_devolve_400(self):
         corpos = [[], "texto", None, {}, {"email": None, "senha": "x"},
                   {"email": "a@b.c", "senha": 123}, {"email": EMAIL, "senha": "x" * 129},
-                  {"email": "a" * 250 + "@b.com", "senha": "x"}]
+                  {"email": "a" * 250 + "@b.com", "senha": "x"},
+                  {"email": "a@b.c", "senha": "\ud83d"}]  # surrogate solitário não é UTF-8 válido
         for corpo in corpos:
             with self.subTest(corpo=str(corpo)[:30]):
                 resp = self.client.post("/api/auth/login", json=corpo)
@@ -109,6 +113,15 @@ class TestBloqueio(BaseAuth):
         lim.zerar("k")
         self.assertFalse(lim.bloqueado("k"))
 
+    def test_limitador_descarta_entradas_expiradas(self):
+        t = [0.0]
+        lim = LimitadorTentativas(relogio=lambda: t[0])
+        for chave in ("a", "b", "c"):
+            lim.registrar_falha(chave)
+        t[0] = 901
+        lim.registrar_falha("d")
+        self.assertEqual(set(lim._falhas), {"d"})
+
 
 class TestProtecao(BaseAuth):
     def test_api_sem_sessao_devolve_401(self):
@@ -135,9 +148,29 @@ class TestProtecao(BaseAuth):
         self.assertTrue(resp.headers["Location"].endswith("/"))
 
     def test_estaticos_do_login_liberados(self):
-        for caminho in ["/login.css", "/login.js"]:
+        for caminho in ["/login.css", "/login.js", "/logo.svg"]:
             with self.subTest(caminho=caminho):
-                self.assertIn(self.client.get(caminho).status_code, (200, 404))
+                resp = self.client.get(caminho)
+                self.assertEqual(resp.status_code, 200)
+                resp.close()
+
+    def test_head_e_options_tambem_sao_protegidos(self):
+        for caminho in ["/", "/app.js", "/api/grafo"]:
+            for metodo in ("head", "options"):
+                with self.subTest(caminho=caminho, metodo=metodo):
+                    resp = getattr(self.client, metodo)(caminho)
+                    self.assertIn(resp.status_code, (302, 401))
+
+    def test_usuario_removido_perde_o_acesso(self):
+        self.entrar()
+        self.assertEqual(self.client.get("/api/grafo").status_code, 200)
+        self.estado.usuarios = {}
+        self.assertEqual(self.client.get("/api/grafo").status_code, 401)
+        self.assertEqual(self.client.get("/").status_code, 302)
+
+    def test_sem_usuarios_cadastrados_todo_login_falha(self):
+        self.estado.usuarios = {}
+        self.assertEqual(self.entrar().status_code, 401)
 
 
 class TestUsuarios(unittest.TestCase):
@@ -152,11 +185,27 @@ class TestUsuarios(unittest.TestCase):
                 carregar_usuarios(quebrado)
             self.assertIn(quebrado, str(ctx.exception))
 
+    def test_hash_malformado_falha_ao_carregar(self):
+        with tempfile.TemporaryDirectory() as pasta:
+            caminho = os.path.join(pasta, "usuarios.json")
+            with open(caminho, "w", encoding="utf-8") as f:
+                json.dump({"ana@teste.com": {"nome": "Ana", "hash": "foo$bar$baz"}}, f)
+            with self.assertRaises(ValueError) as ctx:
+                carregar_usuarios(caminho)
+            self.assertIn("ana@teste.com", str(ctx.exception))
+
+    def test_arquivo_com_bom_do_bloco_de_notas_carrega(self):
+        with tempfile.TemporaryDirectory() as pasta:
+            caminho = os.path.join(pasta, "usuarios.json")
+            with open(caminho, "w", encoding="utf-8-sig") as f:
+                json.dump({"ana@teste.com": {"nome": "Ana", "hash": HASH}}, f)
+            self.assertIn("ana@teste.com", carregar_usuarios(caminho))
+
     def test_carregar_usuarios_normaliza_email(self):
         with tempfile.TemporaryDirectory() as pasta:
             caminho = os.path.join(pasta, "usuarios.json")
             with open(caminho, "w", encoding="utf-8") as f:
-                json.dump({"Ana@Teste.com": {"nome": "Ana", "hash": "x"}}, f)
+                json.dump({"Ana@Teste.com": {"nome": "Ana", "hash": HASH}}, f)
             self.assertIn("ana@teste.com", carregar_usuarios(caminho))
 
 
