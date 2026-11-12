@@ -48,7 +48,29 @@ pip install -r requirements.txt
 .venv\Scripts\python src\api\app.py      # Linux/Mac: .venv/bin/python src/api/app.py
 ```
 
-Depois, abra **http://localhost:5000** no navegador. Para parar o servidor, use `Ctrl + C` no terminal.
+Depois, abra **http://localhost:5000** no navegador (você será levado à tela de login, veja [Acesso](#-acesso)). Para parar o servidor, use `Ctrl + C` no terminal.
+
+## 🔐 Acesso
+
+O sistema exige login. Sem sessão, a página redireciona para `/login` e a API (`/api/*`) responde **401**.
+
+**Usuário de demonstração** (só para desenvolvimento e apresentação):
+
+| E-mail | Senha |
+|---|---|
+| `demo@rotagrafo.com` | `rotagrafo123` |
+
+**Criar outro usuário** (a senha é pedida no terminal e gravada só como hash em `dados/usuarios.json`):
+
+```bash
+.venv\Scripts\python -m src.api.auth criar maria@exemplo.com "Maria Souza"
+```
+
+**Regras de segurança:**
+- a sessão fica num cookie `HttpOnly`; com **Manter conectado** ela dura 30 dias, sem marcar acaba ao fechar o navegador;
+- 5 tentativas erradas seguidas para o mesmo e-mail e IP bloqueiam o login por 15 minutos;
+- defina a variável de ambiente `SECRET_KEY` com um valor longo e aleatório para as sessões sobreviverem a reinícios; sem ela, o servidor gera uma chave nova a cada execução e avisa no terminal;
+- ao publicar com HTTPS, defina também `SESSION_COOKIE_SECURE=1`.
 
 > **Dados de exemplo:** enquanto o grafo e os algoritmos reais não estiverem prontos, a API usa dados gerados por `src/api/mock.py`, e a tela mostra o selo *dados de exemplo*. Veja [Integração](#-integração-duplas-1-e-2).
 
@@ -171,6 +193,8 @@ A API não depende de como o grafo e os algoritmos são feitos por dentro, só d
 
 | Rota | Retorno |
 |---|---|
+| `POST /api/auth/login` | recebe `{email, senha, manter}` e devolve `{usuario: {nome, email}}`; **401** `{erro}` se as credenciais forem inválidas, **429** se bloqueado por tentativas. As demais rotas abaixo exigem sessão (sem ela, **401**) |
+| `POST /api/auth/logout` · `GET /api/auth/me` | encerra a sessão (204) · devolve `{nome, email}` do usuário logado |
 | `GET /api/grafo` | `{vertices: [{id, nome, lat, lon, demanda, janela:[ini,fim], prioridade, deposito}], arestas: [{u, v, distancia, tempo}]}` |
 | `GET /api/algoritmos` | `{"nn": "Vizinho mais próximo", "clarke_wright": "Clarke-Wright"}` |
 | `POST /api/rotas` | recebe `{veiculos, capacidade, algoritmo, usar_2opt}` e devolve `{rotas: [{veiculo, paradas, chegadas, saida, retorno, distancia, tempo, carga, ocupacao}], nao_atendidos, metricas: {distancia_total, tempo_total, veiculos_usados, atrasos}, tempo_execucao_ms}` |
@@ -196,10 +220,10 @@ Unidades: horários em minutos desde 00:00 (ex.: 480 = 08:00), distâncias em km
 ```
 src/grafo/        Dupla 1: classe do grafo, leitura dos dados e Dijkstra
 src/algoritmos/   Dupla 2: vizinho mais próximo, Clarke-Wright, 2-opt e métricas
-src/api/          Dupla 3: API Flask (app.py), validador do contrato (contrato.py) e dados de exemplo (mock.py)
-frontend/         Dupla 3: interface (index.html, style.css, app.js)
-tests/            testes de contrato
-dados/            base de dados (CSV)
+src/api/          Dupla 3: API Flask (app.py), login e sessão (auth.py), validador do contrato (contrato.py) e dados de exemplo (mock.py)
+frontend/         Dupla 3: interface (index.html, style.css, app.js) e tela de login (login.html, login.css, login.js, logo.svg)
+tests/            testes de contrato e de autenticação
+dados/            base de dados (CSV) e usuários do login (usuarios.json)
 relatorio/        relatório LaTeX (template SBC): main.tex e referencias.bib
 docs/             diagramas UML (diagramas.md), roteiro da apresentação e do vídeo, checklist de entrega
 ```
