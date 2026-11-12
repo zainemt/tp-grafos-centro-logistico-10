@@ -15,6 +15,7 @@
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{listings}
+\usepackage{float}  % permite [H]: figura fica exatamente onde foi escrita
 
 \lstset{basicstyle=\ttfamily\footnotesize, breaklines=true, frame=single}
 
@@ -170,25 +171,24 @@ A ferramenta segue uma arquitetura cliente-servidor em três camadas
 \begin{enumerate}
   \item \textbf{Núcleo de grafos} (Python): a estrutura do grafo, a leitura dos
         dados e os algoritmos de roteirização, implementados sem bibliotecas de grafos;
-  \item \textbf{API REST} (Flask): expõe o núcleo por meio de três rotas HTTP com
-        respostas em JSON;
+  \item \textbf{API REST} (Flask): expõe o núcleo por meio de rotas HTTP com
+        respostas em JSON e controla o acesso por login e sessão;
   \item \textbf{Interface web} (HTML, CSS e JavaScript com Leaflet): consome a API e
         apresenta os resultados sobre um mapa do OpenStreetMap.
 \end{enumerate}
 
-% TODO: gerar a figura da arquitetura (pode ser um diagrama de componentes UML)
-% \begin{figure}[ht]
-%   \centering
-%   \includegraphics[width=.85\textwidth]{figuras/arquitetura.png}
-%   \caption{Arquitetura do RotaGrafo.}
-%   \label{fig:arquitetura}
-% \end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/arquitetura.png}
+  \caption{Arquitetura do RotaGrafo em três camadas.}
+  \label{fig:arquitetura}
+\end{figure}
 
 A comunicação entre as camadas segue um contrato JSON fixo
 (Tabela~\ref{tab:api}). Esse contrato permitiu que as três duplas trabalhassem em
 paralelo: enquanto o núcleo era implementado, a interface foi construída sobre dados
-de exemplo no mesmo formato e depois conectada ao código real trocando apenas duas
-linhas.
+de exemplo no mesmo formato e depois conectada ao código real trocando apenas as
+quatro linhas do ponto de integração em \texttt{src/api/app.py}.
 
 \begin{table}[ht]
 \centering
@@ -201,6 +201,10 @@ Rota & Descrição \\
 \texttt{GET /api/grafo}       & Vértices (posição, demanda, janela, prioridade) e arestas (distância, tempo). \\
 \texttt{GET /api/algoritmos}  & Algoritmos disponíveis. \\
 \texttt{POST /api/rotas}      & Recebe frota, capacidade, algoritmo e uso do 2-opt; devolve as rotas, os horários de chegada, os clientes não atendidos, as métricas e o tempo de execução. \\
+\texttt{GET /api/desempenho}  & Recebe uma lista de tamanhos de grafo e devolve o tempo de execução de cada algoritmo em cada tamanho. \\
+\texttt{POST /api/auth/login} & Recebe e-mail e senha e inicia a sessão. \\
+\texttt{POST /api/auth/registrar} & Cria uma conta e inicia a sessão. \\
+\texttt{POST /api/auth/logout} & Encerra a sessão. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -217,6 +221,45 @@ para várias combinações de frota, capacidade e algoritmo, que:
   \item todo cliente aparece em exatamente uma rota ou na lista de não atendidos;
   \item o número de rotas não passa do número de veículos disponíveis.
 \end{itemize}
+
+\subsection{Testes de corretude}
+
+Os testes de contrato conferem o formato das respostas, mas não se os valores estão
+certos. Por isso, um segundo conjunto de testes (\texttt{tests/test\_corretude.py})
+recalcula os resultados de forma independente. Ele implementa uma versão de
+referência do Dijkstra, conferida contra o algoritmo de Floyd-Warshall, e a usa para
+verificar, em várias instâncias e configurações de frota, que:
+\begin{itemize}
+  \item o grafo é conexo a partir do depósito e não tem laços nem arestas repetidas;
+  \item a distância de cada rota é igual à soma dos caminhos mínimos entre paradas
+        consecutivas;
+  \item nenhum veículo chega a um cliente antes do que o caminho mínimo em tempo
+        permite;
+  \item cada entrega começa em $\max(\text{chegada}, a_i)$, ou seja, o veículo
+        espera a janela abrir, mas não espera sem necessidade, e é marcada como
+        atrasada exatamente quando começa depois de $b_i$;
+  \item as métricas totais são a soma das rotas e a ocupação é $\text{carga}/Q$;
+  \item com frota suficiente, nenhum cliente fica sem atendimento;
+  \item em instâncias pequenas (5 a 7 clientes), nenhuma solução é mais curta que o
+        ciclo ótimo calculado por força bruta, o que denunciaria um erro no cálculo
+        das distâncias.
+\end{itemize}
+
+Dois testes adicionais avaliam a qualidade das heurísticas: o 2-opt nunca deve
+aumentar a distância total, e o Clarke-Wright com 2-opt deve ficar a no máximo 25\%
+do ótimo nas instâncias pequenas.
+% TODO (Duplas 1 e 2): confirmar que esses dois testes passam com o código real
+
+\subsection{Controle de acesso}
+
+O acesso à ferramenta exige login. Sem uma sessão válida, as páginas redirecionam
+para a tela de login e as rotas da API respondem com o código HTTP 401. As senhas
+nunca são armazenadas: o servidor guarda apenas o \textit{hash} gerado pela
+biblioteca Werkzeug. A sessão fica em um \textit{cookie} \texttt{HttpOnly}, que pode
+durar 30 dias quando o usuário marca a opção ``Manter conectado''. Para dificultar
+ataques de força bruta, cinco tentativas erradas seguidas para o mesmo e-mail e
+endereço IP bloqueiam o login por 15 minutos, e cada endereço IP pode criar no máximo
+10 contas por hora.
 
 \subsection{Interface}
 
@@ -259,25 +302,25 @@ Os diagramas de componentes, de sequência e de estados da interface estão
 nas Figuras~\ref{fig:uml-componentes}, \ref{fig:uml-sequencia} e
 \ref{fig:uml-estados}.
 
-% TODO: exportar os diagramas de docs/diagramas.md para relatorio/figuras/
-% \begin{figure}[ht]
-%   \centering
-%   \includegraphics[width=.95\textwidth]{figuras/uml-componentes.png}
-%   \caption{Diagrama de componentes do RotaGrafo.}
-%   \label{fig:uml-componentes}
-% \end{figure}
-% \begin{figure}[ht]
-%   \centering
-%   \includegraphics[width=.95\textwidth]{figuras/uml-sequencia.png}
-%   \caption{Diagrama de sequência do cálculo de rotas.}
-%   \label{fig:uml-sequencia}
-% \end{figure}
-% \begin{figure}[ht]
-%   \centering
-%   \includegraphics[width=.7\textwidth]{figuras/uml-estados-simulacao.png}
-%   \caption{Diagrama de estados da simulação.}
-%   \label{fig:uml-estados}
-% \end{figure}
+% Figuras geradas a partir de docs/diagramas.md (Mermaid).
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.85\textwidth]{figuras/uml-componentes.png}
+  \caption{Diagrama de componentes do RotaGrafo.}
+  \label{fig:uml-componentes}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/uml-sequencia.png}
+  \caption{Diagrama de sequência do cálculo de rotas.}
+  \label{fig:uml-sequencia}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\textwidth]{figuras/uml-estados-simulacao.png}
+  \caption{Diagrama de estados da simulação.}
+  \label{fig:uml-estados}
+\end{figure}
 
 % TODO: prints das telas (tirar com o sistema integrado)
 % \begin{figure}[ht]
@@ -342,7 +385,7 @@ Dupla & Membro & Atividades \\
 2 & Kethellen & TODO \\
 2 & Rafael    & TODO \\
 3 & Filipe    & Interface web: mapa, rotas, simulação do dia, linha do tempo e guia de uso; relatório \\
-3 & Vitor     & API Flask, contrato e testes de integração, aba de desempenho, diagramas UML da arquitetura \\
+3 & Vitor     & API Flask, contrato e testes de integração, aba de desempenho, diagramas UML da arquitetura; login, cadastro de contas e controle de sessão \\
 \bottomrule
 \end{tabular}
 \end{table}

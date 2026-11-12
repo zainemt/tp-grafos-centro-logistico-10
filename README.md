@@ -163,17 +163,26 @@ Na aba Rotas, **Exportar resultado (JSON)** salva a solução calculada, para us
 | `←` | passo anterior do guia |
 | `Esc` | fecha o guia |
 
-## 🧪 Testes de contrato
+## 🧪 Testes
 
 ```bash
 .venv\Scripts\python -m unittest discover tests -v
 ```
 
-Os testes conferem se o grafo e as rotas devolvidos estão no formato que a API e o front esperam, e se as rotas respeitam as regras básicas:
+Os **testes de contrato** (`tests/test_contrato.py`) conferem se o grafo e as rotas devolvidos estão no formato que a API e o front esperam, e se as rotas respeitam as regras básicas:
 - começam e terminam no depósito;
 - não passam da capacidade;
 - não repetem nem esquecem clientes;
 - os horários estão em ordem (saída → chegada → início → fim → retorno).
+
+Os **testes de corretude** (`tests/test_corretude.py`) vão além do formato e conferem os números com um Dijkstra de referência:
+- a distância de cada rota é a soma dos caminhos mínimos entre as paradas;
+- nenhum veículo chega antes do que o tempo mínimo de viagem permite;
+- cada entrega começa quando o veículo chega ou quando a janela abre (o que vier depois), e `atrasado` está certo;
+- as métricas somam as rotas, e com frota de sobra ninguém fica sem atendimento;
+- em instâncias pequenas, nenhuma solução fica mais curta que o ótimo da força bruta.
+
+Dois testes de qualidade (o 2-opt nunca piora; Clarke-Wright + 2-opt fica a até 25% do ótimo) só rodam quando `FONTE = "real"`.
 
 **Rode esses testes antes de integrar o seu código.**
 
@@ -218,6 +227,52 @@ Detalhes de cada rota:
 
 Unidades: horários em minutos desde 00:00 (ex.: 480 = 08:00), distâncias em km e tempos em minutos.
 
+## 📄 Relatório (LaTeX)
+
+**👉 [Ver/baixar a prévia do relatório (PDF)](relatorio/RotaGrafo-relatorio-parcial.pdf)**: versão parcial de 12/11, com 7 páginas. O GitHub abre o PDF direto no navegador; para baixar, use o botão de download no canto da visualização.
+
+<p align="center">
+  <img src="relatorio/figuras/arquitetura.png" alt="Arquitetura do RotaGrafo em três camadas" width="700">
+</p>
+
+O relatório usa o template da SBC e está em `relatorio/`:
+
+```
+relatorio/
+├── main.tex                          texto do relatório
+├── referencias.bib                   referências bibliográficas
+├── RotaGrafo-relatorio-parcial.pdf   prévia compilada (atualizar a cada versão)
+└── figuras/                          imagens usadas no relatório
+    ├── arquitetura.png               Figura 1: arquitetura em três camadas
+    ├── uml-componentes.png           Figura 2: diagrama de componentes
+    ├── uml-sequencia.png             Figura 3: diagrama de sequência do cálculo de rotas
+    ├── uml-estados-simulacao.png     Figura 4: diagrama de estados da simulação
+    ├── uml-estados-cliente.png       (gerada, ainda não usada no texto)
+    └── uml-casos-uso-interface.png   (gerada, ainda não usada; a Dupla 1 decide se entra)
+```
+
+### Como compilar no Overleaf
+
+O `main.tex` depende de dois arquivos do template da SBC (`sbc-template.sty` e `sbc.bst`), que não estão no repositório. Por isso, o projeto é criado a partir do template:
+
+1. Abra o [template SBC no Overleaf](https://www.overleaf.com/latex/templates/sbc-conferences-template/blbxwjwzdngr) e clique em **Open as Template**.
+2. No **File tree**, clique em **⬆ Upload** e envie `relatorio/main.tex` e `relatorio/referencias.bib`. Quando perguntar, clique em **Overwrite**, porque o template também tem um `main.tex`.
+3. Crie uma pasta chamada **`figuras`** (ícone 📁) e, com ela selecionada, envie os PNGs de `relatorio/figuras/`. **Eles precisam ficar dentro da pasta `figuras`**, senão o LaTeX não acha as imagens.
+4. Clique em **Recompile**.
+5. Para atualizar a prévia do repositório, baixe o PDF (ícone ⬇ ao lado do Recompile) e salve como `relatorio/RotaGrafo-relatorio-parcial.pdf`.
+
+> Os arquivos `fig1.jpg`, `fig2.jpg`, `table.jpg` e `sbc-template.bib` são do exemplo do template e podem ficar no projeto do Overleaf. Os avisos em laranja ao lado do Recompile não impedem a compilação; hoje são as referências aos prints das telas, que ainda não existem ("Figura ??").
+
+**Trabalho em grupo:** pelo botão **Share** do Overleaf dá para convidar os 6 membros para o mesmo projeto. No fim, copiem o `main.tex` de volta para o repositório, porque a entrega pede o `.tex` e o PDF no `.zip`.
+
+### Como regenerar as figuras dos diagramas
+
+Os diagramas são escritos em [Mermaid](https://mermaid.js.org/) em [docs/diagramas.md](docs/diagramas.md). Depois de editar um diagrama, gere o PNG de novo:
+- **Sem instalar nada:** cole o bloco em https://mermaid.live, use *Actions → PNG* e salve em `relatorio/figuras/` com o nome indicado no `diagramas.md`.
+- **Pelo terminal** (precisa do Node.js): `npx -p @mermaid-js/mermaid-cli mmdc -i diagrama.mmd -o relatorio/figuras/nome.png -s 3 -b white`. Use a escala `-s 3` para a imagem ficar nítida no PDF.
+
+Depois, envie o PNG novo para a pasta `figuras` do Overleaf com **Overwrite** e recompile.
+
 ## 📁 Estrutura
 
 ```
@@ -225,9 +280,9 @@ src/grafo/        Dupla 1: classe do grafo, leitura dos dados e Dijkstra
 src/algoritmos/   Dupla 2: vizinho mais próximo, Clarke-Wright, 2-opt e métricas
 src/api/          Dupla 3: API Flask (app.py), login e sessão (auth.py), validador do contrato (contrato.py) e dados de exemplo (mock.py)
 frontend/         Dupla 3: interface (index.html, style.css, app.js) e telas de login e cadastro (login.*, registrar.*, logo.svg)
-tests/            testes de contrato e de autenticação
+tests/            testes de contrato, de corretude e de autenticação
 dados/            base de dados (CSV) e usuários do login (usuarios.json; usuarios.local.json = contas criadas pela tela, fora do git)
-relatorio/        relatório LaTeX (template SBC): main.tex e referencias.bib
+relatorio/        relatório LaTeX (template SBC): main.tex, referencias.bib, figuras/ e a prévia em PDF
 docs/             diagramas UML (diagramas.md), roteiro da apresentação e do vídeo, checklist de entrega
 ```
 
@@ -240,6 +295,52 @@ docs/             diagramas UML (diagramas.md), roteiro da apresentação e do v
 | O mapa fica cinza, sem ruas | o mapa de fundo vem da internet (OpenStreetMap); confira a conexão. As rotas continuam funcionando |
 | `Address already in use` / porta 5000 ocupada | já existe um servidor rodando; feche o outro terminal ou use `Ctrl + C` nele |
 | Clientes não atendidos | a frota é pequena para a demanda; aumente os veículos ou a capacidade |
+
+## 📋 Andamento e pendências
+
+Entrega: **22/11**. Situação em 12/11:
+
+| Item | Situação | Responsável |
+|---|---|---|
+| Interface web, simulação, linha do tempo, comparação, desempenho | ✅ pronto (com dados de exemplo) | Dupla 3 |
+| API, contrato, login e cadastro | ✅ pronto | Dupla 3 |
+| Testes de contrato, de corretude e de autenticação | ✅ prontos (51 testes) | Dupla 3 |
+| Seção 4 do relatório (arquitetura, testes, acesso, interface) e diagramas UML | ✅ pronta, menos os prints | Dupla 3 |
+| **Classe do grafo, leitura do CSV e Dijkstra** (`src/grafo/`) | ❌ não iniciado | **Dupla 1** |
+| **Base de dados** em `dados/` + nota de origem (Kaggle) | ❌ falta | **Dupla 1** |
+| **Vizinho mais próximo, Clarke-Wright e 2-opt** (`src/algoritmos/`) | ❌ não iniciado | **Dupla 2** |
+| Integração (trocar o mock em `src/api/app.py`) e rodar os testes | ⏳ depende das Duplas 1 e 2 | Todos |
+| Prints das telas no relatório (tirar os "Figura ??") | ⏳ depois da integração | Dupla 3 |
+| Seções 2, 3 e 5 do relatório (modelagem, algoritmos, resultados + NetworkX) | ❌ vazias | Duplas 1 e 2 |
+| Limitações, conclusão, nomes completos, instituição, tabela de responsabilidades | ❌ falta | Todos |
+| Relatório com **12 a 15 páginas** (hoje: 7) | ⏳ | Todos |
+| Slides (10 min) e vídeo (12 a 18 min) | ❌ falta | Todos, ver [docs/apresentacao.md](docs/apresentacao.md) |
+| Commits de **todos** os 6 membros no Git | ⏳ hoje só 2 membros têm commits | Todos |
+
+## 🆕 Últimas alterações (12/11)
+
+**Testes de corretude:** `tests/test_corretude.py`, 12 testes novos
+- Dijkstra de referência, conferido contra Floyd-Warshall, usado para validar os resultados de `calcular_rotas` em 4 instâncias × 4 frotas × 2 algoritmos × com e sem 2-opt.
+- Conferem: grafo conexo e sem laços ou arestas repetidas; distância das rotas igual à soma dos caminhos mínimos; tempo mínimo de viagem respeitado; janelas de tempo (espera, sem espera à toa, `atrasado` correto); métricas e ocupação; ausência de rotas vazias; atendimento completo com frota de sobra; nenhuma solução abaixo do ótimo da força bruta.
+- Dois testes de qualidade só rodam com `FONTE = "real"`: o 2-opt nunca piora, e Clarke-Wright + 2-opt fica a até 25% do ótimo.
+- Hoje: 51 testes no total, todos passando (2 pulados enquanto a API usa o mock).
+
+**Relatório** (`relatorio/main.tex`):
+- Figura 1 (arquitetura) incluída, e Figuras 2 a 4 (componentes, sequência, estados) ativadas.
+- Pacote `float` adicionado, com as figuras fixadas no lugar (`[H]`). Antes, elas iam parar depois das Referências.
+- Tabela de rotas da API atualizada com `/api/desempenho`, `/api/auth/login`, `/api/auth/registrar` e `/api/auth/logout`.
+- Novas subseções **4.3 Testes de corretude** e **4.4 Controle de acesso**.
+- O texto agora fala em "quatro linhas" do ponto de integração, e não mais "duas".
+- Login, cadastro e controle de sessão acrescentados nas atividades do Vitor, na tabela de responsabilidades.
+- Prévia compilada em `relatorio/RotaGrafo-relatorio-parcial.pdf`.
+
+**Figuras** (`relatorio/figuras/`): 6 PNGs gerados a partir de `docs/diagramas.md`, com fonte maior para ficarem legíveis no PDF.
+
+**Diagramas** (`docs/diagramas.md`):
+- Diagrama de componentes atualizado com o login (páginas de login e cadastro, `auth.py`, `usuarios.json`).
+- Novo diagrama 1b, de arquitetura em camadas.
+
+**README:** seções de testes, relatório (prévia, Overleaf e como regenerar as figuras), andamento e esta lista de alterações.
 
 ## 👥 Equipe
 
