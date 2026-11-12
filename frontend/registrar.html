@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#1f5fae">
+  <title>Criar conta · RotaGrafo</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="login.css">
+  <script src="registrar.js" defer></script>
+</head>
+<body>
+  <div class="pagina">
+
+    <!-- ============ Coluna do formulário ============ -->
+    <section class="formulario">
+      <div class="miolo">
+        <a class="marca entra" href="/login" style="--d:.05s" aria-label="RotaGrafo">
+          <img src="logo.svg" alt="" width="36" height="36">
+          <span>RotaGrafo</span>
+        </a>
+
+        <h1 class="entra" style="--d:.1s">Crie sua conta</h1>
+        <p class="descricao entra" style="--d:.2s">Cadastre-se para calcular e simular as rotas do seu centro logístico.</p>
+
+        <form id="form-registro" novalidate>
+          <div class="campo entra" style="--d:.3s">
+            <label for="nome">Nome</label>
+            <div class="vidro">
+              <input id="nome" name="nome" type="text" autocomplete="name" maxlength="80" required
+                     placeholder="Digite seu nome" aria-describedby="erro-nome">
+            </div>
+            <p class="campo-erro" id="erro-nome" hidden></p>
+          </div>
+
+          <div class="campo entra" style="--d:.4s">
+            <label for="email">E-mail</label>
+            <div class="vidro">
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="username"
+                     autocapitalize="none" spellcheck="false" maxlength="254" required
+                     placeholder="Digite seu e-mail" aria-describedby="erro-email">
+            </div>
+            <p class="campo-erro" id="erro-email" hidden></p>
+          </div>
+
+          <div class="campo entra" style="--d:.5s">
+            <label for="senha">Senha</label>
+            <div class="vidro">
+              <input id="senha" name="senha" type="password" autocomplete="new-password"
+                     maxlength="128" required placeholder="Crie uma senha"
+                     aria-describedby="dica-senha erro-senha">
+              <button type="button" class="olho" data-alvo="senha" aria-label="Mostrar senha" aria-pressed="false">
+                <svg class="i-ver" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="i-ocultar" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c4.5 0 8.45 2.73 9.94 6.65a1 1 0 0 1 0 .7 10.77 10.77 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2.06 11.65a1 1 0 0 1 0 .7 10.75 10.75 0 0 0 14.1 5.64"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><path d="m2 2 20 20"/></svg>
+              </button>
+            </div>
+            <p class="dica-senha" id="dica-senha">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+              <span>Use pelo menos 8 caracteres</span>
+            </p>
+            <p class="campo-erro" id="erro-senha" hidden></p>
+          </div>
+
+          <div class="campo entra" style="--d:.6s">
+            <label for="confirmar">Confirmar senha</label>
+            <div class="vidro">
+              <input id="confirmar" name="confirmar" type="password" autocomplete="new-password"
+                     maxlength="128" required placeholder="Repita a senha" aria-describedby="erro-confirmar">
+              <button type="button" class="olho" data-alvo="confirmar" aria-label="Mostrar senha" aria-pressed="false">
+                <svg class="i-ver" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="i-ocultar" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c4.5 0 8.45 2.73 9.94 6.65a1 1 0 0 1 0 .7 10.77 10.77 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2.06 11.65a1 1 0 0 1 0 .7 10.75 10.75 0 0 0 14.1 5.64"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><path d="m2 2 20 20"/></svg>
+              </button>
+            </div>
+            <p class="campo-erro" id="erro-confirmar" hidden></p>
+          </div>
+
+          <div id="erro-registro" role="alert">
+            <p class="erro" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5h.01"/></svg>
+              <span></span>
+            </p>
+          </div>
+
+          <button type="submit" id="btn-criar" class="entrar entra" style="--d:.7s">
+            <span class="giro" aria-hidden="true"></span>
+            <span class="rotulo">Criar conta</span>
+          </button>
+        </form>
+
+        <p class="alt entra" style="--d:.8s">Já tem uma conta? <a href="/login">Entrar</a></p>
+        <p class="rodape entra" style="--d:.9s">Trabalho prático de Teoria dos Grafos · Tema 10</p>
+      </div>
+    </section>
+
+    <!-- ============ Painel ilustrativo (igual ao do login) ============ -->
+    <aside class="painel" aria-hidden="true">
+      <div class="grafo">
+        <svg viewBox="40 30 520 400" preserveAspectRatio="xMidYMid meet" focusable="false">
+          <g class="arestas" stroke="rgba(255,255,255,.16)" stroke-width="1.2" fill="none">
+            <path d="M120 140 230 70"/>
+            <path d="M480 140 520 260"/>
+            <path d="M320 395 150 345"/>
+            <path d="M300 235 370 60"/>
+            <path d="M300 235 70 250"/>
+            <path d="M300 235 450 375"/>
+          </g>
+
+          <g class="rotas" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+            <path class="rota" pathLength="1" style="--d:.9s"  stroke="#6db4ff" d="M300 235 120 140 70 250 150 345Z"/>
+            <path class="rota" pathLength="1" style="--d:1.15s" stroke="#ffb454" d="M300 235 230 70 370 60 480 140Z"/>
+            <path class="rota" pathLength="1" style="--d:1.4s" stroke="#5ed39a" d="M300 235 520 260 450 375 320 395Z"/>
+          </g>
+
+          <g class="clientes" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" text-anchor="middle">
+            <g style="--d:.8s"  transform="translate(120 140)"><circle r="13" fill="#0e2744" stroke="#6db4ff" stroke-width="2.4"/><text y="4" fill="#fff">1</text></g>
+            <g style="--d:.85s" transform="translate(70 250)"><circle r="13" fill="#0e2744" stroke="#6db4ff" stroke-width="2.4"/><text y="4" fill="#fff">2</text></g>
+            <g style="--d:.9s"  transform="translate(150 345)"><circle r="13" fill="#0e2744" stroke="#6db4ff" stroke-width="2.4"/><text y="4" fill="#fff">3</text></g>
+            <g style="--d:.95s" transform="translate(230 70)"><circle r="13" fill="#0e2744" stroke="#ffb454" stroke-width="2.4"/><text y="4" fill="#fff">4</text></g>
+            <g style="--d:1s"   transform="translate(370 60)"><circle r="13" fill="#0e2744" stroke="#ffb454" stroke-width="2.4"/><text y="4" fill="#fff">5</text></g>
+            <g style="--d:1.05s" transform="translate(480 140)"><circle r="13" fill="#0e2744" stroke="#ffb454" stroke-width="2.4"/><text y="4" fill="#fff">6</text></g>
+            <g style="--d:1.1s" transform="translate(520 260)"><circle r="13" fill="#0e2744" stroke="#5ed39a" stroke-width="2.4"/><text y="4" fill="#fff">7</text></g>
+            <g style="--d:1.15s" transform="translate(450 375)"><circle r="13" fill="#0e2744" stroke="#5ed39a" stroke-width="2.4"/><text y="4" fill="#fff">8</text></g>
+            <g style="--d:1.2s" transform="translate(320 395)"><circle r="13" fill="#0e2744" stroke="#5ed39a" stroke-width="2.4"/><text y="4" fill="#fff">9</text></g>
+          </g>
+
+          <g class="deposito" transform="translate(300 235)">
+            <circle r="30" fill="rgba(255,255,255,.08)"/>
+            <rect x="-17" y="-17" width="34" height="34" rx="9" fill="#ffffff"/>
+            <path d="M-9 8V-3l9-6 9 6V8z" fill="#1f5fae"/>
+            <path d="M-3 8V1h6v7z" fill="#ffffff"/>
+          </g>
+
+          <!-- um caminhão por rota, cada um no seu ritmo -->
+          <defs>
+            <g id="caminhao">
+              <rect x="-12" y="-9" width="15" height="12" rx="2.5" fill="#ffffff"/>
+              <path d="M5 -5h5.5l3.5 4V3H5z" fill="#ffffff"/>
+              <circle cx="-6" cy="5" r="2.6" fill="#0e2744" stroke="#ffffff" stroke-width="1.4"/>
+              <circle cx="9" cy="5" r="2.6" fill="#0e2744" stroke="#ffffff" stroke-width="1.4"/>
+            </g>
+          </defs>
+          <use href="#caminhao" visibility="hidden">
+            <set attributeName="visibility" to="visible" begin="4.2s"/>
+            <animateMotion dur="11s" begin="4.2s" repeatCount="indefinite"
+                           path="M300 235 120 140 70 250 150 345 300 235"/>
+          </use>
+          <use href="#caminhao" visibility="hidden">
+            <set attributeName="visibility" to="visible" begin="4.9s"/>
+            <animateMotion dur="13s" begin="4.9s" repeatCount="indefinite"
+                           path="M300 235 230 70 370 60 480 140 300 235"/>
+          </use>
+          <use href="#caminhao" visibility="hidden">
+            <set attributeName="visibility" to="visible" begin="5.6s"/>
+            <animateMotion dur="12s" begin="5.6s" repeatCount="indefinite"
+                           path="M300 235 520 260 450 375 320 395 300 235"/>
+          </use>
+        </svg>
+      </div>
+
+    </aside>
+
+  </div>
+</body>
+</html>

@@ -14,6 +14,7 @@ RAIZ = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, RAIZ)
 
 from src.api import mock  # noqa: E402
+from src.api.auth import registrar_auth  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # PONTO DE INTEGRAÇÃO
@@ -34,6 +35,7 @@ TAMANHO_MAXIMO = 500
 ALGORITMOS = {"nn": "Vizinho mais próximo", "clarke_wright": "Clarke-Wright"}
 
 app = Flask(__name__, static_folder=os.path.join(RAIZ, "frontend"), static_url_path="")
+registrar_auth(app)
 _grafo = carregar_grafo()
 
 
