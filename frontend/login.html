@@ -76,7 +76,7 @@
     <!-- ============ Painel ilustrativo ============ -->
     <aside class="painel" aria-hidden="true">
       <div class="grafo">
-        <svg viewBox="0 0 600 460" preserveAspectRatio="xMidYMid meet" focusable="false">
+        <svg viewBox="40 30 520 400" preserveAspectRatio="xMidYMid meet" focusable="false">
           <!-- arestas do grafo (ligações possíveis) -->
           <g class="arestas" stroke="rgba(255,255,255,.16)" stroke-width="1.2" fill="none">
             <path d="M120 140 230 70"/>
@@ -116,27 +116,33 @@
           </g>
 
           <!-- caminhão percorrendo a primeira rota -->
-          <g class="caminhao" visibility="hidden">
+          <!-- um caminhão por rota, cada um no seu ritmo -->
+          <defs>
+            <g id="caminhao">
+              <rect x="-12" y="-9" width="15" height="12" rx="2.5" fill="#ffffff"/>
+              <path d="M5 -5h5.5l3.5 4V3H5z" fill="#ffffff"/>
+              <circle cx="-6" cy="5" r="2.6" fill="#0e2744" stroke="#ffffff" stroke-width="1.4"/>
+              <circle cx="9" cy="5" r="2.6" fill="#0e2744" stroke="#ffffff" stroke-width="1.4"/>
+            </g>
+          </defs>
+          <use href="#caminhao" visibility="hidden">
             <set attributeName="visibility" to="visible" begin="4.2s"/>
             <animateMotion dur="11s" begin="4.2s" repeatCount="indefinite"
                            path="M300 235 120 140 70 250 150 345 300 235"/>
-            <rect x="-12" y="-9" width="15" height="12" rx="2.5" fill="#ffffff"/>
-            <path d="M5 -5h5.5l3.5 4V3H5z" fill="#ffffff"/>
-            <circle cx="-6" cy="5" r="2.6" fill="#0e2744" stroke="#ffffff" stroke-width="1.4"/>
-            <circle cx="9" cy="5" r="2.6" fill="#0e2744" stroke="#ffffff" stroke-width="1.4"/>
-          </g>
+          </use>
+          <use href="#caminhao" visibility="hidden">
+            <set attributeName="visibility" to="visible" begin="4.9s"/>
+            <animateMotion dur="13s" begin="4.9s" repeatCount="indefinite"
+                           path="M300 235 230 70 370 60 480 140 300 235"/>
+          </use>
+          <use href="#caminhao" visibility="hidden">
+            <set attributeName="visibility" to="visible" begin="5.6s"/>
+            <animateMotion dur="12s" begin="5.6s" repeatCount="indefinite"
+                           path="M300 235 520 260 450 375 320 395 300 235"/>
+          </use>
         </svg>
       </div>
 
-      <footer class="legenda">
-        <p class="frase">Rotas de entrega calculadas com grafos.</p>
-        <ul class="veiculos">
-          <li style="--cor:#6db4ff; --d:.9s"><i></i>Veículo 1 · 3 clientes</li>
-          <li style="--cor:#ffb454; --d:1.15s"><i></i>Veículo 2 · 3 clientes</li>
-          <li style="--cor:#5ed39a; --d:1.4s"><i></i>Veículo 3 · 3 clientes</li>
-        </ul>
-        <p class="metodos">Dijkstra · Clarke-Wright · 2-opt</p>
-      </footer>
     </aside>
 
   </div>
