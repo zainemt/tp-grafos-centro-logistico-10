@@ -1,5 +1,148 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="UTF-8"><title>Entrar · RotaGrafo</title></head>
-<body><!-- provisório: substituído na Task 2 --></body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#1f5fae">
+  <title>Entrar · RotaGrafo</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="login.css">
+  <script src="login.js" defer></script>
+</head>
+<body>
+  <div class="pagina">
+
+    <!-- ============ Coluna do formulário ============ -->
+    <section class="formulario">
+      <div class="miolo">
+        <a class="marca entra" href="/login" style="--d:.05s" aria-label="RotaGrafo">
+          <img src="logo.svg" alt="" width="36" height="36">
+          <span>RotaGrafo</span>
+        </a>
+
+        <h1 class="entra" style="--d:.1s">Bem-vindo de volta</h1>
+        <p class="descricao entra" style="--d:.2s">Acesse para calcular e simular as rotas do seu centro logístico.</p>
+
+        <form id="form-login" novalidate>
+          <div class="campo entra" style="--d:.3s">
+            <label for="email">E-mail</label>
+            <div class="vidro">
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="username"
+                     autocapitalize="none" spellcheck="false" maxlength="254" required
+                     placeholder="Digite seu e-mail">
+            </div>
+          </div>
+
+          <div class="campo entra" style="--d:.4s">
+            <label for="senha">Senha</label>
+            <div class="vidro">
+              <input id="senha" name="senha" type="password" autocomplete="current-password"
+                     maxlength="128" required placeholder="Digite sua senha">
+              <button type="button" id="btn-olho" class="olho" aria-label="Mostrar senha" aria-pressed="false">
+                <svg class="i-ver" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="i-ocultar" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c4.5 0 8.45 2.73 9.94 6.65a1 1 0 0 1 0 .7 10.77 10.77 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2.06 11.65a1 1 0 0 1 0 .7 10.75 10.75 0 0 0 14.1 5.64"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><path d="m2 2 20 20"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <label class="manter entra" style="--d:.5s">
+            <input id="manter" name="manter" type="checkbox">
+            <span class="caixa" aria-hidden="true"></span>
+            <span>Manter conectado por 30 dias</span>
+          </label>
+
+          <div id="erro-login" role="alert">
+            <p class="erro" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5h.01"/></svg>
+              <span></span>
+            </p>
+          </div>
+
+          <button type="submit" id="btn-entrar" class="entrar entra" style="--d:.6s">
+            <span class="giro" aria-hidden="true"></span>
+            <span class="rotulo">Entrar</span>
+          </button>
+        </form>
+
+        <p class="rodape entra" style="--d:.8s">Trabalho prático de Teoria dos Grafos · Tema 10</p>
+      </div>
+    </section>
+
+    <!-- ============ Painel ilustrativo ============ -->
+    <aside class="painel" aria-hidden="true">
+      <div class="grafo">
+        <svg viewBox="0 0 600 460" preserveAspectRatio="xMidYMid meet" focusable="false">
+          <!-- arestas do grafo (ligações possíveis) -->
+          <g class="arestas" stroke="rgba(255,255,255,.16)" stroke-width="1.2" fill="none">
+            <path d="M120 140 230 70"/>
+            <path d="M480 140 520 260"/>
+            <path d="M320 395 150 345"/>
+            <path d="M300 235 370 60"/>
+            <path d="M300 235 70 250"/>
+            <path d="M300 235 450 375"/>
+          </g>
+
+          <!-- rotas de três veículos -->
+          <g class="rotas" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+            <path class="rota" pathLength="1" style="--d:.9s"  stroke="#6db4ff" d="M300 235 120 140 70 250 150 345Z"/>
+            <path class="rota" pathLength="1" style="--d:1.15s" stroke="#ffb454" d="M300 235 230 70 370 60 480 140Z"/>
+            <path class="rota" pathLength="1" style="--d:1.4s" stroke="#5ed39a" d="M300 235 520 260 450 375 320 395Z"/>
+          </g>
+
+          <!-- clientes -->
+          <g class="clientes" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" text-anchor="middle">
+            <g style="--d:.8s"  transform="translate(120 140)"><circle r="13" fill="#0e2744" stroke="#6db4ff" stroke-width="2.4"/><text y="4" fill="#fff">1</text></g>
+            <g style="--d:.85s" transform="translate(70 250)"><circle r="13" fill="#0e2744" stroke="#6db4ff" stroke-width="2.4"/><text y="4" fill="#fff">2</text></g>
+            <g style="--d:.9s"  transform="translate(150 345)"><circle r="13" fill="#0e2744" stroke="#6db4ff" stroke-width="2.4"/><text y="4" fill="#fff">3</text></g>
+            <g style="--d:.95s" transform="translate(230 70)"><circle r="13" fill="#0e2744" stroke="#ffb454" stroke-width="2.4"/><text y="4" fill="#fff">4</text></g>
+            <g style="--d:1s"   transform="translate(370 60)"><circle r="13" fill="#0e2744" stroke="#ffb454" stroke-width="2.4"/><text y="4" fill="#fff">5</text></g>
+            <g style="--d:1.05s" transform="translate(480 140)"><circle r="13" fill="#0e2744" stroke="#ffb454" stroke-width="2.4"/><text y="4" fill="#fff">6</text></g>
+            <g style="--d:1.1s" transform="translate(520 260)"><circle r="13" fill="#0e2744" stroke="#5ed39a" stroke-width="2.4"/><text y="4" fill="#fff">7</text></g>
+            <g style="--d:1.15s" transform="translate(450 375)"><circle r="13" fill="#0e2744" stroke="#5ed39a" stroke-width="2.4"/><text y="4" fill="#fff">8</text></g>
+            <g style="--d:1.2s" transform="translate(320 395)"><circle r="13" fill="#0e2744" stroke="#5ed39a" stroke-width="2.4"/><text y="4" fill="#fff">9</text></g>
+          </g>
+
+          <!-- depósito -->
+          <g class="deposito" transform="translate(300 235)">
+            <circle r="30" fill="rgba(255,255,255,.08)"/>
+            <rect x="-17" y="-17" width="34" height="34" rx="9" fill="#ffffff"/>
+            <path d="M-9 8V-3l9-6 9 6V8z" fill="#1f5fae"/>
+            <path d="M-3 8V1h6v7z" fill="#ffffff"/>
+          </g>
+
+          <!-- caminhão percorrendo a primeira rota -->
+          <g class="caminhao" visibility="hidden">
+            <set attributeName="visibility" to="visible" begin="2.4s"/>
+            <animateMotion dur="11s" begin="2.4s" repeatCount="indefinite"
+                           path="M300 235 120 140 70 250 150 345 300 235"/>
+            <rect x="-12" y="-9" width="15" height="12" rx="2.5" fill="#ffffff"/>
+            <path d="M5 -5h5.5l3.5 4V3H5z" fill="#ffffff"/>
+            <circle cx="-6" cy="5" r="2.6" fill="#0e2744" stroke="#ffffff" stroke-width="1.4"/>
+            <circle cx="9" cy="5" r="2.6" fill="#0e2744" stroke="#ffffff" stroke-width="1.4"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="cartoes">
+        <article class="cartao" style="--d:1.5s">
+          <span class="icone"><svg viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="12" cy="8" r="2"/><circle cx="19" cy="14" r="2"/><path d="m6.2 16.2 4.6-6.4M13.9 9.1l3.7 3.7"/></svg></span>
+          <div><h2>Dijkstra</h2><p>Menor caminho entre dois pontos</p></div>
+        </article>
+        <article class="cartao" style="--d:1.65s">
+          <span class="icone"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="12" r="2"/><path d="m7 6.8 10 4.4M7 17.2l10-4.4"/></svg></span>
+          <div><h2>Clarke-Wright</h2><p>Junta rotas que mais economizam</p></div>
+        </article>
+        <article class="cartao" style="--d:1.8s">
+          <span class="icone"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 6h10M7 18h10"/></svg></span>
+          <div><h2>2-opt</h2><p>Desfaz cruzamentos no trajeto</p></div>
+        </article>
+      </div>
+    </aside>
+
+  </div>
+</body>
 </html>
