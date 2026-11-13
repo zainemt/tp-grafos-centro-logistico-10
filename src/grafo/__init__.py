@@ -1,10 +1,11 @@
-"""Estrutura do grafo e leitura de dados — responsabilidade da Dupla 1.
+"""Estrutura do grafo e leitura de dados — responsabilidade da Dupla 1 (sem NetworkX).
 
-Implementar aqui (sem NetworkX):
-  - classe Grafo (lista de adjacência; vértices = depósito/clientes; arestas = distância/tempo)
-  - leitor da base de dados (dados/*.csv)
-  - Dijkstra para a matriz de distâncias/tempos
+  - grafo.py       classe Grafo (lista de adjacência; vértices = depósito/clientes;
+                   arestas = distância em km e tempo em min)
 
-A API espera uma função que devolva o grafo no formato de GET /api/grafo
-(ver src/api/mock.py -> gerar_grafo()).
+A fazer: leitura de dados/*.csv (carregar_grafo, no formato de GET /api/grafo)
+e Dijkstra para a matriz de distâncias/tempos.
 """
+from src.grafo.grafo import Grafo
+
+__all__ = ["Grafo"]
