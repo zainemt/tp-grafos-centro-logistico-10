@@ -8,7 +8,7 @@ como consumidor provisório, mock.calcular_rotas (stub da Dupla 2).
 import unittest
 
 from src.api.contrato import validar_grafo
-from src.grafo import Grafo
+from src.grafo import Grafo, caminho, dijkstra, matriz_custos
 
 
 def _vertice(i, deposito=False):
@@ -61,6 +61,25 @@ class TestGrafo(unittest.TestCase):
         g.adicionar_vertice(_vertice(9, deposito=True))
         with self.assertRaises(ValueError):
             g.deposito
+
+
+class TestDijkstra(unittest.TestCase):
+    def test_caminho_minimo(self):
+        custo, anterior = dijkstra(grafo_pequeno(), 0)
+        self.assertEqual(custo, {0: 0, 1: 1, 2: 3, 3: 4})   # 4 é inalcançável e fica de fora
+        self.assertEqual(caminho(anterior, 0, 3), [0, 1, 2, 3])
+        self.assertEqual(caminho(anterior, 0, 0), [0])
+        self.assertEqual(caminho(anterior, 0, 4), [])
+
+    def test_peso_tempo_e_origem_inexistente(self):
+        self.assertEqual(dijkstra(grafo_pequeno(), 0, "tempo")[0][3], 8)
+        self.assertRaises(KeyError, dijkstra, grafo_pequeno(), 42)
+
+    def test_matriz_aceita_dicionario_do_contrato(self):
+        d = grafo_pequeno().para_contrato()
+        m = matriz_custos(d, "distancia")
+        self.assertEqual(m[3][0], 4)
+        self.assertEqual(m, matriz_custos(Grafo.de_contrato(d)))
 
 
 if __name__ == "__main__":
