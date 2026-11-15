@@ -5,10 +5,15 @@ como consumidor provisório, mock.calcular_rotas (stub da Dupla 2).
 
     python -m unittest tests.test_grafo -v
 """
+import os
+import tempfile
 import unittest
 
 from src.api.contrato import validar_grafo
-from src.grafo import Grafo, caminho, dijkstra, matriz_custos
+from src.grafo import ErroDados, Grafo, caminho, dijkstra, ler_grafo, matriz_custos
+
+CABECALHO_V = "id,nome,lat,lon,demanda,janela_inicio,janela_fim,prioridade,deposito\n"
+DEPOSITO_CSV = "0,CD,-19.92,-43.94,0,00:00,24:00,0,1\n"
 
 
 def _vertice(i, deposito=False):
@@ -80,6 +85,76 @@ class TestDijkstra(unittest.TestCase):
         m = matriz_custos(d, "distancia")
         self.assertEqual(m[3][0], 4)
         self.assertEqual(m, matriz_custos(Grafo.de_contrato(d)))
+
+
+class TestDados(unittest.TestCase):
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+
+    def arquivo(self, nome, texto, encoding="utf-8"):
+        caminho = os.path.join(self._tmp.name, nome)
+        with open(caminho, "w", encoding=encoding, newline="") as f:
+            f.write(texto)
+        return caminho
+
+    def erros(self, *args, **kw):
+        with self.assertRaises(ErroDados) as ctx:
+            ler_grafo(*args, **kw)
+        return "\n".join(ctx.exception.problemas)
+
+    def test_horarios_e_bom_do_excel(self):
+        v = self.arquivo("v.csv", CABECALHO_V + DEPOSITO_CSV + "1,Loja,-19.93,-43.95,7,08:30,600,3,0\n",
+                         encoding="utf-8-sig")
+        g = ler_grafo(v)
+        self.assertEqual(g.vertice(1)["janela"], [510, 600])
+        self.assertEqual(g.vertice(0)["janela"], [0, 1440])
+        self.assertEqual(g.num_arestas, 1)
+        self.assertEqual(validar_grafo(g.para_contrato()), [])
+
+    def test_arquivo_inexistente(self):
+        self.assertIn("não encontrado", self.erros(os.path.join(self._tmp.name, "nada.csv")))
+
+    def test_coluna_faltando(self):
+        v = self.arquivo("v.csv", "id,nome,lat,lon\n0,CD,1,1\n")
+        self.assertIn("faltam as colunas", self.erros(v))
+
+    def test_registros_invalidos_listados_todos(self):
+        v = self.arquivo("v.csv", CABECALHO_V + DEPOSITO_CSV +
+                         "1,A,abc,-43.9,10,08:00,10:00,1,0\n"     # lat não numérica
+                         "2,B,-19.9,-43.9,-5,08:00,10:00,1,0\n"   # demanda negativa
+                         "3,C,-19.9,-43.9,5,11:00,10:00,1,0\n"    # janela invertida
+                         "4,D,-19.9,-43.9,5,08:00,25:00,1,0\n"    # fora do dia
+                         "5,E,-19.9,-43.9,5,08:00,10:00,7,0\n"    # prioridade inválida
+                         "6,,-19.9,-43.9,5,08:00,10:00,1,0\n"     # nome vazio
+                         "7,G,-19.9,-43.9,5,08:00,10:00,1,talvez\n")
+        texto = self.erros(v)
+        for linha in range(3, 10):
+            self.assertIn(f"linha {linha}:", texto)
+
+    def test_regras_do_contrato(self):
+        dois_depositos = self.arquivo("a.csv", CABECALHO_V + DEPOSITO_CSV + "1,CD2,-19.9,-43.9,0,00:00,24:00,0,1\n")
+        self.assertIn("exatamente 1 depósito", self.erros(dois_depositos))
+        id_repetido = self.arquivo("b.csv", CABECALHO_V + DEPOSITO_CSV + "0,X,-19.9,-43.9,5,08:00,10:00,1,0\n")
+        self.assertIn("repetido", self.erros(id_repetido))
+
+    def test_arestas_csv(self):
+        v = self.arquivo("v.csv", CABECALHO_V + DEPOSITO_CSV +
+                         "1,A,-19.9,-43.9,5,08:00,10:00,1,0\n2,B,-19.8,-43.9,5,08:00,10:00,1,0\n")
+        ok = self.arquivo("ok.csv", "u,v,distancia,tempo\n0,1,2.5,5\n1,2,1,2\n")
+        g = ler_grafo(v, ok)
+        self.assertEqual(g.num_arestas, 2)
+        self.assertEqual(dijkstra(g, 0)[0][2], 3.5)
+        # sem informar as arestas, usa o arestas.csv da mesma pasta dos vértices
+        self.arquivo("arestas.csv", "u,v,distancia,tempo\n0,1,2.5,5\n1,2,1,2\n")
+        self.assertEqual(ler_grafo(v).num_arestas, 2)
+        casos = {"inexistente": "u,v,distancia,tempo\n0,1,1,1\n1,9,1,1\n",
+                 "negativo": "u,v,distancia,tempo\n0,1,-1,1\n1,2,1,1\n",
+                 "repetida": "u,v,distancia,tempo\n0,1,1,1\n1,0,1,1\n1,2,1,1\n",
+                 "inalcançáveis": "u,v,distancia,tempo\n0,1,1,1\n"}
+        for esperado, texto in casos.items():
+            with self.subTest(esperado=esperado):
+                self.assertIn(esperado, self.erros(v, self.arquivo("a.csv", texto)))
 
 
 if __name__ == "__main__":
