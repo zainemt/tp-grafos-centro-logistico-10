@@ -11,6 +11,7 @@ import unittest
 
 from src.api.contrato import validar_grafo
 from src.grafo import ErroDados, Grafo, caminho, dijkstra, ler_grafo, matriz_custos
+from src.grafo.gerador import gerar_grafo, gerar_vertices
 
 CABECALHO_V = "id,nome,lat,lon,demanda,janela_inicio,janela_fim,prioridade,deposito\n"
 DEPOSITO_CSV = "0,CD,-19.92,-43.94,0,00:00,24:00,0,1\n"
@@ -30,6 +31,18 @@ def grafo_pequeno():
     for u, v, d in [(0, 1, 1), (1, 2, 2), (0, 2, 10), (2, 3, 1)]:
         g.adicionar_aresta(u, v, d, d * 2)
     return g
+
+
+def bellman_ford(grafo, origem, peso):
+    """Referência independente do Dijkstra."""
+    custo = {origem: 0.0}
+    for _ in range(grafo.num_vertices - 1):
+        for u, v, d, t in grafo.arestas():
+            w = d if peso == "distancia" else t
+            for a, b in ((u, v), (v, u)):
+                if a in custo and custo[a] + w < custo.get(b, float("inf")):
+                    custo[b] = custo[a] + w
+    return custo
 
 
 class TestGrafo(unittest.TestCase):
@@ -80,11 +93,43 @@ class TestDijkstra(unittest.TestCase):
         self.assertEqual(dijkstra(grafo_pequeno(), 0, "tempo")[0][3], 8)
         self.assertRaises(KeyError, dijkstra, grafo_pequeno(), 42)
 
+    def test_confere_com_bellman_ford(self):
+        g = gerar_grafo(15, semente=3)
+        esparso = Grafo()   # tira arestas para o grafo deixar de ser completo
+        for i in g.ids():
+            esparso.adicionar_vertice(g.vertice(i))
+        for u, v, d, t in g.arestas():
+            if (u + v) % 3 != 0 or 0 in (u, v):
+                esparso.adicionar_aresta(u, v, d, t)
+        for peso in ("distancia", "tempo"):
+            for origem in esparso.ids():
+                with self.subTest(peso=peso, origem=origem):
+                    nosso, ref = dijkstra(esparso, origem, peso)[0], bellman_ford(esparso, origem, peso)
+                    self.assertEqual(nosso.keys(), ref.keys())
+                    for v in ref:
+                        self.assertAlmostEqual(nosso[v], ref[v], places=9)
+
     def test_matriz_aceita_dicionario_do_contrato(self):
         d = grafo_pequeno().para_contrato()
         m = matriz_custos(d, "distancia")
         self.assertEqual(m[3][0], 4)
         self.assertEqual(m, matriz_custos(Grafo.de_contrato(d)))
+
+
+class TestGerador(unittest.TestCase):
+    def test_mesma_semente_mesmo_resultado(self):
+        self.assertEqual(gerar_vertices(10, semente=5), gerar_vertices(10, semente=5))
+        self.assertNotEqual(gerar_vertices(10, semente=5), gerar_vertices(10, semente=6))
+
+    def test_instancia_cumpre_o_contrato(self):
+        g = gerar_grafo(12, semente=1)
+        self.assertEqual(validar_grafo(g.para_contrato()), [])
+        self.assertEqual((g.num_vertices, g.num_arestas), (13, 12 * 13 // 2))   # grafo completo
+        for i in g.clientes():
+            v = g.vertice(i)
+            self.assertIn(v["prioridade"], (1, 2, 3))
+            self.assertTrue(480 <= v["janela"][0] < v["janela"][1] <= 18 * 60)
+            self.assertTrue(5 <= v["demanda"] <= 30)
 
 
 class TestDados(unittest.TestCase):
