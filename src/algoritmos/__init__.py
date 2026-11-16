@@ -8,3 +8,4 @@ Implementar aqui:
 A API espera uma função com a mesma assinatura e retorno de
 src/api/mock.py -> calcular_rotas(grafo, veiculos, capacidade, algoritmo, usar_2opt).
 """
+from .rotas import ALGORITMOS, calcular_rotas
