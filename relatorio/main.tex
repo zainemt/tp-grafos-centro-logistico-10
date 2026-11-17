@@ -112,13 +112,23 @@ Seção~\ref{sec:conclusao} conclui o trabalho.
 % TODO
 
 \subsection{Diagramas UML}
-% TODO
-% \begin{figure}[ht]
-%   \centering
-%   \includegraphics[width=.9\textwidth]{figuras/uml-classes.png}
-%   \caption{Diagrama de classes.}
-%   \label{fig:uml-classes}
-% \end{figure}
+O diagrama de classes da Figura~\ref{fig:uml-classes} mostra a estrutura do núcleo de grafos
+(\texttt{src/grafo}). A classe \texttt{Grafo} guarda o grafo não direcionado e ponderado em
+lista de adjacência: cada vértice aponta para seus vizinhos e para os pesos da aresta
+(\texttt{distancia}, em km, e \texttt{tempo}, em minutos), e a mesma estrutura de pesos é
+compartilhada pelos dois sentidos da aresta. \texttt{Vertice} e \texttt{Pesos} não são classes
+no código, e sim dicionários com os campos do contrato da API; aparecem como
+``estrutura'' para mostrar o que cada vértice e cada aresta carregam.
+Os módulos \texttt{dados} (leitura e validação dos CSV) e \texttt{dijkstra} (caminhos mínimos e
+matriz de custos) são conjuntos de funções que criam e percorrem o \texttt{Grafo}.
+% TODO (Dupla 1): demais diagramas da modelagem (casos de uso, atividades), se forem entrar
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=.8\textwidth]{figuras/uml-classes.png}
+  \caption{Diagrama de classes do núcleo de grafos.}
+  \label{fig:uml-classes}
+\end{figure}
 
 \subsection{Base de dados}
 % TODO
