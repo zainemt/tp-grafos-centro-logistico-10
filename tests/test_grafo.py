@@ -81,6 +81,58 @@ class TestGrafo(unittest.TestCase):
             g.deposito
 
 
+def ruas_mao_unica():
+    """Esquinas 1->2->3 em mão única; 3-1 de mão dupla por fora (mais longo); 4 só recebe arco."""
+    g = Grafo(direcionado=True)
+    for i in range(1, 5):
+        g.adicionar_vertice({"id": i, "lat": -23.5, "lon": -46.6 + i / 1000})
+    for u, v, d in [(1, 2, 1), (2, 3, 1), (3, 1, 5), (1, 3, 5), (3, 4, 2)]:
+        g.adicionar_aresta(u, v, d, d * 3)
+    return g
+
+
+class TestGrafoDirecionado(unittest.TestCase):
+    def test_arco_tem_um_sentido_so(self):
+        g = ruas_mao_unica()
+        self.assertTrue(g.direcionado)
+        self.assertEqual(g.num_arestas, 5)
+        self.assertEqual(g.aresta(1, 2), {"distancia": 1, "tempo": 3})
+        self.assertIsNone(g.aresta(2, 1))                     # contramão não existe
+        self.assertEqual(sorted(g.vizinhos(3)), [(1, 5), (4, 2)])
+        self.assertEqual(g.vizinhos(4), [])
+        self.assertEqual(len(list(g.arestas())), 5)           # cada arco aparece uma vez
+        self.assertIn("arcos", repr(g))
+
+    def test_ida_e_volta_podem_ter_pesos_diferentes(self):
+        g = ruas_mao_unica()
+        g.adicionar_aresta(2, 1, 4, 12)                       # a volta é outro arco
+        self.assertEqual(g.aresta(1, 2)["distancia"], 1)
+        self.assertEqual(g.aresta(2, 1)["distancia"], 4)
+        self.assertRaises(ValueError, g.adicionar_aresta, 1, 2, 1, 3)   # mesmo sentido repetido
+
+    def test_dijkstra_respeita_a_mao_unica(self):
+        g = ruas_mao_unica()
+        ida = dijkstra(g, 1)[0]
+        volta = dijkstra(g, 3)[0]
+        self.assertEqual(ida[3], 2)                           # 1->2->3
+        self.assertEqual(volta[1], 5)                         # 3->1 direto: não dá para voltar por 2
+        self.assertNotIn(1, dijkstra(g, 4)[0])                # do 4 não sai nenhum arco
+
+    def test_invertido_da_o_custo_ate_o_vertice(self):
+        g = ruas_mao_unica()
+        ate_3 = dijkstra(g.invertido(), 3)[0]                 # custo de cada esquina ATÉ a 3
+        for origem in (1, 2):
+            self.assertEqual(ate_3[origem], dijkstra(g, origem)[0][3])
+        self.assertIsNone(g.invertido().aresta(1, 2))
+        self.assertEqual(g.invertido().aresta(2, 1), {"distancia": 1, "tempo": 3})
+
+    def test_nao_direcionado_continua_igual(self):
+        g = grafo_pequeno()
+        self.assertFalse(g.direcionado)
+        self.assertEqual(g.invertido().para_contrato(), g.para_contrato())
+        self.assertRaises(ValueError, ruas_mao_unica().para_contrato)   # contrato é só do logístico
+
+
 class TestDijkstra(unittest.TestCase):
     def test_caminho_minimo(self):
         custo, anterior = dijkstra(grafo_pequeno(), 0)
