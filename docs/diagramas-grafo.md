@@ -16,7 +16,8 @@ Arquivo da figura: `figuras/uml-classes.png`
 O núcleo é a classe `Grafo` (`src/grafo/grafo.py`), que guarda o grafo não direcionado e ponderado em
 lista de adjacência. `Vertice` e `Pesos` não são classes no código: são dicionários com os campos do
 contrato da API (`src/api/contrato.py`). Aparecem aqui como `«estrutura»` para mostrar o que cada vértice
-e cada aresta carregam. `dijkstra` e `dados` são módulos de funções, representados como `«módulo»`.
+e cada aresta carregam. `dijkstra`, `dados` e `gerador` são módulos de funções, representados como `«módulo»`. O `gerador` cria
+instâncias sintéticas (reprodutíveis pela semente) só para os testes e o benchmark; a base do sistema vem de `dados/`.
 
 ```mermaid
 classDiagram
@@ -80,6 +81,15 @@ classDiagram
         -_haversine_km(a, b) float
     }
 
+    class gerador {
+        <<módulo>>
+        +DEPOSITO : Vertice
+        +SEMENTE_PADRAO : int = 10
+        +gerar_grafo(n_clientes: int, semente: int) Grafo
+        +gerar_vertices(n_clientes: int, semente: int) list[Vertice]
+        +sortear_janela_e_prioridade(rnd: Random) tuple[list, int]
+    }
+
     class ErroDados {
         +problemas : list[str]
     }
@@ -101,6 +111,8 @@ classDiagram
     dados ..> dijkstra : alcançabilidade
     dados ..> contrato : valida
     dados ..> ErroDados : lança
+    gerador ..> Grafo : cria
+    gerador ..> dados : arestas completas
 ```
 
 **Decisões que o diagrama mostra**
