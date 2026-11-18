@@ -43,10 +43,11 @@ def calcular_horarios(rota, deposito, dist, tempo, janela, inicio_expediente, te
 def _montar_solucao(clientes, deposito, dist, tempo, demanda, prioridade, janela, capacidade, veiculos, inicio_expediente, tempo_servico, usar_2opt, algoritmo):
 
     viagens, nao_atendidos = CONSTRUTORES[algoritmo](
-        clientes, deposito, dist, demanda, capacidade, veiculos, prioridade)
+        clientes, deposito, dist, tempo, demanda, capacidade, veiculos, prioridade, janela, inicio_expediente, tempo_servico)
 
     if usar_2opt:
-        viagens = [dois_opt(rota, deposito, dist) for rota in viagens]
+        viagens = [dois_opt(rota, deposito, dist, tempo, janela,
+                            inicio_expediente, tempo_servico) for rota in viagens]
 
     rotas = []
 
