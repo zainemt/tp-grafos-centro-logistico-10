@@ -74,7 +74,7 @@ O sistema exige login. Sem sessão, a página redireciona para `/login` e a API 
 - defina a variável de ambiente `SECRET_KEY` com um valor longo e aleatório para as sessões sobreviverem a reinícios; sem ela, o servidor gera uma chave nova a cada execução e avisa no terminal;
 - ao publicar com HTTPS, defina também `SESSION_COOKIE_SECURE=1`.
 
-> **Dados de exemplo:** enquanto o grafo e os algoritmos reais não estiverem prontos, a API usa dados gerados por `src/api/mock.py`, e a tela mostra o selo *dados de exemplo*. Veja [Integração](#-integração-duplas-1-e-2).
+> **Dados de exemplo:** os algoritmos já são os reais, mas enquanto não existir `dados/vertices.csv` o grafo vem de `src/api/mock.py` e a tela mostra o selo *dados de exemplo*. Quando o arquivo for criado, a API passa a ler a base real sozinha e o selo some. Veja [Integração](#-integração-duplas-1-e-2).
 
 ## 🖥️ A tela
 
@@ -182,23 +182,24 @@ Os **testes de corretude** (`tests/test_corretude.py`) vão além do formato e c
 - as métricas somam as rotas, e com frota de sobra ninguém fica sem atendimento;
 - em instâncias pequenas, nenhuma solução fica mais curta que o ótimo da força bruta.
 
-Dois testes de qualidade (o 2-opt nunca piora; Clarke-Wright + 2-opt fica a até 25% do ótimo) só rodam quando `FONTE = "real"`.
+Dois testes de qualidade (o 2-opt nunca piora; Clarke-Wright + 2-opt fica a até 25% do ótimo) só rodam quando `FONTE_ALGORITMOS = "real"` (hoje rodam).
 
 **Rode esses testes antes de integrar o seu código.**
 
 ## 🔗 Integração (Duplas 1 e 2)
 
-A API não depende de como o grafo e os algoritmos são feitos por dentro, só do **formato** do que eles devolvem. Para trocar os dados de exemplo pelo código real:
+A API não depende de como o grafo e os algoritmos são feitos por dentro, só do **formato** do que eles devolvem. O estado atual da integração, em `src/api/app.py`:
 
-1. Implemente as funções em `src/grafo/` e `src/algoritmos/` devolvendo os formatos da seção [Contrato da API](#-contrato-da-api).
-2. No topo de `src/api/app.py`, troque as linhas que apontam para `mock`:
-   ```python
-   carregar_grafo   = mock.gerar_grafo        # → função da Dupla 1
-   calcular_rotas   = mock.calcular_rotas     # → função da Dupla 2
-   medir_desempenho = mock.medir_desempenho  # → incluir a série do NetworkX
-   FONTE = "mock"                             # → "real" (remove o selo "dados de exemplo")
-   ```
-3. Rode os testes de contrato. Se passarem, a interface funciona sem nenhuma mudança.
+| Peça | De onde vem hoje |
+|---|---|
+| `calcular_rotas` | algoritmos reais da Dupla 2 (`src/algoritmos`) |
+| Grafo (`carregar_grafo`) | a base real (`dados/vertices.csv`) **se o arquivo existir**; senão os dados de exemplo (`src/api/mock.py`) |
+| `medir_desempenho` | benchmark do `calcular_rotas` real em `src/api/desempenho.py`, com instâncias do gerador da Dupla 1 |
+
+- `FONTE` diz de onde vêm os **dados** (`"real"` ou `"mock"`) e controla o selo *dados de exemplo*; ela muda sozinha quando `dados/vertices.csv` é criado. Uma base inválida impede a API de subir, com a lista de erros por linha.
+- `FONTE_ALGORITMOS` diz se os algoritmos são os reais (hoje `"real"`).
+- Falta a **Dupla 1** acrescentar a série do NetworkX ao benchmark (mais uma série em `medir_desempenho`; a tela mostra um aviso até ela existir).
+- Rode os testes (`python -m unittest discover tests -v`). Se passarem, a interface funciona sem nenhuma mudança.
 
 ## 🔌 Contrato da API
 
@@ -278,7 +279,7 @@ Depois, envie o PNG novo para a pasta `figuras` do Overleaf com **Overwrite** e 
 ```
 src/grafo/        Dupla 1: classe do grafo, leitura dos dados e Dijkstra
 src/algoritmos/   Dupla 2: vizinho mais próximo, Clarke-Wright, 2-opt e métricas
-src/api/          Dupla 3: API Flask (app.py), login e sessão (auth.py), validador do contrato (contrato.py) e dados de exemplo (mock.py)
+src/api/          Dupla 3: API Flask (app.py), login e sessão (auth.py), validador do contrato (contrato.py), benchmark da aba Desempenho (desempenho.py) e dados de exemplo (mock.py)
 frontend/         Dupla 3: interface (index.html, style.css, app.js) e telas de login e cadastro (login.*, registrar.*, logo.svg)
 tests/            testes de contrato, de corretude e de autenticação
 dados/            base de dados (CSV) e usuários do login (usuarios.json; usuarios.local.json = contas criadas pela tela, fora do git)
@@ -298,18 +299,18 @@ docs/             diagramas UML (diagramas.md), roteiro da apresentação e do v
 
 ## 📋 Andamento e pendências
 
-Entrega: **22/11**. Situação em 12/11:
+Entrega: **22/11**. Situação em 12/11 (as linhas de grafo, algoritmos, integração e testes foram atualizadas em 18/11):
 
 | Item | Situação | Responsável |
 |---|---|---|
 | Interface web, simulação, linha do tempo, comparação, desempenho | ✅ pronto (com dados de exemplo) | Dupla 3 |
 | API, contrato, login e cadastro | ✅ pronto | Dupla 3 |
-| Testes de contrato, de corretude e de autenticação | ✅ prontos (51 testes) | Dupla 3 |
+| Testes de contrato, de corretude e de autenticação | ✅ prontos (81 testes) | Dupla 3 |
 | Seção 4 do relatório (arquitetura, testes, acesso, interface) e diagramas UML | ✅ pronta, menos os prints | Dupla 3 |
-| **Classe do grafo, leitura do CSV e Dijkstra** (`src/grafo/`) | ❌ não iniciado | **Dupla 1** |
-| **Base de dados** em `dados/` + nota de origem (Kaggle) | ❌ falta | **Dupla 1** |
-| **Vizinho mais próximo, Clarke-Wright e 2-opt** (`src/algoritmos/`) | ❌ não iniciado | **Dupla 2** |
-| Integração (trocar o mock em `src/api/app.py`) e rodar os testes | ⏳ depende das Duplas 1 e 2 | Todos |
+| **Classe do grafo, leitura do CSV e Dijkstra** (`src/grafo/`) | ✅ na `main` (falta o benchmark com NetworkX) | **Dupla 1** |
+| **Base de dados** em `dados/` + nota de origem (Kaggle) | ❌ falta o `vertices.csv` (origem em preparação: Olist VRP Benchmark) | **Dupla 1** |
+| **Vizinho mais próximo, Clarke-Wright e 2-opt** (`src/algoritmos/`) | ✅ na `main` | **Dupla 2** |
+| Integração (`src/api/app.py`) e rodar os testes | ⏳ algoritmos integrados; o grafo troca para a base real quando o `vertices.csv` existir | Todos |
 | Prints das telas no relatório (tirar os "Figura ??") | ⏳ depois da integração | Dupla 3 |
 | Seções 2, 3 e 5 do relatório (modelagem, algoritmos, resultados + NetworkX) | ❌ vazias | Duplas 1 e 2 |
 | Limitações, conclusão, nomes completos, instituição, tabela de responsabilidades | ❌ falta | Todos |
@@ -317,13 +318,20 @@ Entrega: **22/11**. Situação em 12/11:
 | Slides (10 min) e vídeo (12 a 18 min) | ❌ falta | Todos, ver [docs/apresentacao.md](docs/apresentacao.md) |
 | Commits de **todos** os 6 membros no Git | ⏳ hoje só 2 membros têm commits | Todos |
 
+## 🆕 Últimas alterações (18/11)
+
+**Integração da API com o código real** (`src/api/app.py`, `src/api/desempenho.py`, `tests/test_integracao.py`, 9 testes novos)
+- O grafo vem da base real quando `dados/vertices.csv` existe; sem ele, dos dados de exemplo, e o selo *dados de exemplo* aparece. Antes, o selo ficava escondido mesmo com o grafo de exemplo.
+- `FONTE` (dados) e `FONTE_ALGORITMOS` (algoritmos) passaram a ser separadas; os testes de qualidade dependem da segunda.
+- A aba Desempenho mede o `calcular_rotas` real (antes medimos a heurística de exemplo). Pelas medições locais, com 100 clientes leva cerca de 0,4 s por cálculo e com 200 cerca de 6 s, porque o Dijkstra roda de todos contra todos (distância e tempo) em grafo completo. Tamanhos perto do limite de 500 levam minutos.
+
 ## 🆕 Últimas alterações (12/11)
 
 **Testes de corretude:** `tests/test_corretude.py`, 12 testes novos
 - Dijkstra de referência, conferido contra Floyd-Warshall, usado para validar os resultados de `calcular_rotas` em 4 instâncias × 4 frotas × 2 algoritmos × com e sem 2-opt.
 - Conferem: grafo conexo e sem laços ou arestas repetidas; distância das rotas igual à soma dos caminhos mínimos; tempo mínimo de viagem respeitado; janelas de tempo (espera, sem espera à toa, `atrasado` correto); métricas e ocupação; ausência de rotas vazias; atendimento completo com frota de sobra; nenhuma solução abaixo do ótimo da força bruta.
-- Dois testes de qualidade só rodam com `FONTE = "real"`: o 2-opt nunca piora, e Clarke-Wright + 2-opt fica a até 25% do ótimo.
-- Hoje: 51 testes no total, todos passando (2 pulados enquanto a API usa o mock).
+- Dois testes de qualidade só rodam com `FONTE_ALGORITMOS = "real"`: o 2-opt nunca piora, e Clarke-Wright + 2-opt fica a até 25% do ótimo.
+- Em 12/11: 51 testes, 2 pulados enquanto a API usava o mock. Em 18/11: 81 testes, todos passando e nenhum pulado.
 
 **Relatório** (`relatorio/main.tex`):
 - Figura 1 (arquitetura) incluída, e Figuras 2 a 4 (componentes, sequência, estados) ativadas.

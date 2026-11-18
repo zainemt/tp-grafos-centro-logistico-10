@@ -7,7 +7,7 @@ mock.gerar_grafo só como gerador de cenários: qualquer calcular_rotas que siga
 o contrato precisa funcionar com elas.
 
 Os testes da classe TestQualidade só fazem sentido para os algoritmos reais e
-são pulados enquanto FONTE == "mock".
+são pulados enquanto FONTE_ALGORITMOS == "mock".
 
     python -m unittest discover tests -v
 """
@@ -214,7 +214,7 @@ class TestRotas(_BaseRotas):
                         self.assertGreaterEqual(res["metricas"]["distancia_total"], otimo - TOL * (n + 1))
 
 
-@unittest.skipIf(api.FONTE == "mock", "só vale para os algoritmos reais (FONTE = 'real')")
+@unittest.skipIf(api.FONTE_ALGORITMOS == "mock", "só vale para os algoritmos reais (FONTE_ALGORITMOS = 'real')")
 class TestQualidade(_BaseRotas):
     def test_2opt_nunca_piora(self):
         """Com o mesmo algoritmo e a mesma frota, ligar o 2-opt não aumenta a distância."""

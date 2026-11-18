@@ -16,20 +16,37 @@ sys.path.insert(0, RAIZ)
 from src.algoritmos import calcular_rotas, ALGORITMOS  # noqa: E402
 from src.api import mock  # noqa: E402
 from src.api.auth import registrar_auth  # noqa: E402
-from src.grafo import carregar_grafo  # noqa: E402
+from src.api.desempenho import medir_desempenho  # noqa: E402
+from src.grafo import carregar_grafo as carregar_grafo_real  # noqa: E402
+from src.grafo.dados import ARQUIVO_VERTICES  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # PONTO DE INTEGRAÇÃO
-# Quando o código real estiver pronto, troque estas funções:
-#   carregar_grafo    -> função da Dupla 1 (src/grafo)
-#   calcular_rotas    -> função da Dupla 2 (src/algoritmos)
-#   medir_desempenho  -> benchmark das Duplas 1 e 2 (inclui a comparação com NetworkX)
-# e mude FONTE para "real".
+#   calcular_rotas    -> algoritmos reais da Dupla 2 (src/algoritmos)
+#   medir_desempenho  -> benchmark do calcular_rotas real (src/api/desempenho.py);
+#                        a Dupla 1 acrescenta a série do NetworkX
+#   carregar_grafo    -> a base real da Dupla 1 (dados/vertices.csv) quando ela existir;
+#                        enquanto não existir, os dados de exemplo (src/api/mock.py)
+#
+# FONTE            diz de onde vêm os DADOS ("real" ou "mock"); com "mock" a tela mostra o
+#                  selo "dados de exemplo". Muda sozinha quando dados/vertices.csv é criado.
+# FONTE_ALGORITMOS diz se os algoritmos são os reais; os testes de qualidade dependem dela.
 # ---------------------------------------------------------------------------
-carregar_grafo = mock.gerar_grafo
-# calcular_rotas = mock.calcular_rotas
-medir_desempenho = mock.medir_desempenho
-FONTE = "real"
+FONTE_ALGORITMOS = "real"
+
+
+def escolher_fonte_dos_dados(arquivo_vertices=ARQUIVO_VERTICES):
+    """Devolve (função que carrega o grafo, rótulo da fonte).
+
+    Com dados/vertices.csv, usa a leitura real (e uma base inválida impede a API de subir,
+    com a lista de problemas). Sem ele, usa os dados de exemplo.
+    """
+    if os.path.isfile(arquivo_vertices):
+        return carregar_grafo_real, "real"
+    return mock.gerar_grafo, "mock"
+
+
+carregar_grafo, FONTE = escolher_fonte_dos_dados()
 
 TAMANHOS_PADRAO = [10, 25, 50, 100, 200]
 TAMANHO_MAXIMO = 500
@@ -91,7 +108,7 @@ def api_desempenho():
     if not tamanhos or tamanhos[0] < 2 or tamanhos[-1] > TAMANHO_MAXIMO:
         return jsonify({"erro": f"use tamanhos entre 2 e {TAMANHO_MAXIMO}"}), 400
     resultado = medir_desempenho(tamanhos)
-    resultado["fonte"] = FONTE
+    resultado["fonte"] = "sintetico"  # mede grafos gerados por semente, não a base de dados
     return jsonify(resultado)
 
 
