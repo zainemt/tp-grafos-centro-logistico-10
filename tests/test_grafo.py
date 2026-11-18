@@ -130,7 +130,19 @@ class TestGrafoDirecionado(unittest.TestCase):
         g = grafo_pequeno()
         self.assertFalse(g.direcionado)
         self.assertEqual(g.invertido().para_contrato(), g.para_contrato())
-        self.assertRaises(ValueError, ruas_mao_unica().para_contrato)   # contrato é só do logístico
+
+    def test_mao_unica_pelo_contrato(self):
+        """O mapa (direcionado) também segue o contrato: arco sem par igual vira "mao_unica"."""
+        g = ruas_mao_unica()
+        d = g.para_contrato()
+        unicas = {(a["u"], a["v"]) for a in d["arestas"] if a.get("mao_unica")}
+        duplas = [a for a in d["arestas"] if not a.get("mao_unica")]
+        self.assertEqual(unicas, {(1, 2), (2, 3), (3, 4)})
+        self.assertEqual(len(duplas), 1)                     # 1-3 e 3-1 iguais: uma aresta de mão dupla
+        volta = Grafo.de_contrato(d)
+        self.assertTrue(volta.direcionado)
+        self.assertEqual(sorted(volta.arestas()), sorted(g.arestas()))
+        self.assertEqual(volta.para_contrato(), d)
 
 
 class TestDijkstra(unittest.TestCase):

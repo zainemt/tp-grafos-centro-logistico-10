@@ -17,17 +17,16 @@ from src.algoritmos import calcular_rotas, ALGORITMOS  # noqa: E402
 from src.api import mock  # noqa: E402
 from src.api.auth import registrar_auth  # noqa: E402
 from src.grafo import carregar_grafo  # noqa: E402
+from src.grafo.mapa import Trajetos  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # PONTO DE INTEGRAÇÃO
-# Quando o código real estiver pronto, troque estas funções:
-#   carregar_grafo    -> função da Dupla 1 (src/grafo)
-#   calcular_rotas    -> função da Dupla 2 (src/algoritmos)
-#   medir_desempenho  -> benchmark das Duplas 1 e 2 (inclui a comparação com NetworkX)
-# e mude FONTE para "real".
+#   carregar_grafo    -> Dupla 1 (src/grafo): o mapa real, lido de dados/*.csv
+#                        (gerados por: python -m src.grafo.preparar_base)
+#   calcular_rotas    -> Dupla 2 (src/algoritmos)
+#   medir_desempenho  -> ainda o de exemplo; falta o benchmark das Duplas 1 e 2
+#                        (inclui a comparação com NetworkX)
 # ---------------------------------------------------------------------------
-carregar_grafo = mock.gerar_grafo
-# calcular_rotas = mock.calcular_rotas
 medir_desempenho = mock.medir_desempenho
 FONTE = "real"
 
@@ -38,6 +37,7 @@ app = Flask(__name__, static_folder=os.path.join(
     RAIZ, "frontend"), static_url_path="")
 registrar_auth(app)
 _grafo = carregar_grafo()
+_trajetos = Trajetos(_grafo)   # desenho de cada rota pelas ruas (caminhos mínimos)
 
 
 @app.get("/")
@@ -76,6 +76,9 @@ def api_rotas():
         _grafo, veiculos, capacidade, algoritmo, usar_2opt)
     resultado["tempo_execucao_ms"] = round(
         (time.perf_counter() - inicio) * 1000, 3)
+    for rota in resultado["rotas"]:
+        # um trecho de pontos [lat, lon] por perna da rota, seguindo as ruas
+        rota["trajetos"] = _trajetos.da_rota(rota["paradas"])
     resultado["fonte"] = FONTE
     return jsonify(resultado)
 

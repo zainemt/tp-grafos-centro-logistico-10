@@ -32,19 +32,22 @@ CENARIOS = [
 # ---------------------------------------------------------------------------
 # Referências independentes do código das duplas
 # ---------------------------------------------------------------------------
-def adjacencia(grafo, peso):
+def adjacencia(grafo, peso, invertida=False):
+    """Lista de adjacência; aresta com "mao_unica" só vale de u para v (ou de v para u, se invertida)."""
     adj = {v["id"]: [] for v in grafo["vertices"]}
     for a in grafo["arestas"]:
-        adj[a["u"]].append((a["v"], a[peso]))
-        adj[a["v"]].append((a["u"], a[peso]))
+        u, v = (a["v"], a["u"]) if invertida else (a["u"], a["v"])
+        adj[u].append((v, a[peso]))
+        if not a.get("mao_unica"):
+            adj[v].append((u, a[peso]))
     return adj
 
 
-def caminhos_minimos(grafo, peso):
-    """Dijkstra de referência a partir de cada vértice: {origem: {destino: custo}}."""
-    adj = adjacencia(grafo, peso)
+def caminhos_minimos(grafo, peso, origens=None, invertida=False):
+    """Dijkstra de referência a partir de cada origem (padrão: todos os vértices): {origem: {destino: custo}}."""
+    adj = adjacencia(grafo, peso, invertida)
     todos = {}
-    for origem in adj:
+    for origem in (adj if origens is None else origens):
         dist = {origem: 0.0}
         fila = [(0.0, origem)]
         while fila:
@@ -94,17 +97,22 @@ class TestGrafo(unittest.TestCase):
         self.grafo = api.carregar_grafo()
 
     def test_conexo_a_partir_do_deposito(self):
-        alcancaveis = caminhos_minimos(self.grafo, "distancia")[deposito_de(self.grafo)]
+        """Todo vértice é alcançável a partir do depósito e tem caminho de volta (ruas de mão única)."""
+        dep = deposito_de(self.grafo)
         ids = {v["id"] for v in self.grafo["vertices"]}
-        self.assertEqual(ids - alcancaveis.keys(), set(), "vértices inalcançáveis a partir do depósito")
+        ida = caminhos_minimos(self.grafo, "distancia", [dep])[dep]
+        volta = caminhos_minimos(self.grafo, "distancia", [dep], invertida=True)[dep]
+        self.assertEqual(ids - ida.keys(), set(), "vértices inalcançáveis a partir do depósito")
+        self.assertEqual(ids - volta.keys(), set(), "vértices sem caminho de volta ao depósito")
 
     def test_sem_laços_nem_arestas_repetidas(self):
-        vistas = set()
+        """Cada sentido de cada par aparece no máximo uma vez (mão dupla ocupa os dois sentidos)."""
+        vistos = set()
         for a in self.grafo["arestas"]:
             self.assertNotEqual(a["u"], a["v"], f"laço no vértice {a['u']}")
-            par = frozenset((a["u"], a["v"]))
-            self.assertNotIn(par, vistas, f"aresta repetida {a['u']}-{a['v']}")
-            vistas.add(par)
+            sentidos = {(a["u"], a["v"])} if a.get("mao_unica") else {(a["u"], a["v"]), (a["v"], a["u"])}
+            self.assertFalse(sentidos & vistos, f"aresta repetida {a['u']}-{a['v']}")
+            vistos |= sentidos
 
     def test_referencias_de_caminho_minimo_concordam(self):
         """Garante que a referência usada nos outros testes está certa."""

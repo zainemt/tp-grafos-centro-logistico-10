@@ -12,7 +12,7 @@ import os
 
 from src.api.contrato import validar_grafo
 from src.grafo.dijkstra import dijkstra
-from src.grafo.grafo import Grafo
+from src.grafo.grafo import TIPOS, Grafo, _invertida
 
 RAIZ = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 PASTA_DADOS = os.path.join(RAIZ, "dados")
@@ -21,6 +21,8 @@ ARQUIVO_ARESTAS = os.path.join(PASTA_DADOS, "arestas.csv")
 
 COLUNAS_VERTICES = ("id", "nome", "lat", "lon", "demanda", "janela_inicio", "janela_fim", "prioridade", "deposito")
 COLUNAS_ARESTAS = ("u", "v", "distancia", "tempo")
+# Colunas opcionais: vertices.csv -> tipo (deposito/cliente/esquina);
+# arestas.csv -> mao_unica (1/0), nome (da rua), geometria ("lat lon;lat lon;...").
 
 # Usados só quando não há arestas.csv: o grafo vira completo, com a distância em
 # linha reta (haversine) corrigida para ruas e o tempo a uma velocidade média urbana.
@@ -122,6 +124,13 @@ def _vertice(linha):
         "prioridade": _inteiro(linha["prioridade"], "prioridade"),
         "deposito": _booleano(linha["deposito"], "deposito"),
     }
+    tipo = (linha.get("tipo") or "").strip().lower()
+    if tipo:
+        if tipo not in TIPOS:
+            raise ValueError(f"tipo inválido: {tipo!r} (use {', '.join(TIPOS)})")
+        vertice["tipo"] = tipo
+    else:
+        tipo = "deposito" if vertice["deposito"] else "cliente"
     problemas = []
     if not vertice["nome"]:
         problemas.append("nome vazio")
@@ -131,9 +140,14 @@ def _vertice(linha):
         problemas.append("demanda negativa")
     if vertice["janela"][0] > vertice["janela"][1]:
         problemas.append(f"janela começa depois de terminar: {linha['janela_inicio']}-{linha['janela_fim']}")
-    if vertice["deposito"]:
+    if (tipo == "deposito") != vertice["deposito"]:
+        problemas.append(f"tipo {tipo!r} não combina com deposito={int(vertice['deposito'])}")
+    elif tipo == "deposito":
         if vertice["demanda"] != 0:
             problemas.append("depósito deve ter demanda 0")
+    elif tipo == "esquina":
+        if vertice["demanda"] != 0:
+            problemas.append("esquina deve ter demanda 0")
     elif vertice["prioridade"] not in PRIORIDADES_CLIENTE:
         problemas.append(f"prioridade deve ser 1, 2 ou 3: {vertice['prioridade']}")
     if problemas:
@@ -141,11 +155,33 @@ def _vertice(linha):
     return vertice
 
 
+def _geometria(texto):
+    """'lat lon;lat lon;...' -> [[lat, lon], ...] (vazio -> None)."""
+    texto = (texto or "").strip()
+    if not texto:
+        return None
+    pontos = []
+    for par in texto.split(";"):
+        partes = par.split()
+        if len(partes) != 2:
+            raise ValueError(f"geometria inválida: {par!r} (use 'lat lon;lat lon')")
+        pontos.append([_real(partes[0], "geometria"), _real(partes[1], "geometria")])
+    return pontos
+
+
 def _aresta(linha):
     a = {"u": _inteiro(linha["u"], "u"), "v": _inteiro(linha["v"], "v"),
          "distancia": _real(linha["distancia"], "distancia"), "tempo": _real(linha["tempo"], "tempo")}
     if a["distancia"] < 0 or a["tempo"] < 0:
         raise ValueError("peso negativo")
+    if _booleano(linha.get("mao_unica") or "0", "mao_unica"):
+        a["mao_unica"] = True
+    nome = (linha.get("nome") or "").strip()
+    if nome:
+        a["nome"] = nome
+    geometria = _geometria(linha.get("geometria"))
+    if geometria:
+        a["geometria"] = geometria
     return a
 
 
@@ -198,18 +234,29 @@ def ler_grafo(caminho_vertices=None, caminho_arestas=None):
     if problemas:
         raise ErroDados(problemas)
 
-    grafo = Grafo()
+    direcionado = any(a.get("mao_unica") for a in arestas)
+    grafo = Grafo(direcionado=direcionado)
     for v in vertices:
         grafo.adicionar_vertice(v)
     for a in arestas:
+        nome, geo = a.get("nome"), a.get("geometria")
         try:
-            grafo.adicionar_aresta(a["u"], a["v"], a["distancia"], a["tempo"])
+            grafo.adicionar_aresta(a["u"], a["v"], a["distancia"], a["tempo"], nome, geo)
+            if direcionado and not a.get("mao_unica"):   # mão dupla: o arco de volta
+                grafo.adicionar_aresta(a["v"], a["u"], a["distancia"], a["tempo"], nome, _invertida(geo))
         except ValueError as e:  # laço ou aresta repetida
             problemas.append(str(e))
-    alcancaveis = dijkstra(grafo, grafo.deposito)[0] if not problemas else {}
-    inalcancaveis = sorted(set(grafo.ids()) - alcancaveis.keys()) if not problemas else []
-    if inalcancaveis:
-        problemas.append(f"vértices inalcançáveis a partir do depósito: {inalcancaveis}")
+    if not problemas:
+        deposito = grafo.deposito
+        ida = dijkstra(grafo, deposito)[0]
+        inalcancaveis = sorted(set(grafo.ids()) - ida.keys())
+        if inalcancaveis:
+            problemas.append(f"vértices inalcançáveis a partir do depósito: {inalcancaveis}")
+        if direcionado:  # com mão única, também é preciso conseguir VOLTAR ao depósito
+            volta = dijkstra(grafo.invertido(), deposito)[0]
+            sem_volta = sorted(set(grafo.ids()) - volta.keys())
+            if sem_volta:
+                problemas.append(f"vértices sem caminho de volta ao depósito: {sem_volta}")
     if problemas:
         raise ErroDados(problemas)
     return grafo
