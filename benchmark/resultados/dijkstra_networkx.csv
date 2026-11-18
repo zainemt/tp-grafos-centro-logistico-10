@@ -1,0 +1,89 @@
+familia,instancia,direcionado,vertices,arestas,arcos,conversao_networkx_ms,peso,operacao,implementacao,origens,repeticoes,mediana_ms,minimo_ms,maximo_ms,divergencias
+mapa,Mapa de SP (real),True,1550,2910,2910,2.653,distancia,uma_origem,nosso,10,5,12.167,11.264,13.034,0
+mapa,Mapa de SP (real),True,1550,2910,2910,2.653,distancia,uma_origem,networkx,10,5,13.702,13.475,13.812,0
+mapa,Mapa de SP (real),True,1550,2910,2910,2.653,distancia,matriz,nosso,31,5,39.327,38.435,39.776,0
+mapa,Mapa de SP (real),True,1550,2910,2910,2.653,distancia,matriz,networkx,31,5,43.497,42.666,48.851,0
+mapa,Mapa de SP (real),True,1550,2910,2910,2.653,tempo,uma_origem,nosso,10,5,14.418,14.36,14.95,0
+mapa,Mapa de SP (real),True,1550,2910,2910,2.653,tempo,uma_origem,networkx,10,5,15.013,14.559,16.0,0
+mapa,Mapa de SP (real),True,1550,2910,2910,2.653,tempo,matriz,nosso,31,5,40.224,38.179,44.873,0
+mapa,Mapa de SP (real),True,1550,2910,2910,2.653,tempo,matriz,networkx,31,5,37.083,36.745,38.165,0
+grade,Grade 25x25,False,625,1200,2400,1.628,distancia,uma_origem,nosso,10,5,6.344,6.256,7.031,0
+grade,Grade 25x25,False,625,1200,2400,1.628,distancia,uma_origem,networkx,10,5,7.564,7.448,7.907,0
+grade,Grade 25x25,False,625,1200,2400,1.628,distancia,matriz,nosso,30,5,19.619,18.997,20.104,0
+grade,Grade 25x25,False,625,1200,2400,1.628,distancia,matriz,networkx,30,5,20.493,20.277,30.657,0
+grade,Grade 25x25,False,625,1200,2400,1.628,tempo,uma_origem,nosso,10,5,6.383,6.346,6.645,0
+grade,Grade 25x25,False,625,1200,2400,1.628,tempo,uma_origem,networkx,10,5,7.713,7.471,7.72,0
+grade,Grade 25x25,False,625,1200,2400,1.628,tempo,matriz,nosso,30,5,18.666,18.613,20.384,0
+grade,Grade 25x25,False,625,1200,2400,1.628,tempo,matriz,networkx,30,5,26.543,24.602,32.644,0
+grade,Grade 50x50,False,2500,4900,9800,11.917,distancia,uma_origem,nosso,10,5,29.47,27.977,31.238,0
+grade,Grade 50x50,False,2500,4900,9800,11.917,distancia,uma_origem,networkx,10,5,34.127,33.4,34.667,0
+grade,Grade 50x50,False,2500,4900,9800,11.917,distancia,matriz,nosso,30,5,86.506,85.234,88.542,0
+grade,Grade 50x50,False,2500,4900,9800,11.917,distancia,matriz,networkx,30,5,93.823,93.317,95.673,0
+grade,Grade 50x50,False,2500,4900,9800,11.917,tempo,uma_origem,nosso,10,5,29.989,29.648,30.902,0
+grade,Grade 50x50,False,2500,4900,9800,11.917,tempo,uma_origem,networkx,10,5,35.817,34.459,37.213,0
+grade,Grade 50x50,False,2500,4900,9800,11.917,tempo,matriz,nosso,30,5,94.705,93.566,97.369,0
+grade,Grade 50x50,False,2500,4900,9800,11.917,tempo,matriz,networkx,30,5,95.308,91.593,96.492,0
+grade,Grade 100x100,False,10000,19800,39600,30.355,distancia,uma_origem,nosso,10,5,128.042,114.055,145.859,0
+grade,Grade 100x100,False,10000,19800,39600,30.355,distancia,uma_origem,networkx,10,5,158.963,155.647,159.202,0
+grade,Grade 100x100,False,10000,19800,39600,30.355,distancia,matriz,nosso,30,5,369.268,360.397,438.885,0
+grade,Grade 100x100,False,10000,19800,39600,30.355,distancia,matriz,networkx,30,5,441.397,352.078,456.832,0
+grade,Grade 100x100,False,10000,19800,39600,30.355,tempo,uma_origem,nosso,10,5,142.066,136.135,154.112,0
+grade,Grade 100x100,False,10000,19800,39600,30.355,tempo,uma_origem,networkx,10,5,165.584,161.806,178.455,0
+grade,Grade 100x100,False,10000,19800,39600,30.355,tempo,matriz,nosso,30,5,401.587,379.69,414.556,0
+grade,Grade 100x100,False,10000,19800,39600,30.355,tempo,matriz,networkx,30,5,427.437,408.098,448.846,0
+grade,Grade 200x200,False,40000,79600,159200,178.455,distancia,uma_origem,nosso,10,5,592.498,543.229,774.48,0
+grade,Grade 200x200,False,40000,79600,159200,178.455,distancia,uma_origem,networkx,10,5,662.361,625.257,681.732,0
+grade,Grade 200x200,False,40000,79600,159200,178.455,distancia,matriz,nosso,30,5,1664.279,1588.541,1777.018,0
+grade,Grade 200x200,False,40000,79600,159200,178.455,distancia,matriz,networkx,30,5,1552.02,1543.276,1566.453,0
+grade,Grade 200x200,False,40000,79600,159200,178.455,tempo,uma_origem,nosso,10,5,492.011,486.305,546.951,0
+grade,Grade 200x200,False,40000,79600,159200,178.455,tempo,uma_origem,networkx,10,5,564.227,561.031,571.723,0
+grade,Grade 200x200,False,40000,79600,159200,178.455,tempo,matriz,nosso,30,5,1493.426,1474.98,1500.305,0
+grade,Grade 200x200,False,40000,79600,159200,178.455,tempo,matriz,networkx,30,5,1540.011,1528.642,1660.405,0
+grade,Grade 300x300,False,90000,179400,358800,293.366,distancia,uma_origem,nosso,10,5,1118.459,1113.334,1132.675,0
+grade,Grade 300x300,False,90000,179400,358800,293.366,distancia,uma_origem,networkx,10,5,1316.255,1284.27,1369.666,0
+grade,Grade 300x300,False,90000,179400,358800,293.366,distancia,matriz,nosso,30,5,3788.842,3675.559,3990.972,0
+grade,Grade 300x300,False,90000,179400,358800,293.366,distancia,matriz,networkx,30,5,4082.83,3769.738,4394.356,0
+grade,Grade 300x300,False,90000,179400,358800,293.366,tempo,uma_origem,nosso,10,5,1688.875,1416.08,1739.309,0
+grade,Grade 300x300,False,90000,179400,358800,293.366,tempo,uma_origem,networkx,10,5,1725.401,1556.543,1798.903,0
+grade,Grade 300x300,False,90000,179400,358800,293.366,tempo,matriz,nosso,30,5,4109.028,4096.605,4355.657,0
+grade,Grade 300x300,False,90000,179400,358800,293.366,tempo,matriz,networkx,30,5,4321.534,4166.983,4772.879,0
+completo,Completo n=50,False,51,1275,2550,1.949,distancia,uma_origem,nosso,10,5,3.435,3.1,3.726,0
+completo,Completo n=50,False,51,1275,2550,1.949,distancia,uma_origem,networkx,10,5,5.074,4.883,5.856,0
+completo,Completo n=50,False,51,1275,2550,1.949,distancia,matriz,nosso,30,5,9.685,9.211,10.477,0
+completo,Completo n=50,False,51,1275,2550,1.949,distancia,matriz,networkx,30,5,13.435,12.647,13.896,0
+completo,Completo n=50,False,51,1275,2550,1.949,tempo,uma_origem,nosso,10,5,2.663,2.523,2.729,0
+completo,Completo n=50,False,51,1275,2550,1.949,tempo,uma_origem,networkx,10,5,4.169,3.99,4.818,0
+completo,Completo n=50,False,51,1275,2550,1.949,tempo,matriz,nosso,30,5,7.977,7.728,8.603,0
+completo,Completo n=50,False,51,1275,2550,1.949,tempo,matriz,networkx,30,5,12.154,11.399,12.887,0
+completo,Completo n=100,False,101,5050,10100,7.261,distancia,uma_origem,nosso,10,5,10.22,9.82,11.326,0
+completo,Completo n=100,False,101,5050,10100,7.261,distancia,uma_origem,networkx,10,5,16.191,16.003,19.53,0
+completo,Completo n=100,False,101,5050,10100,7.261,distancia,matriz,nosso,30,5,33.281,30.074,41.007,0
+completo,Completo n=100,False,101,5050,10100,7.261,distancia,matriz,networkx,30,5,44.196,43.921,44.802,0
+completo,Completo n=100,False,101,5050,10100,7.261,tempo,uma_origem,nosso,10,5,9.965,9.797,11.164,0
+completo,Completo n=100,False,101,5050,10100,7.261,tempo,uma_origem,networkx,10,5,15.796,15.545,16.038,0
+completo,Completo n=100,False,101,5050,10100,7.261,tempo,matriz,nosso,30,5,30.772,29.16,32.656,0
+completo,Completo n=100,False,101,5050,10100,7.261,tempo,matriz,networkx,30,5,44.242,43.413,46.986,0
+completo,Completo n=200,False,201,20100,40200,24.909,distancia,uma_origem,nosso,10,5,41.286,40.218,43.825,0
+completo,Completo n=200,False,201,20100,40200,24.909,distancia,uma_origem,networkx,10,5,65.867,64.04,97.746,0
+completo,Completo n=200,False,201,20100,40200,24.909,distancia,matriz,nosso,30,5,137.977,121.054,155.018,0
+completo,Completo n=200,False,201,20100,40200,24.909,distancia,matriz,networkx,30,5,189.162,179.564,221.451,0
+completo,Completo n=200,False,201,20100,40200,24.909,tempo,uma_origem,nosso,10,5,40.306,40.141,41.34,0
+completo,Completo n=200,False,201,20100,40200,24.909,tempo,uma_origem,networkx,10,5,65.518,65.166,69.86,0
+completo,Completo n=200,False,201,20100,40200,24.909,tempo,matriz,nosso,30,5,122.903,120.588,129.797,0
+completo,Completo n=200,False,201,20100,40200,24.909,tempo,matriz,networkx,30,5,181.559,177.187,188.485,0
+completo,Completo n=400,False,401,80200,160400,131.36,distancia,uma_origem,nosso,10,5,219.052,206.505,249.678,0
+completo,Completo n=400,False,401,80200,160400,131.36,distancia,uma_origem,networkx,10,5,343.678,337.013,375.028,0
+completo,Completo n=400,False,401,80200,160400,131.36,distancia,matriz,nosso,30,5,619.944,609.627,657.036,0
+completo,Completo n=400,False,401,80200,160400,131.36,distancia,matriz,networkx,30,5,882.957,822.527,962.818,0
+completo,Completo n=400,False,401,80200,160400,131.36,tempo,uma_origem,nosso,10,5,202.562,162.182,215.203,0
+completo,Completo n=400,False,401,80200,160400,131.36,tempo,uma_origem,networkx,10,5,298.564,266.281,342.165,0
+completo,Completo n=400,False,401,80200,160400,131.36,tempo,matriz,nosso,30,5,617.759,565.229,754.211,0
+completo,Completo n=400,False,401,80200,160400,131.36,tempo,matriz,networkx,30,5,938.02,827.709,1124.297,0
+completo,Completo n=800,False,801,320400,640800,517.953,distancia,uma_origem,nosso,10,5,1061.047,970.13,1554.119,0
+completo,Completo n=800,False,801,320400,640800,517.953,distancia,uma_origem,networkx,10,5,1801.048,1697.549,1974.398,0
+completo,Completo n=800,False,801,320400,640800,517.953,distancia,matriz,nosso,30,5,2955.099,2764.477,3330.215,0
+completo,Completo n=800,False,801,320400,640800,517.953,distancia,matriz,networkx,30,5,4998.512,4930.46,5113.931,0
+completo,Completo n=800,False,801,320400,640800,517.953,tempo,uma_origem,nosso,10,5,975.94,969.186,1004.585,0
+completo,Completo n=800,False,801,320400,640800,517.953,tempo,uma_origem,networkx,10,5,1742.631,1736.898,1752.842,0
+completo,Completo n=800,False,801,320400,640800,517.953,tempo,matriz,nosso,30,5,2895.108,2891.046,2922.534,0
+completo,Completo n=800,False,801,320400,640800,517.953,tempo,matriz,networkx,30,5,5019.125,4879.496,5098.233,0

@@ -16,6 +16,8 @@
 \usepackage{booktabs}
 \usepackage{listings}
 \usepackage{float}  % permite [H]: figura fica exatamente onde foi escrita
+\usepackage{pgfplots}  % gráfico da comparação com o NetworkX (figuras/dijkstra-networkx.tex)
+\pgfplotsset{compat=1.18}
 
 \lstset{basicstyle=\ttfamily\footnotesize, breaklines=true, frame=single}
 
@@ -363,7 +365,65 @@ nas Figuras~\ref{fig:uml-componentes}, \ref{fig:uml-sequencia} e
 %  - tabela: algoritmo x distância total, veículos, atrasos, tempo de execução
 %  - efeito do 2-opt (ganho percentual)
 %  - gráfico de tempo de execução x número de vértices (validar a complexidade)
-%  - comparação de desempenho com o NetworkX (Dupla 1)
+%  - comparação de desempenho com o NetworkX (Dupla 1): ver subseção abaixo
+
+\subsection{Comparação do Dijkstra com o NetworkX}\label{sec:networkx}
+% [DUPLA 1] Tabela e gráfico gerados por: python -m benchmark.comparar_dijkstra
+% (metodologia completa em benchmark/README.md). No Overleaf, envie também as pastas
+% tabelas/ e figuras/ com os arquivos dijkstra-networkx.tex.
+
+Para validar a implementação própria do Dijkstra (\texttt{src/grafo/dijkstra.py}), ela foi
+comparada com a da biblioteca NetworkX~\cite{hagberg2008networkx}, em corretude e em
+tempo de execução. O NetworkX entra apenas nessa comparação, feita por um programa
+separado (\texttt{benchmark/comparar\_dijkstra.py}): a aplicação não o importa nem o lista
+entre suas dependências, e um teste automatizado falha se algum módulo de \texttt{src/}
+passar a importá-lo.
+
+\paragraph{Metodologia.} Cada instância é montada uma vez com a classe \texttt{Grafo} e
+copiada para um \texttt{nx.DiGraph} (ou \texttt{nx.Graph}, se não direcionada), com os mesmos
+vértices, arcos e pesos; a conversão fica fora do tempo medido. Foram usadas três famílias
+de instâncias: (i)~o mapa real de São Paulo usado pela aplicação (1\,550 vértices e
+2\,910 arcos, com ruas de mão única); (ii)~grades de $25\times25$ a $300\times300$ esquinas,
+grafos esparsos como uma malha viária ($|E| \approx 2|V|$), com pesos sorteados por semente;
+e (iii)~grafos completos do gerador de instâncias, de 50 a 800 clientes
+($|E| \approx |V|^2/2$). Em cada instância e para os dois pesos (distância e tempo),
+sortearam-se 10 origens; o nosso \texttt{dijkstra} foi comparado com
+\texttt{dijkstra\_predecessor\_and\_distance} do NetworkX, já que as duas funções devolvem
+custos e predecessores. Também se comparou a matriz de custos entre as paradas, que é o
+uso real na aplicação. Antes de medir, verificou-se, para cada origem, que as duas
+implementações alcançam os mesmos vértices com os mesmos custos (tolerância de $10^{-9}$)
+e que o caminho reconstruído pela nossa implementação tem exatamente o custo informado.
+Cada caso foi executado uma vez como aquecimento e cinco vezes medido, com o coletor de
+lixo desligado; reporta-se a mediana.
+
+\paragraph{Resultados.} A Tabela~\ref{tab:dijkstra-networkx} e a
+Figura~\ref{fig:dijkstra-networkx} resumem as medições. Não houve nenhuma divergência de
+resultado em nenhuma instância. A nossa implementação foi de 1,1 a 1,2 vez mais rápida nos
+grafos esparsos e de 1,5 a 1,7 vez nos grafos completos. As duas usam o mesmo algoritmo
+(Dijkstra com heap binário); a diferença vem principalmente do custo da generalidade do
+NetworkX, que acessa o peso de cada aresta por meio de uma função e trata opções que o
+projeto não usa (várias origens, limite de custo, destino, listas de predecessores para
+empates). Na matriz de custos, em que a função do NetworkX devolve só as distâncias e a
+nossa também guarda os predecessores, a vantagem ficou entre 0,9 e 1,7 vez.
+
+A coluna $c$ da Tabela~\ref{tab:dijkstra-networkx} divide o tempo por
+$(|V| + \text{arcos}) \log_2 |V|$. Ela ficou entre 13 e 26\,ns em instâncias de 51 a
+90\,000 vértices, ou seja, aproximadamente constante, o que confirma empiricamente a
+complexidade $O((V+E)\log V)$ da Tabela~\ref{tab:complexidade}. No mapa real, um Dijkstra
+leva cerca de 1,2\,ms, e a matriz entre as 31 paradas, cerca de 40\,ms, um tempo
+desprezível diante do cálculo das rotas. As medições foram feitas numa única máquina, e
+tempos em Python oscilam de uma execução para outra; por isso a análise se apoia na
+mediana e na tendência entre tamanhos.
+
+\input{tabelas/dijkstra-networkx}
+
+\begin{figure}[ht]
+  \centering
+  \input{figuras/dijkstra-networkx}
+  \caption{Tempo do Dijkstra por origem em função de $|V| + \text{arcos}$ (escala
+  log-log), nas grades (linhas cheias) e nos grafos completos (tracejadas).}
+  \label{fig:dijkstra-networkx}
+\end{figure}
 
 % =====================================================================
 \section{Limitações}\label{sec:limitacoes}

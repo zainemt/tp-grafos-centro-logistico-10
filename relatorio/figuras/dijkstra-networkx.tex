@@ -1,0 +1,16 @@
+% Gerado por benchmark/comparar_dijkstra.py em 18/11/2026 15:48 — não editar à mão.
+% Requer no preâmbulo: \usepackage{pgfplots} e \pgfplotsset{compat=1.18}
+\begin{tikzpicture}
+\begin{loglogaxis}[width=.85\textwidth, height=6.5cm,
+  xlabel={$|V| + |\text{arcos}|$}, ylabel={tempo por origem (ms)},
+  legend pos=north west, legend style={font=\footnotesize}, grid=major]
+\addplot[blue, mark=*] coordinates {(3025,0.6344) (12300,2.9470) (49600,12.8042) (199200,59.2498) (448800,111.8459)};
+\addlegendentry{Nosso (grade)}
+\addplot[red, mark=square*] coordinates {(3025,0.7564) (12300,3.4127) (49600,15.8963) (199200,66.2361) (448800,131.6255)};
+\addlegendentry{NetworkX (grade)}
+\addplot[blue, dashed, mark=o] coordinates {(2601,0.3435) (10201,1.0220) (40401,4.1286) (160801,21.9052) (641601,106.1047)};
+\addlegendentry{Nosso (completo)}
+\addplot[red, dashed, mark=square] coordinates {(2601,0.5074) (10201,1.6191) (40401,6.5867) (160801,34.3678) (641601,180.1048)};
+\addlegendentry{NetworkX (completo)}
+\end{loglogaxis}
+\end{tikzpicture}
