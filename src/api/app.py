@@ -13,8 +13,10 @@ from flask import Flask, jsonify, request, send_from_directory
 RAIZ = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, RAIZ)
 
+from src.algoritmos import calcular_rotas, ALGORITMOS  # noqa: E402
 from src.api import mock  # noqa: E402
 from src.api.auth import registrar_auth  # noqa: E402
+from src.grafo import carregar_grafo  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # PONTO DE INTEGRAÇÃO
@@ -25,16 +27,15 @@ from src.api.auth import registrar_auth  # noqa: E402
 # e mude FONTE para "real".
 # ---------------------------------------------------------------------------
 carregar_grafo = mock.gerar_grafo
-calcular_rotas = mock.calcular_rotas
+# calcular_rotas = mock.calcular_rotas
 medir_desempenho = mock.medir_desempenho
-FONTE = "mock"
+FONTE = "real"
 
 TAMANHOS_PADRAO = [10, 25, 50, 100, 200]
 TAMANHO_MAXIMO = 500
 
-ALGORITMOS = {"nn": "Vizinho mais próximo", "clarke_wright": "Clarke-Wright"}
-
-app = Flask(__name__, static_folder=os.path.join(RAIZ, "frontend"), static_url_path="")
+app = Flask(__name__, static_folder=os.path.join(
+    RAIZ, "frontend"), static_url_path="")
 registrar_auth(app)
 _grafo = carregar_grafo()
 
@@ -71,8 +72,10 @@ def api_rotas():
         return jsonify({"erro": f"algoritmo inválido; use um de {list(ALGORITMOS)}"}), 400
 
     inicio = time.perf_counter()
-    resultado = calcular_rotas(_grafo, veiculos, capacidade, algoritmo, usar_2opt)
-    resultado["tempo_execucao_ms"] = round((time.perf_counter() - inicio) * 1000, 3)
+    resultado = calcular_rotas(
+        _grafo, veiculos, capacidade, algoritmo, usar_2opt)
+    resultado["tempo_execucao_ms"] = round(
+        (time.perf_counter() - inicio) * 1000, 3)
     resultado["fonte"] = FONTE
     return jsonify(resultado)
 
@@ -81,7 +84,8 @@ def api_rotas():
 def api_desempenho():
     bruto = request.args.get("tamanhos")
     try:
-        tamanhos = sorted({int(x) for x in bruto.split(",")}) if bruto else TAMANHOS_PADRAO
+        tamanhos = sorted({int(x) for x in bruto.split(",")}
+                          ) if bruto else TAMANHOS_PADRAO
     except ValueError:
         return jsonify({"erro": "tamanhos deve ser uma lista de inteiros, ex.: 10,50,100"}), 400
     if not tamanhos or tamanhos[0] < 2 or tamanhos[-1] > TAMANHO_MAXIMO:
