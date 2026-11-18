@@ -19,13 +19,15 @@ from src.api.auth import registrar_auth  # noqa: E402
 from src.api.desempenho import medir_desempenho  # noqa: E402
 from src.grafo import carregar_grafo as carregar_grafo_real  # noqa: E402
 from src.grafo.dados import ARQUIVO_VERTICES  # noqa: E402
+from src.grafo.mapa import Trajetos  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # PONTO DE INTEGRAÇÃO
 #   calcular_rotas    -> algoritmos reais da Dupla 2 (src/algoritmos)
 #   medir_desempenho  -> benchmark do calcular_rotas real (src/api/desempenho.py);
 #                        a Dupla 1 acrescenta a série do NetworkX
-#   carregar_grafo    -> a base real da Dupla 1 (dados/vertices.csv) quando ela existir;
+#   carregar_grafo    -> a base real da Dupla 1 (dados/*.csv, o mapa de SP gerado por
+#                        python -m src.grafo.preparar_base) quando ela existir;
 #                        enquanto não existir, os dados de exemplo (src/api/mock.py)
 #
 # FONTE            diz de onde vêm os DADOS ("real" ou "mock"); com "mock" a tela mostra o
@@ -55,6 +57,7 @@ app = Flask(__name__, static_folder=os.path.join(
     RAIZ, "frontend"), static_url_path="")
 registrar_auth(app)
 _grafo = carregar_grafo()
+_trajetos = Trajetos(_grafo)   # desenho de cada rota pelas ruas (caminhos mínimos)
 
 
 @app.get("/")
@@ -93,6 +96,9 @@ def api_rotas():
         _grafo, veiculos, capacidade, algoritmo, usar_2opt)
     resultado["tempo_execucao_ms"] = round(
         (time.perf_counter() - inicio) * 1000, 3)
+    for rota in resultado["rotas"]:
+        # um trecho de pontos [lat, lon] por perna da rota, seguindo as ruas
+        rota["trajetos"] = _trajetos.da_rota(rota["paradas"])
     resultado["fonte"] = FONTE
     return jsonify(resultado)
 

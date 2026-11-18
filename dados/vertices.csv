@@ -1,0 +1,1551 @@
+id,nome,lat,lon,demanda,janela_inicio,janela_fim,prioridade,deposito,tipo
+0,Centro de Distribuição,-23.553303,-46.64705,0,00:00,24:00,0,1,deposito
+1,Cliente 01,-23.556184,-46.633798,16,09:00,13:00,1,0,cliente
+2,Cliente 02,-23.55245,-46.639798,38,08:00,12:00,2,0,cliente
+3,Cliente 03,-23.56293,-46.648613,23,08:00,12:00,1,0,cliente
+4,Cliente 04,-23.560931,-46.649861,8,09:00,13:00,2,0,cliente
+5,Cliente 05,-23.554099,-46.647196,27,13:00,15:00,2,0,cliente
+6,Cliente 06,-23.547188,-46.639455,1,13:00,17:00,2,0,cliente
+7,Cliente 07,-23.562923,-46.655081,8,09:00,13:00,1,0,cliente
+8,Cliente 08,-23.563286,-46.651682,32,14:00,17:00,2,0,cliente
+9,Cliente 09,-23.555721,-46.646183,3,14:00,18:00,2,0,cliente
+10,Cliente 10,-23.542758,-46.646162,21,11:00,15:00,2,0,cliente
+11,Cliente 11,-23.559322,-46.658022,7,08:00,10:00,1,0,cliente
+12,Cliente 12,-23.547635,-46.639175,12,08:00,11:00,1,0,cliente
+13,Cliente 13,-23.561753,-46.64202,13,13:00,17:00,1,0,cliente
+14,Cliente 14,-23.544572,-46.641359,16,13:00,15:00,1,0,cliente
+15,Cliente 15,-23.556163,-46.640715,22,08:00,12:00,1,0,cliente
+16,Cliente 16,-23.559363,-46.652253,3,09:00,11:00,1,0,cliente
+17,Cliente 17,-23.552698,-46.64518,20,10:00,12:00,3,0,cliente
+18,Cliente 18,-23.54562,-46.64051,16,09:00,12:00,2,0,cliente
+19,Cliente 19,-23.556002,-46.65302,2,09:00,13:00,1,0,cliente
+20,Cliente 20,-23.551563,-46.64198,3,14:00,18:00,3,0,cliente
+21,Cliente 21,-23.551627,-46.653688,96,11:00,13:00,2,0,cliente
+22,Cliente 22,-23.545751,-46.641359,3,11:00,13:00,1,0,cliente
+23,Cliente 23,-23.543881,-46.654154,53,08:00,12:00,2,0,cliente
+24,Cliente 24,-23.552912,-46.648929,29,10:00,13:00,2,0,cliente
+25,Cliente 25,-23.54764,-46.636032,8,11:00,15:00,1,0,cliente
+26,Cliente 26,-23.546357,-46.635081,5,14:00,18:00,1,0,cliente
+27,Cliente 27,-23.549612,-46.635359,8,08:00,11:00,2,0,cliente
+28,Cliente 28,-23.55184,-46.655081,2,08:00,10:00,1,0,cliente
+29,Cliente 29,-23.545261,-46.637055,7,09:00,13:00,2,0,cliente
+30,Cliente 30,-23.562841,-46.64678,19,09:00,12:00,1,0,cliente
+1001,Avenida Vinte e Três de Maio,-23.55821,-46.638256,0,00:00,24:00,0,0,esquina
+1002,Alameda Barros × Rua Barão de Tatuí,-23.537202,-46.653551,0,00:00,24:00,0,0,esquina
+1003,Rua Fortunato × Rua Frederico Abranches,-23.538894,-46.651323,0,00:00,24:00,0,0,esquina
+1004,Rua Canuto do Val × Rua Fortunato,-23.540311,-46.651775,0,00:00,24:00,0,0,esquina
+1005,Rua Aureliano Coutinho × Rua Canuto do Val,-23.540065,-46.652653,0,00:00,24:00,0,0,esquina
+1006,Rua Aureliano Coutinho × Rua Jaguaribe,-23.541614,-46.653174,0,00:00,24:00,0,0,esquina
+1007,Rua Alagoas × Rua Sabará,-23.547707,-46.655223,0,00:00,24:00,0,0,esquina
+1008,Parque Dom Pedro II × Rua Doutor Itapura de Miranda,-23.543625,-46.629757,0,00:00,24:00,0,0,esquina
+1009,Avenida Prestes Maia × Rua Carlos de Sousa Nazaré,-23.541445,-46.634154,0,00:00,24:00,0,0,esquina
+1010,Avenida 23 de Maio × Avenida Nove de Julho,-23.546897,-46.637695,0,00:00,24:00,0,0,esquina
+1011,Avenida Vinte e Três de Maio,-23.549581,-46.638546,0,00:00,24:00,0,0,esquina
+1012,Avenida Nove de Julho × Parque Anhangabau,-23.548157,-46.638775,0,00:00,24:00,0,0,esquina
+1013,Avenida Vinte e Três de Maio × Parque Anhangabau,-23.549339,-46.638788,0,00:00,24:00,0,0,esquina
+1014,Avenida Vinte e Três de Maio × Rua Asdrubal do Nascimento,-23.554821,-46.637157,0,00:00,24:00,0,0,esquina
+1015,Avenida Vinte e Três de Maio,-23.557987,-46.638502,0,00:00,24:00,0,0,esquina
+1016,Avenida Vinte e Três de Maio × Rua Maestro Cardim,-23.558831,-46.638825,0,00:00,24:00,0,0,esquina
+1017,Rua Vergueiro × Viaduto Beneficência Portuguesa,-23.568647,-46.639992,0,00:00,24:00,0,0,esquina
+1018,Rua Antônio Carlos × Rua da Consolação,-23.554033,-46.660795,0,00:00,24:00,0,0,esquina
+1019,Avenida Paulista × Rua Bela Cintra,-23.556418,-46.661894,0,00:00,24:00,0,0,esquina
+1020,Avenida Paulista × Rua Padre João Manuel,-23.559027,-46.659295,0,00:00,24:00,0,0,esquina
+1021,Alameda Casa Branca × Avenida Paulista,-23.562072,-46.655882,0,00:00,24:00,0,0,esquina
+1022,Alameda Casa Branca × Avenida Paulista,-23.561954,-46.655767,0,00:00,24:00,0,0,esquina
+1023,Alameda Casa Branca × Alameda Jaú,-23.563784,-46.657646,0,00:00,24:00,0,0,esquina
+1024,Alameda Casa Branca × Alameda Santos,-23.562912,-46.656751,0,00:00,24:00,0,0,esquina
+1025,Alameda Jaú × Rua Peixoto Gomide,-23.562675,-46.658913,0,00:00,24:00,0,0,esquina
+1026,Alameda Santos × Rua Peixoto Gomide,-23.561812,-46.658017,0,00:00,24:00,0,0,esquina
+1027,Avenida Angélica × Avenida Paulista,-23.554985,-46.663535,0,00:00,24:00,0,0,esquina
+1028,Rua Caio Prado × Rua da Consolação,-23.548012,-46.649014,0,00:00,24:00,0,0,esquina
+1029,Alameda Itu × Rua Peixoto Gomide,-23.563579,-46.659847,0,00:00,24:00,0,0,esquina
+1030,Alameda Franca × Rua Peixoto Gomide,-23.564329,-46.660601,0,00:00,24:00,0,0,esquina
+1031,Rua José Maria Lisboa × Rua Peixoto Gomide,-23.565069,-46.661366,0,00:00,24:00,0,0,esquina
+1032,Rua Peixoto Gomide × Rua Tatui,-23.566011,-46.662353,0,00:00,24:00,0,0,esquina
+1033,Rua Oscar Freire × Rua Peixoto Gomide,-23.567562,-46.663941,0,00:00,24:00,0,0,esquina
+1034,Alameda Ministro Rocha Azevedo × Rua Barão de Capanema,-23.567624,-46.665803,0,00:00,24:00,0,0,esquina
+1035,Rua Barão de Capanema × Rua Peixoto Gomide,-23.568457,-46.664832,0,00:00,24:00,0,0,esquina
+1036,Alameda Ministro Rocha Azevedo × Rua Oscar Freire,-23.566719,-46.664889,0,00:00,24:00,0,0,esquina
+1037,Alameda Ministro Rocha Azevedo × Rua José Maria Lisboa,-23.564228,-46.662323,0,00:00,24:00,0,0,esquina
+1038,Alameda Ministro Rocha Azevedo × Rua Vicente Félix,-23.564927,-46.663066,0,00:00,24:00,0,0,esquina
+1039,Alameda Itu × Alameda Ministro Rocha Azevedo,-23.562731,-46.660779,0,00:00,24:00,0,0,esquina
+1040,Alameda Franca × Alameda Ministro Rocha Azevedo,-23.563489,-46.66156,0,00:00,24:00,0,0,esquina
+1041,Alameda Ministro Rocha Azevedo × Alameda Santos,-23.560974,-46.658969,0,00:00,24:00,0,0,esquina
+1042,Alameda Jaú × Alameda Ministro Rocha Azevedo,-23.561844,-46.659866,0,00:00,24:00,0,0,esquina
+1043,Rua Barão de Capanema × Rua Padre João Manuel,-23.566517,-46.667057,0,00:00,24:00,0,0,esquina
+1044,Rua Oscar Freire × Rua Padre João Manuel,-23.565628,-46.666137,0,00:00,24:00,0,0,esquina
+1045,Alameda Franca × Rua Padre João Manuel,-23.562528,-46.662922,0,00:00,24:00,0,0,esquina
+1046,Alameda Santos × Rua Padre João Manuel,-23.559911,-46.660175,0,00:00,24:00,0,0,esquina
+1047,Alameda Itu × Rua Padre João Manuel,-23.561645,-46.661998,0,00:00,24:00,0,0,esquina
+1048,Alameda Jaú × Rua Padre João Manuel,-23.56079,-46.661067,0,00:00,24:00,0,0,esquina
+1049,Alameda Jaú × Rua Augusta,-23.559893,-46.662064,0,00:00,24:00,0,0,esquina
+1050,Alameda Itu × Rua Augusta,-23.56077,-46.662991,0,00:00,24:00,0,0,esquina
+1051,Alameda Santos × Rua Augusta,-23.559038,-46.661164,0,00:00,24:00,0,0,esquina
+1052,Alameda Franca × Rua Augusta,-23.561652,-46.663916,0,00:00,24:00,0,0,esquina
+1053,Alameda Tietê × Rua Augusta,-23.562698,-46.664995,0,00:00,24:00,0,0,esquina
+1054,Alameda Santos × Rua Bela Cintra,-23.557423,-46.662988,0,00:00,24:00,0,0,esquina
+1055,Alameda Tietê × Rua Bela Cintra,-23.561101,-46.666796,0,00:00,24:00,0,0,esquina
+1056,Alameda Franca × Rua Bela Cintra,-23.560065,-46.665722,0,00:00,24:00,0,0,esquina
+1057,Alameda Itu × Rua Bela Cintra,-23.559174,-46.664797,0,00:00,24:00,0,0,esquina
+1058,Alameda Jaú × Rua Bela Cintra,-23.558289,-46.663876,0,00:00,24:00,0,0,esquina
+1059,Alameda Franca × Rua da Consolação,-23.559196,-46.666697,0,00:00,24:00,0,0,esquina
+1060,Alameda Tietê × Rua Padre João Manuel,-23.56356,-46.663999,0,00:00,24:00,0,0,esquina
+1061,Alameda Itu × Rua da Consolação,-23.558311,-46.665774,0,00:00,24:00,0,0,esquina
+1062,Rua Estados Unidos × Rua Peixoto Gomide,-23.569291,-46.665694,0,00:00,24:00,0,0,esquina
+1063,Alameda Casa Branca × Rua Canadá,-23.570334,-46.664422,0,00:00,24:00,0,0,esquina
+1064,Rua Oscar Freire × Rua Rio Preto,-23.566139,-46.665551,0,00:00,24:00,0,0,esquina
+1065,Rua Asdrúbal Nascimento × Viaduto Brigadeiro Luís Antônio,-23.552292,-46.637635,0,00:00,24:00,0,0,esquina
+1066,Viaduto Dona Paulina,-23.552058,-46.636024,0,00:00,24:00,0,0,esquina
+1067,Praça Doutor João Mendes × Rua Doutor Rodrigo Silva,-23.551867,-46.635437,0,00:00,24:00,0,0,esquina
+1068,Praça Doutor João Mendes × Praça da Sé,-23.551767,-46.634943,0,00:00,24:00,0,0,esquina
+1069,Praça Doutor João Mendes × Praça da Sé,-23.551988,-46.634416,0,00:00,24:00,0,0,esquina
+1070,Avenida da Liberdade × Praça Doutor João Mendes,-23.552057,-46.634254,0,00:00,24:00,0,0,esquina
+1071,Praça Doutor João Mendes × Rua Onze de Agosto,-23.552203,-46.633903,0,00:00,24:00,0,0,esquina
+1072,Praça Doutor João Mendes × Rua Anita Garibaldi,-23.552531,-46.632927,0,00:00,24:00,0,0,esquina
+1073,Praça Clóvis Beviláqua × Rua Anita Garibaldi,-23.551776,-46.632556,0,00:00,24:00,0,0,esquina
+1074,Avenida Rangel Pestana × Praça Clóvis Beviláqua,-23.55047,-46.631909,0,00:00,24:00,0,0,esquina
+1075,Rua Quintino Bocaiuva × Rua Riachuelo,-23.551167,-46.63548,0,00:00,24:00,0,0,esquina
+1076,Praça Doutor João Mendes × Rua Riachuelo,-23.551423,-46.635381,0,00:00,24:00,0,0,esquina
+1077,Ladeira Porto Geral × Rua Boa Vista,-23.545143,-46.63364,0,00:00,24:00,0,0,esquina
+1078,Largo Pátio do Colégio × Rua Floriano Peixoto,-23.548634,-46.632297,0,00:00,24:00,0,0,esquina
+1079,Rua Roberto Simonsen × Rua Venceslau Brás,-23.549387,-46.63209,0,00:00,24:00,0,0,esquina
+1080,Rua Irmã Simpliciana × Rua Venceslau Brás,-23.549472,-46.632814,0,00:00,24:00,0,0,esquina
+1081,Avenida da Liberdade × Rua Doutor Rodrigo Silva,-23.554656,-46.635666,0,00:00,24:00,0,0,esquina
+1082,Avenida da Liberdade × Rua dos Estudantes,-23.555425,-46.636031,0,00:00,24:00,0,0,esquina
+1083,Avenida da Liberdade × Rua Condessa de São Joaquim,-23.559306,-46.637693,0,00:00,24:00,0,0,esquina
+1084,Rua Conde de São Joaquim × Rua Condessa de São Joaquim,-23.558212,-46.639169,0,00:00,24:00,0,0,esquina
+1085,Rua Conde de São Joaquim × Rua Humaitá,-23.559331,-46.640102,0,00:00,24:00,0,0,esquina
+1086,Rua Humaitá × Rua Martiniano de Carvalho,-23.558819,-46.64083,0,00:00,24:00,0,0,esquina
+1087,Rua Condessa de São Joaquim × Rua dos Bororós,-23.557707,-46.639855,0,00:00,24:00,0,0,esquina
+1088,Rua Humaitá × Rua Maestro Cardim,-23.559737,-46.639568,0,00:00,24:00,0,0,esquina
+1089,Praça da Sé × Rua Senador Feijó,-23.550842,-46.634488,0,00:00,24:00,0,0,esquina
+1090,Largo São Francisco,-23.54958,-46.636661,0,00:00,24:00,0,0,esquina
+1091,Largo São Francisco × Rua Líbero Badaró,-23.549428,-46.637457,0,00:00,24:00,0,0,esquina
+1092,Largo São Francisco × Rua Cristóvão Colombo,-23.550133,-46.636536,0,00:00,24:00,0,0,esquina
+1093,Rua Alvares Machado × Rua Doutor Rodrigo Silva,-23.552893,-46.635556,0,00:00,24:00,0,0,esquina
+1094,Avenida da Liberdade × Rua dos Estudantes,-23.555452,-46.635905,0,00:00,24:00,0,0,esquina
+1095,Avenida da Liberdade × Rua Jaceguaí,-23.556719,-46.636279,0,00:00,24:00,0,0,esquina
+1096,Avenida da Liberdade × Rua Doutor Américo de Campos,-23.557253,-46.63644,0,00:00,24:00,0,0,esquina
+1097,Rua Anita Garibaldi,-23.552989,-46.633156,0,00:00,24:00,0,0,esquina
+1098,Praça Doutor João Mendes × Rua Conde do Pinhal,-23.552471,-46.633234,0,00:00,24:00,0,0,esquina
+1099,Rua da Glória × Rua dos Estudantes,-23.555534,-46.63424,0,00:00,24:00,0,0,esquina
+1100,Praça da Liberdade × Rua Galvão Bueno,-23.555491,-46.635263,0,00:00,24:00,0,0,esquina
+1101,Rua Conselheiro Furtado × Rua dos Estudantes,-23.55547,-46.633106,0,00:00,24:00,0,0,esquina
+1102,Rua Conde de Sarzedas × Rua Conselheiro Furtado,-23.553451,-46.633264,0,00:00,24:00,0,0,esquina
+1103,Rua Doutor Américo de Campos × Rua Galvão Bueno,-23.557186,-46.635139,0,00:00,24:00,0,0,esquina
+1104,Rua Galvão Bueno × Rua Thomáz Gonzaga,-23.557771,-46.635098,0,00:00,24:00,0,0,esquina
+1105,Praça Almeida Júnior × Rua Doutor Américo de Campos,-23.557109,-46.634119,0,00:00,24:00,0,0,esquina
+1106,Praça Almeida Júnior × Rua Conselheiro Furtado,-23.557041,-46.633003,0,00:00,24:00,0,0,esquina
+1107,Praça Ramos de Azevedo × Rua Coronel Xavier de Toledo,-23.545927,-46.638762,0,00:00,24:00,0,0,esquina
+1108,Praça Ramos de Azevedo,-23.54508,-46.638077,0,00:00,24:00,0,0,esquina
+1109,Praça Ramos de Azevedo × Rua Conselheiro Crispiniano,-23.5447,-46.638645,0,00:00,24:00,0,0,esquina
+1110,Rua Coronel Xavier de Toledo × Rua Sete de Abril,-23.547423,-46.639761,0,00:00,24:00,0,0,esquina
+1111,Praça da Sé,-23.550572,-46.634356,0,00:00,24:00,0,0,esquina
+1112,Praça da Sé × Rua Filipe de Oliveira,-23.55117,-46.63402,0,00:00,24:00,0,0,esquina
+1113,Rua Conde de Sarzedas × Rua Doutor Tomaz de Lima,-23.553748,-46.631992,0,00:00,24:00,0,0,esquina
+1114,Rua Conde de Sarzedas × Rua Oliveira Monteiro,-23.553958,-46.63114,0,00:00,24:00,0,0,esquina
+1115,Rua Carolina Augusta × Rua Oliveira Monteiro,-23.553427,-46.630994,0,00:00,24:00,0,0,esquina
+1116,Rua Carolina Augusta,-23.553324,-46.63139,0,00:00,24:00,0,0,esquina
+1117,Rua Doutor Tomaz de Lima × Rua dos Estudantes,-23.55539,-46.631988,0,00:00,24:00,0,0,esquina
+1118,Rua Anita Ferraz × Rua Egas Moniz de Aragão,-23.555324,-46.631091,0,00:00,24:00,0,0,esquina
+1119,Rua Doutor Lund × Rua Doutor Tomaz de Lima,-23.556087,-46.631998,0,00:00,24:00,0,0,esquina
+1120,Rua Conselheiro Furtado × Rua Doutor Lund,-23.555974,-46.633069,0,00:00,24:00,0,0,esquina
+1121,Rua Mituto Mizumoto × Rua São Paulo,-23.556979,-46.631989,0,00:00,24:00,0,0,esquina
+1122,Rua dos Estudantes × Travessa Rugiero,-23.555304,-46.630829,0,00:00,24:00,0,0,esquina
+1123,Rua Conde de Sarzedas × Rua João de Carvalho,-23.554151,-46.630359,0,00:00,24:00,0,0,esquina
+1124,Rua Carolina Augusta × Rua João de Carvalho,-23.553629,-46.630201,0,00:00,24:00,0,0,esquina
+1125,Rua Doutor Bettencourt Rodrigues × Rua Doutor Bittencourt Rodrigues,-23.549264,-46.631038,0,00:00,24:00,0,0,esquina
+1126,Avenida Rangel Pestana × Rua Doutor Bettencourt Rodrigues,-23.549774,-46.630792,0,00:00,24:00,0,0,esquina
+1127,Parque Anhangabau × Rua Doutor Falcão Filho,-23.548235,-46.638363,0,00:00,24:00,0,0,esquina
+1128,Parque Anhangabau,-23.54701,-46.637961,0,00:00,24:00,0,0,esquina
+1129,Parque Anhangabau,-23.547044,-46.638174,0,00:00,24:00,0,0,esquina
+1130,Avenida Nove de Julho × Rua João Adolfo,-23.549039,-46.640862,0,00:00,24:00,0,0,esquina
+1131,Parque Anhangabau,-23.547459,-46.638012,0,00:00,24:00,0,0,esquina
+1132,Rua José Bonifácio × Rua do Ouvidor,-23.548878,-46.637709,0,00:00,24:00,0,0,esquina
+1133,Rua Doutor Falcão Filho × Rua Líbero Badaró,-23.547725,-46.63697,0,00:00,24:00,0,0,esquina
+1134,Rua São Francisco × Rua do Ouvidor,-23.549104,-46.637977,0,00:00,24:00,0,0,esquina
+1135,Parque Anhangabau × Praça da Bandeira,-23.548588,-46.638635,0,00:00,24:00,0,0,esquina
+1136,Avenida Nove de Julho × Rua Formosa,-23.548471,-46.639094,0,00:00,24:00,0,0,esquina
+1137,Rua Alfredo Gagliotti × Rua João Adolfo,-23.548498,-46.640371,0,00:00,24:00,0,0,esquina
+1138,Rua Doutor Bráulio Gomes × Rua Sete de Abril,-23.546141,-46.641083,0,00:00,24:00,0,0,esquina
+1139,Praça Ramos de Azevedo × Rua Vinte e Quatro de Maio,-23.544894,-46.638791,0,00:00,24:00,0,0,esquina
+1140,Avenida Ipiranga × Avenida São João,-23.542359,-46.640236,0,00:00,24:00,0,0,esquina
+1141,Avenida Ipiranga × Avenida São João,-23.542293,-46.640352,0,00:00,24:00,0,0,esquina
+1142,Largo do Paissandú × Rua do Boticário,-23.542731,-46.638385,0,00:00,24:00,0,0,esquina
+1143,Avenida Rio Branco × Largo do Paissandú,-23.542463,-46.637955,0,00:00,24:00,0,0,esquina
+1144,Avenida Cásper Líbero × Rua Antônio de Godói,-23.541708,-46.636729,0,00:00,24:00,0,0,esquina
+1145,Avenida Cásper Líbero × Rua Coronel Batista da Luz,-23.540882,-46.636466,0,00:00,24:00,0,0,esquina
+1146,Avenida Cásper Líbero × Rua Beneficência Portuguesa,-23.539977,-46.63629,0,00:00,24:00,0,0,esquina
+1147,Avenida Ipiranga × Rua Santa Ifigênia,-23.540499,-46.63769,0,00:00,24:00,0,0,esquina
+1148,Avenida Ipiranga × Rua Santa Ifigênia,-23.540396,-46.637764,0,00:00,24:00,0,0,esquina
+1149,Rua Santa Ifigênia × Rua dos Timbiras,-23.539693,-46.638275,0,00:00,24:00,0,0,esquina
+1150,Avenida Ipiranga × Rua dos Andradas,-23.539862,-46.636704,0,00:00,24:00,0,0,esquina
+1151,Avenida Cásper Líbero × Avenida Ipiranga,-23.539518,-46.636333,0,00:00,24:00,0,0,esquina
+1152,Avenida Ipiranga × Avenida Rio Branco,-23.541116,-46.638876,0,00:00,24:00,0,0,esquina
+1153,Avenida Ipiranga × Avenida Rio Branco,-23.541218,-46.639009,0,00:00,24:00,0,0,esquina
+1154,Avenida Ipiranga × Rua do Boticário,-23.541629,-46.639321,0,00:00,24:00,0,0,esquina
+1155,Avenida Ipiranga × Avenida Rio Branco,-23.54132,-46.638931,0,00:00,24:00,0,0,esquina
+1156,Avenida Ipiranga × Avenida Rio Branco,-23.541217,-46.638798,0,00:00,24:00,0,0,esquina
+1157,Avenida Rio Branco × Rua dos Timbiras,-23.540501,-46.639345,0,00:00,24:00,0,0,esquina
+1158,Avenida Rio Branco × Rua Aurora,-23.539756,-46.639908,0,00:00,24:00,0,0,esquina
+1159,Avenida Rio Branco × Rua Aurora,-23.539845,-46.640046,0,00:00,24:00,0,0,esquina
+1160,Avenida Rio Branco × Rua dos Timbiras,-23.5406,-46.639475,0,00:00,24:00,0,0,esquina
+1161,Avenida Ipiranga × Rua do Boticário,-23.541525,-46.639392,0,00:00,24:00,0,0,esquina
+1162,Rua do Boticário × Rua dos Timbiras,-23.540926,-46.639899,0,00:00,24:00,0,0,esquina
+1163,Avenida Ipiranga × Rua Major Sertório,-23.545552,-46.644088,0,00:00,24:00,0,0,esquina
+1164,Praça da República × Rua Basílio da Gama,-23.544589,-46.643075,0,00:00,24:00,0,0,esquina
+1165,Praça da República × Rua Sete de Abril,-23.544283,-46.642698,0,00:00,24:00,0,0,esquina
+1166,Avenida Ipiranga × Praça da República,-23.543065,-46.641106,0,00:00,24:00,0,0,esquina
+1167,Avenida Ipiranga × Rua Araújo,-23.546055,-46.644886,0,00:00,24:00,0,0,esquina
+1168,Avenida Ipiranga × Rua Epitácio Pessoa,-23.546191,-46.645043,0,00:00,24:00,0,0,esquina
+1169,Rua Amaral Gurgel × Rua da Consolação,-23.547268,-46.647316,0,00:00,24:00,0,0,esquina
+1170,Rua da Consolação,-23.547634,-46.647867,0,00:00,24:00,0,0,esquina
+1171,Rua da Consolação,-23.547333,-46.64594,0,00:00,24:00,0,0,esquina
+1172,Rua Araújo × Rua Nestor Pestana,-23.547481,-46.645311,0,00:00,24:00,0,0,esquina
+1173,Avenida São Luís × Rua Martins Fontes,-23.547854,-46.642724,0,00:00,24:00,0,0,esquina
+1174,Praça da República × Rua Marquês de Itu,-23.543787,-46.644398,0,00:00,24:00,0,0,esquina
+1175,Praça da República × Rua do Arouche,-23.543295,-46.643827,0,00:00,24:00,0,0,esquina
+1176,Avenida Vieira de Carvalho × Praça da República,-23.542652,-46.643082,0,00:00,24:00,0,0,esquina
+1177,Rua Bento Freitas × Rua Marquês de Itu,-23.543867,-46.645521,0,00:00,24:00,0,0,esquina
+1178,Rua Marquês de Itu × Rua Rego Freitas,-23.543839,-46.646578,0,00:00,24:00,0,0,esquina
+1179,Rua Amaral Gurgel × Rua Marquês de Itu,-23.543814,-46.647685,0,00:00,24:00,0,0,esquina
+1180,Rua Araújo × Rua General Jardim,-23.544751,-46.644537,0,00:00,24:00,0,0,esquina
+1181,Rua Araújo × Rua Major Sertório,-23.545493,-46.644744,0,00:00,24:00,0,0,esquina
+1182,Rua Bento Freitas × Rua Major Sertório,-23.54547,-46.64557,0,00:00,24:00,0,0,esquina
+1183,Rua Major Sertório × Rua Rego Freitas,-23.545441,-46.646629,0,00:00,24:00,0,0,esquina
+1184,Rua Bento Freitas × Rua General Jardim,-23.544732,-46.645549,0,00:00,24:00,0,0,esquina
+1185,Rua General Jardim × Rua Rego Freitas,-23.544717,-46.646606,0,00:00,24:00,0,0,esquina
+1186,Rua Amaral Gurgel × Rua General Jardim,-23.544688,-46.647714,0,00:00,24:00,0,0,esquina
+1187,Rua Bento Freitas × Rua Epitácio Pessoa,-23.546067,-46.645603,0,00:00,24:00,0,0,esquina
+1188,Rua Doutor Teodoro Baima × Rua Epitácio Pessoa,-23.545996,-46.645981,0,00:00,24:00,0,0,esquina
+1189,Rua Epitácio Pessoa × Rua Rego Freitas,-23.545871,-46.646643,0,00:00,24:00,0,0,esquina
+1190,Rua Basílio da Gama × Rua Gabus Mendes,-23.54491,-46.642808,0,00:00,24:00,0,0,esquina
+1191,Rua Gabus Mendes × Rua Sete de Abril,-23.544563,-46.642393,0,00:00,24:00,0,0,esquina
+1192,Rua Basílio da Gama,-23.545943,-46.642455,0,00:00,24:00,0,0,esquina
+1193,Rua Coronel Xavier de Toledo × Rua Doutor Bráulio Gomes,-23.547743,-46.641432,0,00:00,24:00,0,0,esquina
+1194,Rua Capitão Mor Jerônimo Leitão,-23.541039,-46.6355,0,00:00,24:00,0,0,esquina
+1195,Rua Beneficência Portuguesa × Rua Brigadeiro Tobias,-23.540249,-46.635343,0,00:00,24:00,0,0,esquina
+1196,Avenida Senador Queirós × Rua Brigadeiro Tobias,-23.539196,-46.634994,0,00:00,24:00,0,0,esquina
+1197,Avenida Senador Queirós × Rua Brigadeiro Tobias,-23.539073,-46.634955,0,00:00,24:00,0,0,esquina
+1198,Rua Brigadeiro Tobias × Rua Washington Luís,-23.53786,-46.634589,0,00:00,24:00,0,0,esquina
+1199,Avenida Senador Queirós × Rua Dom Francisco de Sousa,-23.539364,-46.634291,0,00:00,24:00,0,0,esquina
+1200,Avenida Senador Queirós,-23.538865,-46.635692,0,00:00,24:00,0,0,esquina
+1201,Avenida Cásper Líbero × Avenida Senador Queirós,-23.539082,-46.636106,0,00:00,24:00,0,0,esquina
+1202,Avenida Prestes Maia,-23.539635,-46.633735,0,00:00,24:00,0,0,esquina
+1203,Avenida Prestes Maia,-23.541995,-46.63448,0,00:00,24:00,0,0,esquina
+1204,Avenida Senador Queirós × Rua Augusto Severo,-23.539374,-46.633335,0,00:00,24:00,0,0,esquina
+1205,Rua Augusto Severo × Rua Carlos de Sousa Nazaré,-23.540853,-46.633255,0,00:00,24:00,0,0,esquina
+1206,Ladeira da Constituição × Rua Florêncio de Abreu,-23.543243,-46.633357,0,00:00,24:00,0,0,esquina
+1207,Avenida Prestes Maia,-23.542195,-46.634911,0,00:00,24:00,0,0,esquina
+1208,Avenida Prestes Maia × Praça Pedro Lessa,-23.542609,-46.635346,0,00:00,24:00,0,0,esquina
+1209,Avenida Prestes Maia × Praça Pedro Lessa,-23.543362,-46.635814,0,00:00,24:00,0,0,esquina
+1210,Praça Fernando Costa × Rua Vinte e Cinco de Março,-23.546294,-46.631672,0,00:00,24:00,0,0,esquina
+1211,Rua Hércules Florence × Rua Vinte e Cinco de Março,-23.547952,-46.630857,0,00:00,24:00,0,0,esquina
+1212,Parque Dom Pedro II × Rua Hércules Florence,-23.54766,-46.630337,0,00:00,24:00,0,0,esquina
+1213,Parque Dom Pedro II × Rua General Carneiro,-23.545644,-46.631203,0,00:00,24:00,0,0,esquina
+1214,Parque Dom Pedro II,-23.545191,-46.631029,0,00:00,24:00,0,0,esquina
+1215,Parque Dom Pedro II × Praça Ragueb Chohfi,-23.545001,-46.63107,0,00:00,24:00,0,0,esquina
+1216,Rua Martins Fontes × Rua Álvaro de Carvalho,-23.549643,-46.6451,0,00:00,24:00,0,0,esquina
+1217,Rua Martinho Prado × Rua Martins Fontes,-23.549971,-46.646167,0,00:00,24:00,0,0,esquina
+1218,Rua Gravataí × Rua João Guimarães Rosa,-23.548691,-46.647267,0,00:00,24:00,0,0,esquina
+1219,Rua Major Quedinho,-23.548618,-46.642739,0,00:00,24:00,0,0,esquina
+1220,Rua Santo Antônio × Viaduto Jacareí,-23.550554,-46.642112,0,00:00,24:00,0,0,esquina
+1221,Rua Santo Antônio × Viaduto Jacareí,-23.550498,-46.641975,0,00:00,24:00,0,0,esquina
+1222,Avenida Rio Branco × Rua Vitória,-23.538859,-46.640585,0,00:00,24:00,0,0,esquina
+1223,Avenida Rio Branco × Rua dos Gusmões,-23.538194,-46.641086,0,00:00,24:00,0,0,esquina
+1224,Avenida Duque de Caxias × Avenida Rio Branco,-23.536592,-46.642494,0,00:00,24:00,0,0,esquina
+1225,Avenida Rio Branco × Rua General Osório,-23.537586,-46.641744,0,00:00,24:00,0,0,esquina
+1226,Avenida Rio Branco × Rua dos Gusmões,-23.538283,-46.641222,0,00:00,24:00,0,0,esquina
+1227,Avenida Rio Branco × Rua Vitória,-23.538944,-46.640726,0,00:00,24:00,0,0,esquina
+1228,Avenida Duque de Caxias × Praça Princesa Isabel,-23.537016,-46.643292,0,00:00,24:00,0,0,esquina
+1229,Avenida Duque de Caxias × Rua Conselheiro Nébias,-23.537566,-46.644078,0,00:00,24:00,0,0,esquina
+1230,Alameda Barão de Limeira × Avenida Duque de Caxias,-23.538034,-46.644744,0,00:00,24:00,0,0,esquina
+1231,Avenida Duque de Caxias × Rua Barão de Campinas,-23.538585,-46.645521,0,00:00,24:00,0,0,esquina
+1232,Avenida Duque de Caxias × Praça Princesa Isabel,-23.537108,-46.643227,0,00:00,24:00,0,0,esquina
+1233,Avenida Duque de Caxias × Rua Conselheiro Nébias,-23.537658,-46.644009,0,00:00,24:00,0,0,esquina
+1234,Alameda Barão de Limeira × Avenida Duque de Caxias,-23.538123,-46.644671,0,00:00,24:00,0,0,esquina
+1235,Rua Caio Prado × Rua Doutor Cesário Mota Júnior,-23.547859,-46.649053,0,00:00,24:00,0,0,esquina
+1236,Rua Bela Cintra × Rua Fernando de Albuquerque,-23.553467,-46.658333,0,00:00,24:00,0,0,esquina
+1237,Rua Apeninos × Rua Castro Alves,-23.567638,-46.638083,0,00:00,24:00,0,0,esquina
+1238,Rua Castro Alves × Rua Pires da Mota,-23.569107,-46.63652,0,00:00,24:00,0,0,esquina
+1239,Avenida Radial Leste-Oeste,-23.556339,-46.635944,0,00:00,24:00,0,0,esquina
+1240,Viaduto Júlio de Mesquita Filho,-23.553715,-46.645219,0,00:00,24:00,0,0,esquina
+1241,Avenida Radial Leste-Oeste,-23.549417,-46.646701,0,00:00,24:00,0,0,esquina
+1242,Rua José Paulo Mantovan Freire × Viaduto Júlio de Mesquita Filho,-23.555436,-46.642255,0,00:00,24:00,0,0,esquina
+1243,Avenida Radial Leste-Oeste,-23.556654,-46.634539,0,00:00,24:00,0,0,esquina
+1244,Avenida Mercúrio × Avenida Senador Queirós,-23.540456,-46.629506,0,00:00,24:00,0,0,esquina
+1245,Avenida Senador Queirós × Rua Vinte e Cinco de Março,-23.539586,-46.632076,0,00:00,24:00,0,0,esquina
+1246,Avenida Senador Queirós,-23.54002,-46.629829,0,00:00,24:00,0,0,esquina
+1247,Avenida Radial Leste-Oeste × Rua João Passalaqua,-23.551773,-46.646104,0,00:00,24:00,0,0,esquina
+1248,Rua João Passalaqua × Rua Manoel Dutra,-23.555428,-46.645705,0,00:00,24:00,0,0,esquina
+1249,Rua Conselheiro Carrão × Rua Rui Barbosa,-23.557732,-46.645457,0,00:00,24:00,0,0,esquina
+1250,Rua Treze de Maio × Viaduto Armando Puglisi,-23.560776,-46.645788,0,00:00,24:00,0,0,esquina
+1251,Rua Conselheiro Carrão × Rua Rui Barbosa,-23.557719,-46.645312,0,00:00,24:00,0,0,esquina
+1252,Rua João Passalaqua × Rua Manoel Dutra,-23.555416,-46.64556,0,00:00,24:00,0,0,esquina
+1253,Rua João Passalaqua × Rua Professor Laerte Ramos de Carvalho,-23.554038,-46.645699,0,00:00,24:00,0,0,esquina
+1254,Rua João Passalaqua × Rua Martinho Prado,-23.551934,-46.64549,0,00:00,24:00,0,0,esquina
+1255,Rua Conselheiro Ramalho × Rua Professor Laerte Ramos de Carvalho,-23.554649,-46.64467,0,00:00,24:00,0,0,esquina
+1256,Avenida Nove de Julho × Rua Doutor Plínio Barreto,-23.558309,-46.653495,0,00:00,24:00,0,0,esquina
+1257,Avenida Nove de Julho × Viaduto Doutor Plínio de Queiroz,-23.552139,-46.647198,0,00:00,24:00,0,0,esquina
+1258,Avenida Nove de Julho × Viaduto Doutor Plínio de Queiroz,-23.552134,-46.647381,0,00:00,24:00,0,0,esquina
+1259,Rua Antônio Carlos × Rua Augusta,-23.556259,-46.658247,0,00:00,24:00,0,0,esquina
+1260,Rua Augusta × Rua Fernando de Albuquerque,-23.554862,-46.65676,0,00:00,24:00,0,0,esquina
+1261,Rua Augusta × Rua Dona Antônia de Queirós,-23.552054,-46.652591,0,00:00,24:00,0,0,esquina
+1262,Rua Augusta × Rua Marquês de Paranaguá,-23.551071,-46.649574,0,00:00,24:00,0,0,esquina
+1263,Avenida Higienópolis × Rua Dona Veridiana,-23.545306,-46.652184,0,00:00,24:00,0,0,esquina
+1264,Alameda Santos × Rua Pamplona,-23.564644,-46.654685,0,00:00,24:00,0,0,esquina
+1265,Alameda Campinas × Alameda Santos,-23.565877,-46.653203,0,00:00,24:00,0,0,esquina
+1266,Alameda Santos × Avenida Brigadeiro Luís Antônio,-23.568646,-46.649885,0,00:00,24:00,0,0,esquina
+1267,Avenida Brigadeiro Luís Antônio × Rua Cincinato Braga,-23.566461,-46.648308,0,00:00,24:00,0,0,esquina
+1268,Avenida Brigadeiro Luís Antônio × Rua dos Ingleses,-23.563596,-46.646049,0,00:00,24:00,0,0,esquina
+1269,Avenida Brigadeiro Luís Antônio × Rua Maria José,-23.559644,-46.642687,0,00:00,24:00,0,0,esquina
+1270,Avenida Brigadeiro Luís Antônio × Rua Humaitá,-23.558291,-46.641527,0,00:00,24:00,0,0,esquina
+1271,Avenida Brigadeiro Luís Antônio × Rua Aguiar de Barros,-23.554261,-46.638731,0,00:00,24:00,0,0,esquina
+1272,Praça da República × Rua Joaquim Gustavo,-23.542048,-46.642413,0,00:00,24:00,0,0,esquina
+1273,Rua Aureliano Coutinho × Rua Marquês de Itu,-23.543671,-46.653257,0,00:00,24:00,0,0,esquina
+1274,Rua Dona Veridiana × Rua Marquês de Itu,-23.543716,-46.651599,0,00:00,24:00,0,0,esquina
+1275,Rua General Jardim × Rua Sabará,-23.543986,-46.653405,0,00:00,24:00,0,0,esquina
+1276,Rua Doutor Cesário Mota Júnior × Rua General Jardim,-23.544656,-46.648918,0,00:00,24:00,0,0,esquina
+1277,Rua Dona Veridiana × Rua General Jardim,-23.544568,-46.651888,0,00:00,24:00,0,0,esquina
+1278,Rua Frei Caneca × Rua Marquês de Paranaguá,-23.551892,-46.649261,0,00:00,24:00,0,0,esquina
+1279,Alameda Casa Branca × Rua Barão de Capanema,-23.569555,-46.663607,0,00:00,24:00,0,0,esquina
+1280,Alameda Casa Branca × Rua Oscar Freire,-23.568674,-46.662679,0,00:00,24:00,0,0,esquina
+1281,Alameda Casa Branca × Rua José Maria Lisboa,-23.566195,-46.660107,0,00:00,24:00,0,0,esquina
+1282,Avenida Nove de Julho × Rua José Maria Lisboa,-23.567059,-46.659121,0,00:00,24:00,0,0,esquina
+1283,Alameda Casa Branca × Alameda Franca,-23.565425,-46.659334,0,00:00,24:00,0,0,esquina
+1284,Alameda Franca × Avenida Nove de Julho,-23.566272,-46.658359,0,00:00,24:00,0,0,esquina
+1285,Alameda Casa Branca × Alameda Itu,-23.56468,-46.65857,0,00:00,24:00,0,0,esquina
+1286,Alameda Campinas × Alameda Itu,-23.567775,-46.655056,0,00:00,24:00,0,0,esquina
+1287,Alameda Campinas × Alameda Franca,-23.568552,-46.655813,0,00:00,24:00,0,0,esquina
+1288,Alameda Campinas × Alameda Ribeirão Preto,-23.563077,-46.650503,0,00:00,24:00,0,0,esquina
+1289,Alameda Campinas × Rua São Carlos do Pinhal,-23.563969,-46.651334,0,00:00,24:00,0,0,esquina
+1290,Alameda Campinas × Alameda Jaú,-23.566765,-46.654071,0,00:00,24:00,0,0,esquina
+1291,Rua Pamplona × Rua Sílvia,-23.561493,-46.651782,0,00:00,24:00,0,0,esquina
+1292,Alameda Franca × Rua Pamplona,-23.567287,-46.657243,0,00:00,24:00,0,0,esquina
+1293,Rua José Maria Lisboa × Rua Pamplona,-23.568066,-46.657993,0,00:00,24:00,0,0,esquina
+1294,Rua Antônio Carlos × Rua São Carlos do Pinhal,-23.55768,-46.65634,0,00:00,24:00,0,0,esquina
+1295,Rua Capivari × Rua Itápolis,-23.549394,-46.664264,0,00:00,24:00,0,0,esquina
+1296,Rua Armando Penteado × Rua Itápolis,-23.545873,-46.664382,0,00:00,24:00,0,0,esquina
+1297,Praça Charles Miller × Rua Alagoas,-23.543415,-46.665386,0,00:00,24:00,0,0,esquina
+1298,Rua Conselheiro Brotero × Rua Doutor Veiga Filho,-23.538899,-46.661424,0,00:00,24:00,0,0,esquina
+1299,Rua Frederico Abranches × Rua Sebastião Pereira,-23.541146,-46.647966,0,00:00,24:00,0,0,esquina
+1300,Rua Fortunato × Rua Jaguaribe,-23.54164,-46.652217,0,00:00,24:00,0,0,esquina
+1301,Praça Charles Miller × Rua Itatiara,-23.544501,-46.664837,0,00:00,24:00,0,0,esquina
+1302,Praça Charles Miller × Rua Alagoas,-23.543563,-46.665698,0,00:00,24:00,0,0,esquina
+1303,Praça Vilaboim × Rua Piauí,-23.544358,-46.660007,0,00:00,24:00,0,0,esquina
+1304,Rua Alagoas × Rua Armando Penteado,-23.544936,-46.661722,0,00:00,24:00,0,0,esquina
+1305,Rua Piauí × Rua Sabará,-23.546618,-46.654674,0,00:00,24:00,0,0,esquina
+1306,Largo Santa Cecília × Rua Dona Veridiana,-23.53962,-46.650253,0,00:00,24:00,0,0,esquina
+1307,Largo Santa Cecília × Rua Sebastião Pereira,-23.538654,-46.649539,0,00:00,24:00,0,0,esquina
+1308,Rua Aureliano Coutinho × Rua Martinico Prado,-23.542705,-46.653184,0,00:00,24:00,0,0,esquina
+1309,Rua Dona Veridiana × Rua Martinico Prado,-23.542751,-46.651279,0,00:00,24:00,0,0,esquina
+1310,Avenida Angélica × Rua Doutor Veiga Filho,-23.541545,-46.655748,0,00:00,24:00,0,0,esquina
+1311,Rua Dona Veridiana × Rua Jaguaribe,-23.54168,-46.650929,0,00:00,24:00,0,0,esquina
+1312,Avenida São João × Rua Ana Cintra,-23.538117,-46.647951,0,00:00,24:00,0,0,esquina
+1313,Avenida Duque de Caxias × Avenida São João,-23.539093,-46.646234,0,00:00,24:00,0,0,esquina
+1314,Avenida Paulista × Rua da Consolação,-23.555556,-46.662899,0,00:00,24:00,0,0,esquina
+1315,Rua Helvétia × Rua das Palmeiras,-23.538369,-46.649879,0,00:00,24:00,0,0,esquina
+1316,Rua Amaral Gurgel × Rua General Jardim,-23.544682,-46.647923,0,00:00,24:00,0,0,esquina
+1317,Rua Amaral Gurgel × Rua Marquês de Itu,-23.543809,-46.647897,0,00:00,24:00,0,0,esquina
+1318,Largo do Arouche × Rua Amaral Gurgel,-23.541756,-46.647823,0,00:00,24:00,0,0,esquina
+1319,Rua Amaral Gurgel,-23.546331,-46.647954,0,00:00,24:00,0,0,esquina
+1320,Rua Marquês de Paranaguá × Rua da Consolação,-23.5485,-46.650562,0,00:00,24:00,0,0,esquina
+1321,Avenida Paulista × Rua Frei Caneca,-23.559125,-46.658919,0,00:00,24:00,0,0,esquina
+1322,Rua Antônio Carlos × Rua Frei Caneca,-23.557091,-46.657289,0,00:00,24:00,0,0,esquina
+1323,Rua Frei Caneca × Rua Peixoto Gomide,-23.554874,-46.655352,0,00:00,24:00,0,0,esquina
+1324,Alameda Ministro Rocha Azevedo × Rua São Carlos do Pinhal,-23.558347,-46.656284,0,00:00,24:00,0,0,esquina
+1325,Rua Doutor Penaforte Mendes × Rua Herculano de Freitas,-23.554892,-46.651572,0,00:00,24:00,0,0,esquina
+1326,Rua Barbosa Rodrigues × Rua Herculano de Freitas,-23.55603,-46.655551,0,00:00,24:00,0,0,esquina
+1327,Rua Antônio Carlos × Rua Peixoto Gomide,-23.558288,-46.655414,0,00:00,24:00,0,0,esquina
+1328,Rua Barata Ribeiro × Rua Peixoto Gomide,-23.557108,-46.655505,0,00:00,24:00,0,0,esquina
+1329,Praça Geremia Lunardelli × Rua Carlos Comenale,-23.561061,-46.655485,0,00:00,24:00,0,0,esquina
+1330,Praça Geremia Lunardelli × Rua Engenheiro Monlevade,-23.560791,-46.655516,0,00:00,24:00,0,0,esquina
+1331,Praça Geremia Lunardelli × Rua Carlos Comenale,-23.560973,-46.655565,0,00:00,24:00,0,0,esquina
+1332,Avenida Paulista × Rua Plínio Figueiredo,-23.561351,-46.656485,0,00:00,24:00,0,0,esquina
+1333,Rua Frei Caneca × Rua Luís Coelho,-23.557874,-46.657903,0,00:00,24:00,0,0,esquina
+1334,Rua Augusta × Rua Luís Coelho,-23.556941,-46.658966,0,00:00,24:00,0,0,esquina
+1335,Rua Bela Cintra × Rua Luís Coelho,-23.555409,-46.660714,0,00:00,24:00,0,0,esquina
+1336,Rua Paula Sousa × Rua da Cantareira,-23.538831,-46.62883,0,00:00,24:00,0,0,esquina
+1337,Rua Miguel Carlos × Rua da Cantareira,-23.539515,-46.629117,0,00:00,24:00,0,0,esquina
+1338,Rua Barão de Duprat × Rua Cavalheiro Basílio Jafet,-23.54417,-46.631098,0,00:00,24:00,0,0,esquina
+1339,Rua São Joaquim × Rua da Glória,-23.559992,-46.633178,0,00:00,24:00,0,0,esquina
+1340,Rua Galvão Bueno × Rua São Joaquim,-23.561167,-46.634834,0,00:00,24:00,0,0,esquina
+1341,Rua São Joaquim × Rua Taguá,-23.561671,-46.636516,0,00:00,24:00,0,0,esquina
+1342,Avenida da Liberdade × Rua São Joaquim,-23.562036,-46.63865,0,00:00,24:00,0,0,esquina
+1343,Avenida da Liberdade × Rua Fagundes,-23.559139,-46.637488,0,00:00,24:00,0,0,esquina
+1344,Rua Maestro Cardim × Rua Monsenhor Passaláqua,-23.560924,-46.640283,0,00:00,24:00,0,0,esquina
+1345,Rua Maestro Cardim,-23.561659,-46.640457,0,00:00,24:00,0,0,esquina
+1346,Rua Maestro Cardim × Rua Santa Madalena,-23.563632,-46.641044,0,00:00,24:00,0,0,esquina
+1347,Rua Artur Prado × Rua Monsenhor Passaláqua,-23.560395,-46.642467,0,00:00,24:00,0,0,esquina
+1348,Avenida Brigadeiro Luís Antônio × Rua Professor Sebastião Soares de Faria,-23.559963,-46.64296,0,00:00,24:00,0,0,esquina
+1349,Rua Martiniano de Carvalho × Rua Monsenhor Passaláqua,-23.560685,-46.641355,0,00:00,24:00,0,0,esquina
+1350,Rua Martiniano de Carvalho × Rua Pio XII,-23.565378,-46.642705,0,00:00,24:00,0,0,esquina
+1351,Rua Martiniano de Carvalho × Rua Santa Madalena,-23.563361,-46.642125,0,00:00,24:00,0,0,esquina
+1352,Rua Martiniano de Carvalho × Rua Pedroso,-23.562325,-46.641836,0,00:00,24:00,0,0,esquina
+1353,Rua Artur Prado × Rua Santa Madalena,-23.563085,-46.643222,0,00:00,24:00,0,0,esquina
+1354,Rua Artur Prado × Rua Pio XII,-23.565108,-46.643794,0,00:00,24:00,0,0,esquina
+1355,Rua Maestro Cardim × Rua Pio XII,-23.565617,-46.641692,0,00:00,24:00,0,0,esquina
+1356,Rua João Julião × Rua Maestro Cardim,-23.568534,-46.642186,0,00:00,24:00,0,0,esquina
+1357,Rua Doutor Alfredo Ellis × Rua Santa Madalena,-23.562877,-46.644156,0,00:00,24:00,0,0,esquina
+1358,Avenida Brigadeiro Luís Antônio × Rua Santa Madalena,-23.562613,-46.645226,0,00:00,24:00,0,0,esquina
+1359,Rua Doutor Alfredo Ellis × Rua Pedroso,-23.561821,-46.643881,0,00:00,24:00,0,0,esquina
+1360,Rua Doutor Alfredo Ellis × Rua Pio XII,-23.564805,-46.644555,0,00:00,24:00,0,0,esquina
+1361,Rua 13 de Maio × Rua Pio XII,-23.564964,-46.645092,0,00:00,24:00,0,0,esquina
+1362,Rua Doutor Lund × Rua Glicério,-23.556069,-46.629168,0,00:00,24:00,0,0,esquina
+1363,Rua Doutor Itapura de Miranda × Rua da Cantareira,-23.543372,-46.63072,0,00:00,24:00,0,0,esquina
+1364,Praça Almeida Júnior × Rua Conselheiro Furtado,-23.556264,-46.633048,0,00:00,24:00,0,0,esquina
+1365,Avenida Vinte e Três de Maio,-23.55551,-46.637478,0,00:00,24:00,0,0,esquina
+1366,Esquina 1366,-23.554798,-46.636495,0,00:00,24:00,0,0,esquina
+1367,Viaduto Doutor Manoel José Chaves,-23.553335,-46.636186,0,00:00,24:00,0,0,esquina
+1368,Rua Asdrubal do Nascimento × Viaduto Doutor Manoel José Chaves,-23.553423,-46.637339,0,00:00,24:00,0,0,esquina
+1369,Praça Carlos Gomes,-23.552858,-46.636158,0,00:00,24:00,0,0,esquina
+1370,Avenida Vinte e Três de Maio,-23.555692,-46.637233,0,00:00,24:00,0,0,esquina
+1371,Rua Asdrubal do Nascimento,-23.552855,-46.637543,0,00:00,24:00,0,0,esquina
+1372,Rua Asdrubal do Nascimento × Rua Jandaia,-23.553807,-46.637222,0,00:00,24:00,0,0,esquina
+1373,Rua Asdrubal do Nascimento × Rua Assembleia,-23.553934,-46.637182,0,00:00,24:00,0,0,esquina
+1374,Avenida Brigadeiro Luís Antônio × Rua Jaceguaí,-23.555603,-46.639475,0,00:00,24:00,0,0,esquina
+1375,Rua Assembleia,-23.55568,-46.638327,0,00:00,24:00,0,0,esquina
+1376,Rua Manoel Dutra × Rua Professor Laerte Ramos de Carvalho,-23.555234,-46.643706,0,00:00,24:00,0,0,esquina
+1377,Rua Major Diogo × Rua Professor Laerte Ramos de Carvalho,-23.555455,-46.642989,0,00:00,24:00,0,0,esquina
+1378,Rua Barão de Iguape × Rua da Glória,-23.558307,-46.634026,0,00:00,24:00,0,0,esquina
+1379,Rua Conselheiro Furtado × Rua São Joaquim,-23.559745,-46.632845,0,00:00,24:00,0,0,esquina
+1380,Rua Conselheiro Furtado × Rua Tamandaré,-23.561368,-46.632698,0,00:00,24:00,0,0,esquina
+1381,Rua Conselheiro Furtado × Rua da Glória,-23.560121,-46.632819,0,00:00,24:00,0,0,esquina
+1382,Rua Glicério × Rua Tamandaré,-23.559919,-46.631206,0,00:00,24:00,0,0,esquina
+1383,Rua José Getúlio × Rua Professor Antônio Prudente,-23.566278,-46.636924,0,00:00,24:00,0,0,esquina
+1384,Rua Castro Alves × Rua Vergueiro,-23.566282,-46.639545,0,00:00,24:00,0,0,esquina
+1385,Rua Barão de Iguape × Rua Glicério,-23.558074,-46.630238,0,00:00,24:00,0,0,esquina
+1386,Alameda Jaú × Rua Pamplona,-23.565535,-46.655548,0,00:00,24:00,0,0,esquina
+1387,Alameda Jaú × Avenida Brigadeiro Luís Antônio,-23.569508,-46.650787,0,00:00,24:00,0,0,esquina
+1388,Rua Barão de Iguape × Rua Galvão Bueno,-23.558353,-46.635054,0,00:00,24:00,0,0,esquina
+1389,Rua Barão de Iguape × Rua Sinimbú,-23.558146,-46.631395,0,00:00,24:00,0,0,esquina
+1390,Rua Barão de Iguape × Rua Mituto Mizumoto,-23.558181,-46.631963,0,00:00,24:00,0,0,esquina
+1391,Rua Barão de Iguape × Rua Conselheiro Furtado,-23.558242,-46.632934,0,00:00,24:00,0,0,esquina
+1392,Avenida da Liberdade × Rua Barão de Iguape,-23.558267,-46.636995,0,00:00,24:00,0,0,esquina
+1393,Rua Conselheiro Furtado × Rua Santa Luzia,-23.554715,-46.633163,0,00:00,24:00,0,0,esquina
+1394,Rua Doutor Tomaz de Lima × Rua Santa Luzia,-23.554646,-46.63199,0,00:00,24:00,0,0,esquina
+1395,Rua João de Carvalho,-23.553225,-46.63008,0,00:00,24:00,0,0,esquina
+1396,Rua Helena Zerrener × Rua Oscar Cintra Gordinho,-23.55311,-46.628485,0,00:00,24:00,0,0,esquina
+1397,Rua Glicério × Rua Oscar Cintra Gordinho,-23.552973,-46.627586,0,00:00,24:00,0,0,esquina
+1398,Praça Doutor Mário Margarido × Rua Glicério,-23.554763,-46.628516,0,00:00,24:00,0,0,esquina
+1399,Rua Cavalheiro Basílio Jafet × Rua Jorge Azem,-23.544199,-46.631477,0,00:00,24:00,0,0,esquina
+1400,Rua Barão de Duprat,-23.543323,-46.630964,0,00:00,24:00,0,0,esquina
+1401,Rua Barão de Duprat × Rua Comendador Afonso Kherlakian,-23.541749,-46.630838,0,00:00,24:00,0,0,esquina
+1402,Rua Barão de Duprat × Rua Carlos de Sousa Nazaré,-23.540338,-46.630721,0,00:00,24:00,0,0,esquina
+1403,Avenida Senador Queirós × Rua Barão de Duprat,-23.53991,-46.630722,0,00:00,24:00,0,0,esquina
+1404,Rua Cavalheiro Basílio Jafet × Rua Comendador Abdo Schahin,-23.544252,-46.632202,0,00:00,24:00,0,0,esquina
+1405,Rua Comendador Abdo Schahin × Rua Comendador Afonso Kherlakian,-23.541909,-46.631772,0,00:00,24:00,0,0,esquina
+1406,Rua Carlos de Sousa Nazaré × Rua Vinte e Cinco de Março,-23.54056,-46.632119,0,00:00,24:00,0,0,esquina
+1407,Rua Comendador Afonso Kherlakian × Rua Vinte e Cinco de Março,-23.541985,-46.632216,0,00:00,24:00,0,0,esquina
+1408,Rua Niazi Chohfi × Rua Vinte e Cinco de Março,-23.543445,-46.632482,0,00:00,24:00,0,0,esquina
+1409,Rua Comendador Abdo Schahin × Rua Niazi Chohfi,-23.543512,-46.632065,0,00:00,24:00,0,0,esquina
+1410,Ladeira da Constituição × Rua Vinte e Cinco de Março,-23.543636,-46.632518,0,00:00,24:00,0,0,esquina
+1411,Rua Lucrécia Leme × Rua Vinte e Cinco de Março,-23.542718,-46.632348,0,00:00,24:00,0,0,esquina
+1412,Rua Comendador Abdo Schahin × Rua Lucrécia Leme,-23.542787,-46.631933,0,00:00,24:00,0,0,esquina
+1413,Rua Comendador Afonso Kherlakian × Rua da Cantareira,-23.541873,-46.630106,0,00:00,24:00,0,0,esquina
+1414,Avenida Senador Queirós × Rua Florêncio de Abreu,-23.539396,-46.632894,0,00:00,24:00,0,0,esquina
+1415,Praça da Bandeira,-23.549127,-46.638704,0,00:00,24:00,0,0,esquina
+1416,Rua Doutora Romilda Valentino × Rua Pais de Andrade,-23.566598,-46.633099,0,00:00,24:00,0,0,esquina
+1417,Rua Almeida Torres × Rua Oliveira Peixoto,-23.568293,-46.627925,0,00:00,24:00,0,0,esquina
+1418,Rua Espírito Santo × Rua Pais de Andrade,-23.568759,-46.631393,0,00:00,24:00,0,0,esquina
+1419,Rua Almeida Torres × Rua Desembargador Macedo Vieira,-23.567966,-46.628395,0,00:00,24:00,0,0,esquina
+1420,Rua Desembargador Macedo Vieira × Rua Pais de Andrade,-23.569866,-46.630509,0,00:00,24:00,0,0,esquina
+1421,Rua Almeida Torres × Rua Baturité,-23.568632,-46.627443,0,00:00,24:00,0,0,esquina
+1422,Rua Almeida Torres × Rua Bueno de Andrade,-23.567601,-46.62938,0,00:00,24:00,0,0,esquina
+1423,Rua Bueno de Andrade × Rua Pires da Mota,-23.565341,-46.631373,0,00:00,24:00,0,0,esquina
+1424,Rua Almeida Torres,-23.569578,-46.626366,0,00:00,24:00,0,0,esquina
+1425,Largo Nossa Senhora da Conceição × Rua Largo do Redentor,-23.564137,-46.629628,0,00:00,24:00,0,0,esquina
+1426,Rua dos Parecis,-23.564417,-46.626949,0,00:00,24:00,0,0,esquina
+1427,Largo Nossa Senhora da Conceição × Rua Vitório Emanuel,-23.564551,-46.62881,0,00:00,24:00,0,0,esquina
+1428,Rua Vitório Emanuel,-23.565451,-46.625952,0,00:00,24:00,0,0,esquina
+1429,Rua Perdões × Rua Pires da Mota,-23.565942,-46.632199,0,00:00,24:00,0,0,esquina
+1430,Rua José Getúlio × Rua Pires da Mota,-23.568015,-46.635031,0,00:00,24:00,0,0,esquina
+1431,Rua Dom Raimundo Brito,-23.56789,-46.63212,0,00:00,24:00,0,0,esquina
+1432,Rua Pais de Andrade × Rua Saturno,-23.568287,-46.631775,0,00:00,24:00,0,0,esquina
+1433,Avenida da Aclimação × Rua Saturno,-23.568984,-46.632784,0,00:00,24:00,0,0,esquina
+1434,Rua Loureiro da Cruz × Rua Saturno,-23.570152,-46.634421,0,00:00,24:00,0,0,esquina
+1435,Avenida Turmalina,-23.571178,-46.631144,0,00:00,24:00,0,0,esquina
+1436,Avenida Turmalina × Rua Rubi,-23.570391,-46.631732,0,00:00,24:00,0,0,esquina
+1437,Avenida da Aclimação × Rua José Getúlio,-23.570421,-46.632934,0,00:00,24:00,0,0,esquina
+1438,Avenida da Aclimação,-23.569971,-46.632593,0,00:00,24:00,0,0,esquina
+1439,Rua Baturité,-23.571191,-46.629499,0,00:00,24:00,0,0,esquina
+1440,Rua Baronesa de Itu × Rua Doutor Albuquerque Lins,-23.53919,-46.657985,0,00:00,24:00,0,0,esquina
+1441,Rua Canuto do Val × Rua Dona Veridiana,-23.540652,-46.650592,0,00:00,24:00,0,0,esquina
+1442,Rua Amaral Gurgel × Rua Major Sertório,-23.545407,-46.647737,0,00:00,24:00,0,0,esquina
+1443,Rua General Couto de Magalhães × Rua dos Timbiras,-23.538661,-46.636597,0,00:00,24:00,0,0,esquina
+1444,Alameda Joaquim Eugênio de Lima × Rua dos Belgas,-23.562812,-46.647622,0,00:00,24:00,0,0,esquina
+1445,Alameda Casa Branca × Rua Tatui,-23.566854,-46.660802,0,00:00,24:00,0,0,esquina
+1446,Alameda Joaquim Eugênio de Lima × Rua José Maria Lisboa,-23.570544,-46.655213,0,00:00,24:00,0,0,esquina
+1447,Alameda Campinas × Rua José Maria Lisboa,-23.569331,-46.656572,0,00:00,24:00,0,0,esquina
+1448,Rua Batataes × Rua Pamplona,-23.56893,-46.658824,0,00:00,24:00,0,0,esquina
+1449,Alameda Campinas × Rua Batataes,-23.570224,-46.657443,0,00:00,24:00,0,0,esquina
+1450,Alameda Joaquim Eugênio de Lima × Rua Batataes,-23.571459,-46.656123,0,00:00,24:00,0,0,esquina
+1451,Rua Batataes,-23.572932,-46.654519,0,00:00,24:00,0,0,esquina
+1452,Alameda Campinas × Alameda Sarutaiá,-23.568378,-46.655643,0,00:00,24:00,0,0,esquina
+1453,Alameda Sarutaiá × Avenida Brigadeiro Luís Antônio,-23.570956,-46.652346,0,00:00,24:00,0,0,esquina
+1454,Alameda Campinas × Alameda Fernão Cardim,-23.567594,-46.654879,0,00:00,24:00,0,0,esquina
+1455,Alameda Fernão Cardim × Avenida Brigadeiro Luís Antônio,-23.570194,-46.651525,0,00:00,24:00,0,0,esquina
+1456,Alameda Joaquim Eugênio de Lima × Rua Saint-Hilaire,-23.570265,-46.654936,0,00:00,24:00,0,0,esquina
+1457,Rua Saint-Hilaire,-23.571328,-46.653566,0,00:00,24:00,0,0,esquina
+1458,Avenida Paulista × Rua Teixeira da Silva,-23.569525,-46.646438,0,00:00,24:00,0,0,esquina
+1459,Rua Cincinato Braga × Rua Teixeira da Silva,-23.568679,-46.645664,0,00:00,24:00,0,0,esquina
+1460,Rua Paula Sousa × Rua Vinte e Cinco de Março,-23.538001,-46.632014,0,00:00,24:00,0,0,esquina
+1461,Rua Itapeva × Rua São Carlos do Pinhal,-23.561691,-46.65403,0,00:00,24:00,0,0,esquina
+1462,Rua Jaceguaí × Rua Santo Amaro,-23.555406,-46.64018,0,00:00,24:00,0,0,esquina
+1463,Rua Abolição × Rua Jaceguaí,-23.555267,-46.642001,0,00:00,24:00,0,0,esquina
+1464,Rua Major Diogo × Rua São Domingos,-23.552692,-46.643276,0,00:00,24:00,0,0,esquina
+1465,Rua Doutor Ricardo Batista × Rua Major Diogo,-23.551893,-46.643359,0,00:00,24:00,0,0,esquina
+1466,Rua Major Diogo × Rua Major Quedinho,-23.551097,-46.643441,0,00:00,24:00,0,0,esquina
+1467,Rua Delegado Éverton × Rua Santo Antônio,-23.553071,-46.64693,0,00:00,24:00,0,0,esquina
+1468,Rua Samuel das Neves × Rua Santo Antônio,-23.555159,-46.648005,0,00:00,24:00,0,0,esquina
+1469,Avenida Nove de Julho × Rua Paim,-23.554729,-46.648853,0,00:00,24:00,0,0,esquina
+1470,Praça da Bandeira × Rua Santo Antônio,-23.549482,-46.6404,0,00:00,24:00,0,0,esquina
+1471,Praça da Bandeira × Rua Asdrúbal Nascimento,-23.550228,-46.638573,0,00:00,24:00,0,0,esquina
+1472,Rua Asdrúbal Nascimento,-23.551085,-46.638141,0,00:00,24:00,0,0,esquina
+1473,Rua Maria Paula × Rua Santo Amaro,-23.551331,-46.640299,0,00:00,24:00,0,0,esquina
+1474,Rua Francisca Miquelina × Rua Santo Amaro,-23.555012,-46.640263,0,00:00,24:00,0,0,esquina
+1475,Avenida Higienópolis × Rua Aracaju,-23.542251,-46.658974,0,00:00,24:00,0,0,esquina
+1476,Rua Fagundes × Rua Taguá,-23.559498,-46.636514,0,00:00,24:00,0,0,esquina
+1477,Rua Fagundes × Rua Galvão Bueno,-23.56011,-46.634915,0,00:00,24:00,0,0,esquina
+1478,Rua Bela Cintra × Rua Costa,-23.552651,-46.655767,0,00:00,24:00,0,0,esquina
+1479,Rua Augusta × Rua Costa,-23.553475,-46.655286,0,00:00,24:00,0,0,esquina
+1480,Rua Bela Cintra × Rua Dona Antônia de Queirós,-23.550735,-46.653216,0,00:00,24:00,0,0,esquina
+1481,Rua Aracaju × Rua Bahia,-23.542989,-46.659564,0,00:00,24:00,0,0,esquina
+1482,Rua Aracaju × Rua Pernambuco,-23.543527,-46.660486,0,00:00,24:00,0,0,esquina
+1483,Praça Vilaboim × Rua Armando Penteado,-23.544711,-46.661084,0,00:00,24:00,0,0,esquina
+1484,Avenida Higienópolis × Rua Conselheiro Brotero,-23.54053,-46.661536,0,00:00,24:00,0,0,esquina
+1485,Rua Doutor Brasílio Machado × Rua Doutor Veiga Filho,-23.539894,-46.659754,0,00:00,24:00,0,0,esquina
+1486,Rua Baronesa de Itu × Rua Doutor Brasílio Machado,-23.538676,-46.659346,0,00:00,24:00,0,0,esquina
+1487,Rua Paraguaçu × Rua Traipu,-23.535917,-46.66394,0,00:00,24:00,0,0,esquina
+1488,Rua Traipu,-23.53499,-46.663493,0,00:00,24:00,0,0,esquina
+1489,Avenida Pacaembu × Rua Paraguaçu,-23.536995,-46.663566,0,00:00,24:00,0,0,esquina
+1490,Rua Tupi,-23.535742,-46.661812,0,00:00,24:00,0,0,esquina
+1491,Rua Jaguaribe × Rua Martim Francisco,-23.54158,-46.654525,0,00:00,24:00,0,0,esquina
+1492,Alameda Glete × Rua Martim Francisco,-23.537654,-46.650809,0,00:00,24:00,0,0,esquina
+1493,Rua Baronesa de Itu × Rua Conselheiro Brotero,-23.537834,-46.661355,0,00:00,24:00,0,0,esquina
+1494,Rua Herculano de Freitas × Rua Itararé,-23.555196,-46.652634,0,00:00,24:00,0,0,esquina
+1495,Rua Herculano de Freitas × Rua São Miguel,-23.555669,-46.654275,0,00:00,24:00,0,0,esquina
+1496,Rua Frei Caneca × Rua Matias Aires,-23.55629,-46.656666,0,00:00,24:00,0,0,esquina
+1497,Rua Frei Caneca × Rua São Miguel,-23.554619,-46.654881,0,00:00,24:00,0,0,esquina
+1498,Rua Doutor Penaforte Mendes × Rua Frei Caneca,-23.553291,-46.652325,0,00:00,24:00,0,0,esquina
+1499,Rua Frei Caneca × Rua Paim,-23.552738,-46.651307,0,00:00,24:00,0,0,esquina
+1500,Rua Itacolomi × Rua Piauí,-23.546012,-46.656103,0,00:00,24:00,0,0,esquina
+1501,Rua Itararé × Rua Peixoto Gomide,-23.55545,-46.655441,0,00:00,24:00,0,0,esquina
+1502,Rua Antônio Carlos × Rua Bela Cintra,-23.554759,-46.659961,0,00:00,24:00,0,0,esquina
+1503,Avenida Nove de Julho × Rua Engenheiro Monlevade,-23.55922,-46.654358,0,00:00,24:00,0,0,esquina
+1504,Rua Augusta × Rua Matias Aires,-23.555554,-46.657497,0,00:00,24:00,0,0,esquina
+1505,Rua Bela Cintra × Rua Matias Aires,-23.554079,-46.659174,0,00:00,24:00,0,0,esquina
+1506,Rua Professor Ernest Marcus,-23.555741,-46.666648,0,00:00,24:00,0,0,esquina
+1507,Rua Fernando de Albuquerque × Rua da Consolação,-23.552818,-46.659075,0,00:00,24:00,0,0,esquina
+1508,Rua Maranhão × Rua Sabará,-23.545697,-46.654213,0,00:00,24:00,0,0,esquina
+1509,Rua Bahia × Rua Sergipe,-23.54684,-46.660419,0,00:00,24:00,0,0,esquina
+1510,Rua Maranhão × Rua Rio de Janeiro,-23.541258,-46.66201,0,00:00,24:00,0,0,esquina
+1511,Rua Pernambuco × Rua Rio de Janeiro,-23.542055,-46.6626,0,00:00,24:00,0,0,esquina
+1512,Rua Barão de Tatuí × Rua Jaguaribe,-23.541569,-46.655017,0,00:00,24:00,0,0,esquina
+1513,Rua Baronesa de Itu × Rua Canuto do Val,-23.53996,-46.653053,0,00:00,24:00,0,0,esquina
+1514,Avenida Higienópolis × Rua Itacolomi,-23.544199,-46.655216,0,00:00,24:00,0,0,esquina
+1515,Rua Alagoas × Rua Itacolomi,-23.54711,-46.656641,0,00:00,24:00,0,0,esquina
+1516,Rua Alagoas × Rua Ceará,-23.545358,-46.660746,0,00:00,24:00,0,0,esquina
+1517,Rua Alagoas × Rua Tinhorão,-23.544738,-46.662199,0,00:00,24:00,0,0,esquina
+1518,Rua Alagoas × Rua Engenheiro Edgar Egídio de Sousa,-23.543686,-46.66462,0,00:00,24:00,0,0,esquina
+1519,Rua Itacolomi × Rua Maranhão,-23.54509,-46.655652,0,00:00,24:00,0,0,esquina
+1520,Rua Goiás × Rua Itápolis,-23.549427,-46.662213,0,00:00,24:00,0,0,esquina
+1521,Rua Ceará × Rua Goiás,-23.550048,-46.661141,0,00:00,24:00,0,0,esquina
+1522,Rua Bahia × Rua Goiás,-23.550118,-46.660577,0,00:00,24:00,0,0,esquina
+1523,Rua Itapemirim × Rua Itaquera,-23.550203,-46.662379,0,00:00,24:00,0,0,esquina
+1524,Rua Bahia × Rua Itápolis,-23.551564,-46.664013,0,00:00,24:00,0,0,esquina
+1525,Rua Minas Gerais × Rua Novo Horizonte,-23.553327,-46.662964,0,00:00,24:00,0,0,esquina
+1526,Rua Buri × Rua Catanduva,-23.553861,-46.665668,0,00:00,24:00,0,0,esquina
+1527,Rua Buri × Rua Itápolis,-23.554512,-46.665485,0,00:00,24:00,0,0,esquina
+1528,Rua Itápolis,-23.55397,-46.664334,0,00:00,24:00,0,0,esquina
+1529,Rua Bahia × Rua Pará,-23.548336,-46.660811,0,00:00,24:00,0,0,esquina
+1530,Praça Garcia Redondo × Rua Avaré,-23.548244,-46.663398,0,00:00,24:00,0,0,esquina
+1531,Rua Fernando de Albuquerque × Rua Haddock Lobo,-23.554116,-46.657586,0,00:00,24:00,0,0,esquina
+1532,Rua Dona Adma Jafet × Rua Engenheiro Monlevade,-23.55926,-46.654563,0,00:00,24:00,0,0,esquina
+1533,Rua Barata Ribeiro × Rua Dona Adma Jafet,-23.556933,-46.654806,0,00:00,24:00,0,0,esquina
+1534,Rua Barata Ribeiro × Rua Professor Daher Cutait,-23.556436,-46.653009,0,00:00,24:00,0,0,esquina
+1535,Rua Barata Ribeiro × Rua Doutor Penaforte Mendes,-23.555917,-46.651133,0,00:00,24:00,0,0,esquina
+1536,Praça 14 Bis × Rua Barata Ribeiro,-23.555829,-46.650332,0,00:00,24:00,0,0,esquina
+1537,Rua Itararé × Rua São Miguel,-23.555187,-46.654545,0,00:00,24:00,0,0,esquina
+1538,Rua Itararé,-23.554658,-46.652909,0,00:00,24:00,0,0,esquina
+1539,Rua Florêncio de Abreu × Rua Paula Sousa,-23.53783,-46.632976,0,00:00,24:00,0,0,esquina
+1540,Rua Paula Sousa × Rua Plínio Ramos,-23.538599,-46.629733,0,00:00,24:00,0,0,esquina
+1541,Rua Antônio Pais × Rua Barão de Duprat,-23.538362,-46.630651,0,00:00,24:00,0,0,esquina
+1542,Rua Glicério × Rua São Paulo,-23.556798,-46.629578,0,00:00,24:00,0,0,esquina
+1543,Rua Mituto Mizumoto × Rua da Glória,-23.560031,-46.63191,0,00:00,24:00,0,0,esquina
+1544,Peca Nina Rodrigues × Rua São Paulo,-23.557189,-46.628558,0,00:00,24:00,0,0,esquina
+1545,Rua Sinimbú × Rua São Paulo,-23.556944,-46.63151,0,00:00,24:00,0,0,esquina
+1546,Avenida Higienópolis × Rua Martim Francisco,-23.544423,-46.65463,0,00:00,24:00,0,0,esquina
+1547,Rua Doutor Vila Nova × Rua General Jardim,-23.544619,-46.65029,0,00:00,24:00,0,0,esquina
+1548,Rua Doutor Vila Nova × Rua Marquês de Itu,-23.543747,-46.650265,0,00:00,24:00,0,0,esquina
+1549,Rua Doutor Cesário Mota Júnior × Rua Jaguaribe,-23.54171,-46.64883,0,00:00,24:00,0,0,esquina
+1550,Rua Doutor Cesário Mota Júnior × Rua Maria Borba,-23.54715,-46.648989,0,00:00,24:00,0,0,esquina
+1551,Viaduto Júlio de Mesquita Filho,-23.555181,-46.642642,0,00:00,24:00,0,0,esquina
+1552,Rua Genebra × Rua Maria Paula,-23.551596,-46.639711,0,00:00,24:00,0,0,esquina
+1553,Rua Japurá × Viaduto Jacareí,-23.550932,-46.641528,0,00:00,24:00,0,0,esquina
+1554,Rua Maria Paula × Rua Santo Amaro,-23.551436,-46.640435,0,00:00,24:00,0,0,esquina
+1555,Rua Francisca Miquelina × Rua Maria Paula,-23.552238,-46.638712,0,00:00,24:00,0,0,esquina
+1556,Rua Aguiar de Barros × Rua Genebra,-23.553829,-46.63972,0,00:00,24:00,0,0,esquina
+1557,Rua Genebra × Rua Santo Amaro,-23.550956,-46.639795,0,00:00,24:00,0,0,esquina
+1558,Praça Pérola Byington × Rua Professor Laerte Ramos de Carvalho,-23.555865,-46.640379,0,00:00,24:00,0,0,esquina
+1559,Rua Abolição × Rua Humaitá,-23.555644,-46.641858,0,00:00,24:00,0,0,esquina
+1560,Rua Professor Laerte Ramos de Carvalho × Rua Santo Amaro,-23.555912,-46.640087,0,00:00,24:00,0,0,esquina
+1561,Rua Abolição × Rua Jardim Heloísa,-23.554659,-46.642046,0,00:00,24:00,0,0,esquina
+1562,Rua Abolição × Rua Jardim Francisco Matos,-23.554326,-46.642067,0,00:00,24:00,0,0,esquina
+1563,Rua Abolição × Rua Comendador José Xavier Gouveia,-23.553507,-46.642115,0,00:00,24:00,0,0,esquina
+1564,Rua Abolição × Rua São Domingos,-23.552599,-46.642195,0,00:00,24:00,0,0,esquina
+1565,Rua Abolição,-23.551828,-46.642269,0,00:00,24:00,0,0,esquina
+1566,Rua Abolição × Rua Jacareí,-23.551171,-46.64233,0,00:00,24:00,0,0,esquina
+1567,Rua Abolição × Rua Santo Antônio,-23.550704,-46.642479,0,00:00,24:00,0,0,esquina
+1568,Rua Santo Antônio,-23.549895,-46.640729,0,00:00,24:00,0,0,esquina
+1569,Rua Conselheiro Ramalho × Rua Santo Antônio,-23.551735,-46.645003,0,00:00,24:00,0,0,esquina
+1570,Rua Doutor Nestor Esteves Natividade × Rua Santo Amaro,-23.553675,-46.640611,0,00:00,24:00,0,0,esquina
+1571,Rua Santo Amaro × Rua do Bixiga,-23.554337,-46.640438,0,00:00,24:00,0,0,esquina
+1572,Rua Japurá × Viaduto Jacareí,-23.550903,-46.641591,0,00:00,24:00,0,0,esquina
+1573,Rua Comendador José Xavier Gouveia × Rua Japurá,-23.553461,-46.641474,0,00:00,24:00,0,0,esquina
+1574,Rua Doutor Nestor Esteves Natividade × Rua Japurá,-23.553771,-46.641356,0,00:00,24:00,0,0,esquina
+1575,Rua Japurá × Rua do Bixiga,-23.554263,-46.64141,0,00:00,24:00,0,0,esquina
+1576,Rua Japurá,-23.554443,-46.641449,0,00:00,24:00,0,0,esquina
+1577,Rua Conselheiro Ramalho × Rua São Domingos,-23.55284,-46.644908,0,00:00,24:00,0,0,esquina
+1578,Rua Quatorze de Julho,-23.554102,-46.644763,0,00:00,24:00,0,0,esquina
+1579,Rua Quatorze de Julho,-23.554469,-46.644182,0,00:00,24:00,0,0,esquina
+1580,Rua Conselheiro Ramalho × Rua Doutor Ricardo Batista,-23.552281,-46.644973,0,00:00,24:00,0,0,esquina
+1581,Avenida São João × Praça Júlio Mesquita,-23.541244,-46.642242,0,00:00,24:00,0,0,esquina
+1582,Rua Doutor Cesário Mota Júnior × Rua Santa Isabel,-23.542755,-46.648856,0,00:00,24:00,0,0,esquina
+1583,Rua Rego Freitas × Rua Santa Isabel,-23.542786,-46.646541,0,00:00,24:00,0,0,esquina
+1584,Rua Amaral Gurgel × Rua Santa Isabel,-23.542789,-46.647653,0,00:00,24:00,0,0,esquina
+1585,Rua Amaral Gurgel × Rua Santa Isabel,-23.542784,-46.647866,0,00:00,24:00,0,0,esquina
+1586,Rua Aurora × Rua Bento Freitas,-23.543343,-46.645505,0,00:00,24:00,0,0,esquina
+1587,Rua Aurora × Rua do Arouche,-23.54269,-46.644495,0,00:00,24:00,0,0,esquina
+1588,Avenida Vieira de Carvalho × Rua Aurora,-23.542118,-46.643583,0,00:00,24:00,0,0,esquina
+1589,Rua Aurora × Rua Conselheiro Nébias,-23.540831,-46.641581,0,00:00,24:00,0,0,esquina
+1590,Rua Aurora × Rua Guaianases,-23.540332,-46.6408,0,00:00,24:00,0,0,esquina
+1591,Rua Aurora × Rua Santa Ifigênia,-23.53902,-46.638765,0,00:00,24:00,0,0,esquina
+1592,Rua Aurora × Rua dos Andradas,-23.538455,-46.637884,0,00:00,24:00,0,0,esquina
+1593,Rua Aurora × Rua General Couto de Magalhães,-23.537892,-46.636995,0,00:00,24:00,0,0,esquina
+1594,Rua Santa Ifigênia × Rua Vitória,-23.538152,-46.639399,0,00:00,24:00,0,0,esquina
+1595,Rua Santa Ifigênia × Rua dos Gusmões,-23.537441,-46.63992,0,00:00,24:00,0,0,esquina
+1596,Rua General Osório × Rua Santa Ifigênia,-23.536667,-46.640484,0,00:00,24:00,0,0,esquina
+1597,Rua Barão de Campinas × Rua Helvétia,-23.536694,-46.647058,0,00:00,24:00,0,0,esquina
+1598,Avenida Rio Branco × Rua General Osório,-23.537482,-46.641618,0,00:00,24:00,0,0,esquina
+1599,Avenida São João × Rua Barão de Campinas,-23.54005,-46.644313,0,00:00,24:00,0,0,esquina
+1600,Avenida São João × Largo do Arouche,-23.539735,-46.644912,0,00:00,24:00,0,0,esquina
+1601,Alameda Barão de Limeira × Rua General Osório,-23.539088,-46.643878,0,00:00,24:00,0,0,esquina
+1602,Rua Conselheiro Nébias × Rua General Osório,-23.538665,-46.643229,0,00:00,24:00,0,0,esquina
+1603,Rua General Osório × Rua Guaianases,-23.538151,-46.642447,0,00:00,24:00,0,0,esquina
+1604,Rua Ana Cintra × Rua Barão de Campinas,-23.537302,-46.646545,0,00:00,24:00,0,0,esquina
+1605,Avenida Duque de Caxias × Rua Barão de Campinas,-23.53867,-46.645447,0,00:00,24:00,0,0,esquina
+1606,Rua Amaral Gurgel,-23.545933,-46.64775,0,00:00,24:00,0,0,esquina
+1607,Largo do Arouche × Rua Amaral Gurgel,-23.541761,-46.647614,0,00:00,24:00,0,0,esquina
+1608,Avenida Vieira de Carvalho × Largo do Arouche,-23.54116,-46.644482,0,00:00,24:00,0,0,esquina
+1609,Alameda Barão de Limeira × Praça Júlio Mesquita,-23.540264,-46.642911,0,00:00,24:00,0,0,esquina
+1610,Rua Conselheiro Nébias × Rua Vitória,-23.539891,-46.642293,0,00:00,24:00,0,0,esquina
+1611,Rua Guaianases × Rua Vitória,-23.53941,-46.641495,0,00:00,24:00,0,0,esquina
+1612,Rua Vitória × Rua dos Andradas,-23.53763,-46.638534,0,00:00,24:00,0,0,esquina
+1613,Rua Vitória × Rua do Triunfo,-23.537074,-46.637621,0,00:00,24:00,0,0,esquina
+1614,Rua General Couto de Magalhães × Rua Vitória,-23.536701,-46.63697,0,00:00,24:00,0,0,esquina
+1615,Alameda Barão de Limeira × Rua dos Gusmões,-23.539703,-46.643373,0,00:00,24:00,0,0,esquina
+1616,Rua Conselheiro Nébias × Rua dos Gusmões,-23.539296,-46.642752,0,00:00,24:00,0,0,esquina
+1617,Avenida São João × Rua dos Timbiras,-23.541866,-46.641106,0,00:00,24:00,0,0,esquina
+1618,Avenida Duque de Caxias × Avenida São João,-23.539074,-46.646016,0,00:00,24:00,0,0,esquina
+1619,Avenida Duque de Caxias × Avenida São João,-23.539008,-46.646135,0,00:00,24:00,0,0,esquina
+1620,Largo do Arouche × Rua Doutor Frederico Steidel,-23.5413,-46.647262,0,00:00,24:00,0,0,esquina
+1621,Largo do Arouche × Rua Rego Freitas,-23.541778,-46.646563,0,00:00,24:00,0,0,esquina
+1622,Rua Baronesa de Itu × Rua Doutor Gabriel dos Santos,-23.538345,-46.660181,0,00:00,24:00,0,0,esquina
+1623,Alameda Barros × Rua São Vicente de Paulo,-23.536588,-46.655758,0,00:00,24:00,0,0,esquina
+1624,Rua São Vicente de Paulo,-23.534583,-46.654812,0,00:00,24:00,0,0,esquina
+1625,Rua Doutor José Manoel × Rua Tupi,-23.537107,-46.662495,0,00:00,24:00,0,0,esquina
+1626,Rua Doutor Veiga Filho × Rua Tupi,-23.537664,-46.662783,0,00:00,24:00,0,0,esquina
+1627,Avenida São João × Rua Ana Cintra,-23.538049,-46.647835,0,00:00,24:00,0,0,esquina
+1628,Avenida São João × Rua Doutor Frederico Steidel,-23.538247,-46.647722,0,00:00,24:00,0,0,esquina
+1629,Rua General Couto de Magalhães × Rua dos Gusmões,-23.535548,-46.636952,0,00:00,24:00,0,0,esquina
+1630,Rua dos Gusmões × Rua dos Protestantes,-23.53584,-46.637524,0,00:00,24:00,0,0,esquina
+1631,Rua Guaianases × Rua dos Gusmões,-23.538778,-46.641971,0,00:00,24:00,0,0,esquina
+1632,Rua Guaianases × Rua dos Timbiras,-23.541144,-46.640183,0,00:00,24:00,0,0,esquina
+1633,Rua dos Andradas × Rua dos Gusmões,-23.536905,-46.639117,0,00:00,24:00,0,0,esquina
+1634,Rua do Triunfo × Rua dos Gusmões,-23.536314,-46.638227,0,00:00,24:00,0,0,esquina
+1635,Avenida Cásper Líbero × Rua Washington Luís,-23.537881,-46.635978,0,00:00,24:00,0,0,esquina
+1636,Avenida Cásper Líbero × Rua Washington Luís,-23.53788,-46.635859,0,00:00,24:00,0,0,esquina
+1637,Praça Golda Meir × Rua Itamarati,-23.539589,-46.66471,0,00:00,24:00,0,0,esquina
+1638,Avenida Pacaembu × Rua Itamarati,-23.540159,-46.664129,0,00:00,24:00,0,0,esquina
+1639,Rua Tupi,-23.54001,-46.663634,0,00:00,24:00,0,0,esquina
+1640,Praça Golda Meir × Rua Doutor Manuel Maria Tourinho,-23.539511,-46.665025,0,00:00,24:00,0,0,esquina
+1641,Rua Itaguaba × Rua Tupi,-23.539778,-46.663485,0,00:00,24:00,0,0,esquina
+1642,Rua Itaguaba × Rua Tupi,-23.540064,-46.663413,0,00:00,24:00,0,0,esquina
+1643,Rua Engenheiro Edgar Egídio de Sousa × Rua Senador Pádua Salles,-23.543463,-46.664538,0,00:00,24:00,0,0,esquina
+1644,Rua Traipu,-23.542026,-46.668461,0,00:00,24:00,0,0,esquina
+1645,Rua Doutor Manuel Maria Tourinho × Rua Itabaquara,-23.54137,-46.667471,0,00:00,24:00,0,0,esquina
+1646,Rua Itamarati × Rua Traipu,-23.538059,-46.664991,0,00:00,24:00,0,0,esquina
+1647,Avenida Pacaembu × Rua Itabaquara,-23.541477,-46.664816,0,00:00,24:00,0,0,esquina
+1648,Rua Aurora × Rua Joaquim Gustavo,-23.541667,-46.642891,0,00:00,24:00,0,0,esquina
+1649,Largo do Arouche,-23.5415,-46.645741,0,00:00,24:00,0,0,esquina
+1650,Avenida Duque de Caxias × Largo do Arouche,-23.541481,-46.646636,0,00:00,24:00,0,0,esquina
+1651,Praça da República × Rua dos Timbiras,-23.542475,-46.641895,0,00:00,24:00,0,0,esquina
+1652,Alameda Barros × Rua Frederico Abranches,-23.538607,-46.651736,0,00:00,24:00,0,0,esquina
+1653,Rua Caio Prado × Rua Gravataí,-23.549134,-46.648588,0,00:00,24:00,0,0,esquina
+1654,Rua Bela Cintra × Rua Pedro Taques,-23.552878,-46.656444,0,00:00,24:00,0,0,esquina
+1655,Rua Dona Antônia de Queirós × Rua Frei Caneca,-23.553138,-46.652038,0,00:00,24:00,0,0,esquina
+1656,Rua Pedro Taques × Rua da Consolação,-23.551668,-46.657012,0,00:00,24:00,0,0,esquina
+1657,Rua Avanhandava × Rua Paim,-23.554349,-46.650122,0,00:00,24:00,0,0,esquina
+1658,Rua Acaraú × Rua Avanhandava,-23.553536,-46.649159,0,00:00,24:00,0,0,esquina
+1659,Praça Contos Fluminenses × Rua Avanhandava,-23.553166,-46.649287,0,00:00,24:00,0,0,esquina
+1660,Rua Araquã × Rua Avanhandava,-23.552548,-46.648793,0,00:00,24:00,0,0,esquina
+1661,Rua Avanhandava,-23.552031,-46.647537,0,00:00,24:00,0,0,esquina
+1662,Rua Acaraú × Rua Araquã,-23.553721,-46.649039,0,00:00,24:00,0,0,esquina
+1663,Avenida Nove de Julho × Rua Acaraú,-23.554107,-46.648497,0,00:00,24:00,0,0,esquina
+1664,Rua Visconde de Ouro Preto × Rua da Consolação,-23.54886,-46.651656,0,00:00,24:00,0,0,esquina
+1665,Rua Marquês de Paranaguá × Rua Visconde de Ouro Preto,-23.549632,-46.650126,0,00:00,24:00,0,0,esquina
+1666,Avenida Nove de Julho × Rua Professor Picarolo,-23.559163,-46.65409,0,00:00,24:00,0,0,esquina
+1667,Avenida Nove de Julho × Praça 14 Bis,-23.555406,-46.649617,0,00:00,24:00,0,0,esquina
+1668,Avenida Nove de Julho × Rua Samuel das Neves,-23.554845,-46.648645,0,00:00,24:00,0,0,esquina
+1669,Avenida Nove de Julho × Rua Delegado Éverton,-23.552807,-46.647502,0,00:00,24:00,0,0,esquina
+1670,Rua Cardeal Leme,-23.55738,-46.649277,0,00:00,24:00,0,0,esquina
+1671,Rua Santo Antônio × Rua São Vicente,-23.556453,-46.647982,0,00:00,24:00,0,0,esquina
+1672,Rua Manoel Dutra × Rua Santo Antônio,-23.555632,-46.64799,0,00:00,24:00,0,0,esquina
+1673,Rua Doutor Luís Barreto × Rua Manoel Dutra,-23.555591,-46.64752,0,00:00,24:00,0,0,esquina
+1674,Rua Manoel Dutra × Rua Treze de Maio,-23.555517,-46.646701,0,00:00,24:00,0,0,esquina
+1675,Rua Conselheiro Ramalho × Rua Manoel Dutra,-23.555333,-46.644643,0,00:00,24:00,0,0,esquina
+1676,Rua Conselheiro Carrão × Rua Maria José,-23.557564,-46.643589,0,00:00,24:00,0,0,esquina
+1677,Rua Fortaleza × Rua Maria José,-23.559221,-46.643266,0,00:00,24:00,0,0,esquina
+1678,Rua Conselheiro Ramalho × Rua Fortaleza,-23.559732,-46.644185,0,00:00,24:00,0,0,esquina
+1679,Rua Rocha × Rua Una,-23.560256,-46.649531,0,00:00,24:00,0,0,esquina
+1680,Rua Rocha,-23.56107,-46.64956,0,00:00,24:00,0,0,esquina
+1681,Rua Doutor Seng × Rua Rocha,-23.562077,-46.650774,0,00:00,24:00,0,0,esquina
+1682,Alameda Ribeirão Preto × Rua Doutor Seng,-23.563577,-46.649908,0,00:00,24:00,0,0,esquina
+1683,Alameda Campinas × Rua Doutor Seng,-23.562563,-46.650003,0,00:00,24:00,0,0,esquina
+1684,Rua Doutor Seng × Rua Sílvia,-23.560817,-46.650589,0,00:00,24:00,0,0,esquina
+1685,Rua Cardeal Leme × Rua Una,-23.560277,-46.649211,0,00:00,24:00,0,0,esquina
+1686,Alameda Ribeirão Preto × Rua Pamplona,-23.561795,-46.652049,0,00:00,24:00,0,0,esquina
+1687,Alameda Joaquim Eugênio de Lima × Alameda Ribeirão Preto,-23.564288,-46.64904,0,00:00,24:00,0,0,esquina
+1688,Alameda Ribeirão Preto × Rua Santa Branca,-23.565148,-46.64802,0,00:00,24:00,0,0,esquina
+1689,Rua Santa Branca × Rua São Carlos do Pinhal,-23.565734,-46.649174,0,00:00,24:00,0,0,esquina
+1690,Rua Almirante Marques de Leão,-23.562964,-46.649062,0,00:00,24:00,0,0,esquina
+1691,Rua Almirante Marques de Leão × Rua Veloso Guerra,-23.559989,-46.64876,0,00:00,24:00,0,0,esquina
+1692,Rua Almirante Marques de Leão × Rua Conselheiro Carrão,-23.55799,-46.648316,0,00:00,24:00,0,0,esquina
+1693,Rua José Tenaglia × Rua Santo Antônio,-23.557252,-46.648151,0,00:00,24:00,0,0,esquina
+1694,Rua Carlos Comenale × Rua Itapeva,-23.561996,-46.65434,0,00:00,24:00,0,0,esquina
+1695,Rua Carlos Sampaio × Rua Cincinato Braga,-23.567969,-46.646521,0,00:00,24:00,0,0,esquina
+1696,Rua Carlos Sampaio × Rua Doutor Fausto Ferraz,-23.566505,-46.645223,0,00:00,24:00,0,0,esquina
+1697,Rua 13 de Maio × Rua Carlos Sampaio,-23.566102,-46.644821,0,00:00,24:00,0,0,esquina
+1698,Avenida Brigadeiro Luís Antônio × Rua Doutor Fausto Ferraz,-23.565086,-46.647333,0,00:00,24:00,0,0,esquina
+1699,Rua 13 de Maio × Rua Artur Prado,-23.566456,-46.64459,0,00:00,24:00,0,0,esquina
+1700,Rua Doutor Luís Barreto × Rua Santo Antônio,-23.554517,-46.647701,0,00:00,24:00,0,0,esquina
+1701,Rua Conselheiro Carrão × Rua Doutor Luís Barreto,-23.557894,-46.647245,0,00:00,24:00,0,0,esquina
+1702,Rua dos Franceses × Rua dos Ingleses,-23.558118,-46.647224,0,00:00,24:00,0,0,esquina
+1703,Rua dos Alemães × Rua dos Ingleses,-23.561696,-46.646822,0,00:00,24:00,0,0,esquina
+1704,Rua dos Belgas × Rua dos Ingleses,-23.562715,-46.646709,0,00:00,24:00,0,0,esquina
+1705,Rua Ulisses Paranhos × Rua dos Franceses,-23.560286,-46.647717,0,00:00,24:00,0,0,esquina
+1706,Rua Veloso Guerra × Rua dos Franceses,-23.559072,-46.647731,0,00:00,24:00,0,0,esquina
+1707,Rua Conselheiro Carrão × Rua Treze de Maio,-23.557827,-46.646503,0,00:00,24:00,0,0,esquina
+1708,Rua João Passalaqua × Rua Luís Porrio,-23.55295,-46.645945,0,00:00,24:00,0,0,esquina
+1709,Rua João Passalaqua,-23.553672,-46.645741,0,00:00,24:00,0,0,esquina
+1710,Rua Cunha Bueno × Rua Doutor Alfredo Ellis,-23.563871,-46.64445,0,00:00,24:00,0,0,esquina
+1711,Praça Dom Orione × Rua Rui Barbosa,-23.559891,-46.645108,0,00:00,24:00,0,0,esquina
+1712,Avenida Brigadeiro Luís Antônio × Rua Treze de Maio,-23.563104,-46.645633,0,00:00,24:00,0,0,esquina
+1713,Rua Conselheiro Carrão × Rua Conselheiro Ramalho,-23.557637,-46.644403,0,00:00,24:00,0,0,esquina
+1714,Rua Conselheiro Carrão × Rua Major Diogo,-23.55749,-46.642771,0,00:00,24:00,0,0,esquina
+1715,Rua Conselheiro Carrão × Rua Humaitá,-23.557444,-46.642236,0,00:00,24:00,0,0,esquina
+1716,Avenida Brigadeiro Luís Antônio × Rua Conselheiro Ramalho,-23.561149,-46.643974,0,00:00,24:00,0,0,esquina
+1717,Avenida Brigadeiro Luís Antônio × Rua Rui Barbosa,-23.56235,-46.644992,0,00:00,24:00,0,0,esquina
+1718,Rua José Getúlio × Rua Saturno,-23.569614,-46.633636,0,00:00,24:00,0,0,esquina
+1719,Rua José Getúlio × Rua Urano,-23.568867,-46.634286,0,00:00,24:00,0,0,esquina
+1720,Avenida da Aclimação × Rua Urano,-23.568238,-46.633347,0,00:00,24:00,0,0,esquina
+1721,Rua Loureiro da Cruz × Rua Urano,-23.569429,-46.635052,0,00:00,24:00,0,0,esquina
+1722,Rua Castro Alves × Rua Urano,-23.56996,-46.635773,0,00:00,24:00,0,0,esquina
+1723,Rua Urano,-23.57072,-46.636797,0,00:00,24:00,0,0,esquina
+1724,Rua Loureiro da Cruz × Rua Pires da Mota,-23.568574,-46.635796,0,00:00,24:00,0,0,esquina
+1725,Rua Castro Alves × Rua Saturno,-23.570665,-46.635171,0,00:00,24:00,0,0,esquina
+1726,Rua Castro Alves,-23.571113,-46.634798,0,00:00,24:00,0,0,esquina
+1727,Rua Doutor Siqueira Campos × Rua Taguá,-23.563698,-46.636623,0,00:00,24:00,0,0,esquina
+1728,Rua Doutor Siqueira Campos × Rua Tamandaré,-23.564366,-46.635278,0,00:00,24:00,0,0,esquina
+1729,Rua Pandiá Calógeras × Rua Tamandaré,-23.564,-46.634964,0,00:00,24:00,0,0,esquina
+1730,Rua Rocha Pombo × Rua Tamandaré,-23.563442,-46.634486,0,00:00,24:00,0,0,esquina
+1731,Rua Conselheiro Furtado × Rua Pandiá Calógeras,-23.563807,-46.632536,0,00:00,24:00,0,0,esquina
+1732,Rua Conselheiro Furtado × Rua Senador Felício dos Santos,-23.564273,-46.632504,0,00:00,24:00,0,0,esquina
+1733,Rua Senador Felício dos Santos,-23.566106,-46.634914,0,00:00,24:00,0,0,esquina
+1734,Avenida da Liberdade × Rua Thomáz Gonzaga,-23.557696,-46.636686,0,00:00,24:00,0,0,esquina
+1735,Rua Pirapitingui × Rua Taguá,-23.563087,-46.636515,0,00:00,24:00,0,0,esquina
+1736,Rua Conselheiro Furtado × Rua Tenente Otávio Gomes,-23.563439,-46.632558,0,00:00,24:00,0,0,esquina
+1737,Rua Conselheiro Furtado × Rua Pires da Mota,-23.566079,-46.632382,0,00:00,24:00,0,0,esquina
+1738,Esquina 1738,-23.557011,-46.637588,0,00:00,24:00,0,0,esquina
+1739,Avenida Radial Leste-Oeste,-23.555992,-46.638793,0,00:00,24:00,0,0,esquina
+1740,Avenida Brigadeiro Luís Antônio × Rua Conde de São Joaquim,-23.555988,-46.639679,0,00:00,24:00,0,0,esquina
+1741,Rua Loureiro da Cruz,-23.570603,-46.634035,0,00:00,24:00,0,0,esquina
+1742,Rua Itacolomi × Rua Sergipe,-23.548193,-46.657172,0,00:00,24:00,0,0,esquina
+1743,Rua Capivari × Rua Itajobi,-23.551584,-46.665278,0,00:00,24:00,0,0,esquina
+1744,Rua Conselheiro Brotero × Rua Doutor José Manoel,-23.537594,-46.661333,0,00:00,24:00,0,0,esquina
+1745,Rua Senador Pádua Salles,-23.542618,-46.663538,0,00:00,24:00,0,0,esquina
+1746,Rua Conselheiro Brotero × Rua Engenheiro Edgar Egídio de Sousa,-23.540115,-46.661518,0,00:00,24:00,0,0,esquina
+1747,Rua das Mangabeiras,-23.539934,-46.662481,0,00:00,24:00,0,0,esquina
+1748,Rua Engenheiro Edgar Egídio de Sousa × Rua Itatiara,-23.544599,-46.664577,0,00:00,24:00,0,0,esquina
+1749,Rua Doutor Emílio Ribas,-23.535736,-46.665723,0,00:00,24:00,0,0,esquina
+1750,Rua Doutor Emílio Ribas × Rua Traipu,-23.536418,-46.664189,0,00:00,24:00,0,0,esquina
+1751,Avenida Pacaembu × Rua Doutor Veiga Filho,-23.537097,-46.663435,0,00:00,24:00,0,0,esquina
+1752,Rua Tamandaré × Rua Tenente Otávio Gomes,-23.562975,-46.634082,0,00:00,24:00,0,0,esquina
+1753,Rua Bueno de Andrade × Rua Tenente Otávio Gomes,-23.563387,-46.631579,0,00:00,24:00,0,0,esquina
+1754,Rua Comendador Vicente Lentini × Rua São João Batista,-23.56313,-46.630245,0,00:00,24:00,0,0,esquina
+1755,Rua Espírita × Rua do Lavapés,-23.559827,-46.630281,0,00:00,24:00,0,0,esquina
+1756,Rua Espírita × Rua dos Tapes,-23.561683,-46.630049,0,00:00,24:00,0,0,esquina
+1757,Rua Comendador Vicente Lentini × Rua Diogo Vaz,-23.562474,-46.63015,0,00:00,24:00,0,0,esquina
+1758,Rua dos Tapes,-23.561809,-46.630815,0,00:00,24:00,0,0,esquina
+1759,Rua Diogo Vaz,-23.562445,-46.626323,0,00:00,24:00,0,0,esquina
+1760,Rua Bueno de Andrade × Rua Tamandaré,-23.560114,-46.631415,0,00:00,24:00,0,0,esquina
+1761,Rua Bueno de Andrade × Rua Jenner,-23.564193,-46.63151,0,00:00,24:00,0,0,esquina
+1762,Rua Jenner × Rua Pires da Mota,-23.56451,-46.630242,0,00:00,24:00,0,0,esquina
+1763,Alameda Santos × Rua Maria Figueiredo,-23.569906,-46.648248,0,00:00,24:00,0,0,esquina
+1764,Largo Nossa Senhora da Conceição × Rua dos Parecis,-23.564207,-46.628698,0,00:00,24:00,0,0,esquina
+1765,Rua Bueno de Andrade × Rua Dom Raimundo Brito,-23.566868,-46.63009,0,00:00,24:00,0,0,esquina
+1766,Avenida Turmalina × Avenida da Aclimação,-23.569515,-46.632389,0,00:00,24:00,0,0,esquina
+1767,Praça Carlos Gomes × Rua Doutor Rodrigo Silva,-23.553799,-46.63567,0,00:00,24:00,0,0,esquina
+1768,Rua Aguiar de Barros × Rua Santo Amaro,-23.554028,-46.640518,0,00:00,24:00,0,0,esquina
+1769,Avenida da Liberdade × Rua Alvares Machado,-23.55316,-46.634898,0,00:00,24:00,0,0,esquina
+1770,Rua Jaceguaí × Rua Jardim Heloísa,-23.554676,-46.642879,0,00:00,24:00,0,0,esquina
+1771,Rua Abelardo Pinto Piolin,-23.543733,-46.636906,0,00:00,24:00,0,0,esquina
+1772,Rua Varnhagen,-23.544099,-46.633451,0,00:00,24:00,0,0,esquina
+1773,Largo do Paissandú × Rua Abelardo Pinto Piolin,-23.543332,-46.637783,0,00:00,24:00,0,0,esquina
+1774,Rua Comendador Assad Abdalla × Rua da Cantareira,-23.5427,-46.630445,0,00:00,24:00,0,0,esquina
+1775,Rua Barão de Duprat × Rua Comendador Assad Abdalla,-23.542627,-46.63091,0,00:00,24:00,0,0,esquina
+1776,Viaduto do Chá,-23.547233,-46.637033,0,00:00,24:00,0,0,esquina
+1777,Rua Martins Fontes × Viaduto Nove de Julho,-23.548279,-46.642645,0,00:00,24:00,0,0,esquina
+1778,Rua Dona Antônia de Queirós × Rua Itambé,-23.548249,-46.654799,0,00:00,24:00,0,0,esquina
+1779,Rua Itambé × Rua Piauí,-23.547068,-46.653636,0,00:00,24:00,0,0,esquina
+1780,Rua dos Franceses × Rua dos Holandeses,-23.560943,-46.647877,0,00:00,24:00,0,0,esquina
+1781,Rua dos Andradas × Rua dos Timbiras,-23.539123,-46.637384,0,00:00,24:00,0,0,esquina
+1782,Avenida Ipiranga × Rua dos Andradas,-23.539785,-46.636819,0,00:00,24:00,0,0,esquina
+1783,Avenida Cásper Líbero × Avenida Senador Queirós,-23.538768,-46.636041,0,00:00,24:00,0,0,esquina
+1784,Avenida Cásper Líbero × Avenida Senador Queirós,-23.538738,-46.636169,0,00:00,24:00,0,0,esquina
+1785,Avenida Prestes Maia × Avenida Senador Queirós,-23.539372,-46.633715,0,00:00,24:00,0,0,esquina
+1786,Avenida Prestes Maia × Avenida Senador Queirós,-23.539254,-46.633705,0,00:00,24:00,0,0,esquina
+1787,Avenida Prestes Maia × Rua Doutor Luiz Silveira,-23.53859,-46.63396,0,00:00,24:00,0,0,esquina
+1788,Praça Pedro Lessa × Rua Brigadeiro Tobias,-23.542922,-46.636403,0,00:00,24:00,0,0,esquina
+1789,Praça Pedro Lessa × Rua Brigadeiro Tobias,-23.541978,-46.636008,0,00:00,24:00,0,0,esquina
+1790,Praça Doutor Mário Margarido × Rua dos Estudantes,-23.554851,-46.629329,0,00:00,24:00,0,0,esquina
+1791,Praça Doutor Mário Margarido × Rua Glicério,-23.555125,-46.628703,0,00:00,24:00,0,0,esquina
+1792,Rua Anita Garibaldi × Rua Conselheiro Furtado,-23.553132,-46.633286,0,00:00,24:00,0,0,esquina
+1793,Avenida Senador Queirós × Rua Vinte e Cinco de Março,-23.539462,-46.632072,0,00:00,24:00,0,0,esquina
+1794,Rua Doutor Seng × Rua Garcia Fernandes,-23.561969,-46.65092,0,00:00,24:00,0,0,esquina
+1795,Avenida da Aclimação × Rua Pires da Mota,-23.566724,-46.633271,0,00:00,24:00,0,0,esquina
+1796,Rua Barão de Joatinga × Rua Sebastião Pereira,-23.540093,-46.648602,0,00:00,24:00,0,0,esquina
+1797,Rua Barão de Joatinga × Rua Frederico Abranches,-23.540382,-46.649112,0,00:00,24:00,0,0,esquina
+1798,Avenida da Aclimação,-23.569106,-46.632689,0,00:00,24:00,0,0,esquina
+1799,Rua 13 de Maio × Rua Carlos Sampaio,-23.56607,-46.64472,0,00:00,24:00,0,0,esquina
+1800,Alameda Santos × Rua Manuel da Nóbrega,-23.569149,-46.649236,0,00:00,24:00,0,0,esquina
+1801,Avenida Paulista,-23.567945,-46.648746,0,00:00,24:00,0,0,esquina
+1802,Rua Treze de Maio,-23.560699,-46.646216,0,00:00,24:00,0,0,esquina
+1803,Rua Almirante Marques de Leão × Rua Doutor Lourenço Granato,-23.558522,-46.648453,0,00:00,24:00,0,0,esquina
+1804,Rua Fortaleza × Travessa dos Arquitetos,-23.559784,-46.644766,0,00:00,24:00,0,0,esquina
+1805,Praça Dom Orione × Rua Fortaleza,-23.559836,-46.645254,0,00:00,24:00,0,0,esquina
+1806,Rua Doutor Lourenço Granato,-23.557258,-46.648904,0,00:00,24:00,0,0,esquina
+1807,Rua Fortaleza × Rua Treze de Maio,-23.559928,-46.646286,0,00:00,24:00,0,0,esquina
+1808,Rua Almirante Marques de Leão × Rua Una,-23.560307,-46.648832,0,00:00,24:00,0,0,esquina
+1809,Praça Dom Orione,-23.560451,-46.645605,0,00:00,24:00,0,0,esquina
+1810,Rua Conselheiro Carrão × Rua Coração da Europa,-23.557962,-46.648001,0,00:00,24:00,0,0,esquina
+1811,Rua dos Ingleses,-23.559556,-46.647071,0,00:00,24:00,0,0,esquina
+1812,Alameda Rio Claro × Rua Pamplona,-23.560327,-46.651722,0,00:00,24:00,0,0,esquina
+1813,Rua Coração da Europa,-23.557026,-46.647999,0,00:00,24:00,0,0,esquina
+1814,Alameda Rio Claro × Rua São Carlos do Pinhal,-23.562151,-46.653493,0,00:00,24:00,0,0,esquina
+1815,Rua Ulisses Paranhos,-23.560804,-46.64846,0,00:00,24:00,0,0,esquina
+1816,Rua Rui Barbosa × Travessa dos Arquitetos,-23.561188,-46.645145,0,00:00,24:00,0,0,esquina
+1817,Avenida Brigadeiro Luís Antônio × Rua Treze de Maio,-23.56333,-46.64582,0,00:00,24:00,0,0,esquina
+1818,Rua Alberto de Oliveira × Rua Doutor Fausto Ferraz,-23.565641,-46.646507,0,00:00,24:00,0,0,esquina
+1819,Rua 13 de Maio × Rua Treze de Maio,-23.564784,-46.645153,0,00:00,24:00,0,0,esquina
+1820,Rua 13 de Maio × Rua Treze de Maio,-23.56486,-46.645224,0,00:00,24:00,0,0,esquina
+1821,Avenida Brigadeiro Luís Antônio × Rua Santo Amaro,-23.556482,-46.639976,0,00:00,24:00,0,0,esquina
+1822,Rua Doutor Veiga Filho × Rua São Vicente de Paulo,-23.541063,-46.657257,0,00:00,24:00,0,0,esquina
+1823,Parque Dom Pedro II × Rua Fernão Sales,-23.548556,-46.62971,0,00:00,24:00,0,0,esquina
+1824,Rua Fernão Sales × Rua Vinte e Cinco de Março,-23.548844,-46.63042,0,00:00,24:00,0,0,esquina
+1825,Avenida Duque de Caxias × Largo do Arouche,-23.541022,-46.646556,0,00:00,24:00,0,0,esquina
+1826,Avenida Angélica × Rua Novo Horizonte,-23.553142,-46.661721,0,00:00,24:00,0,0,esquina
+1827,Avenida Angélica × Rua Goiás,-23.550346,-46.660001,0,00:00,24:00,0,0,esquina
+1828,Rua Avanhandava,-23.551899,-46.647388,0,00:00,24:00,0,0,esquina
+1829,Praça Golda Meir × Rua Itamarati,-23.539161,-46.664803,0,00:00,24:00,0,0,esquina
+1830,Avenida da Liberdade × Rua da Glória,-23.552999,-46.634701,0,00:00,24:00,0,0,esquina
+1831,Avenida da Liberdade × Rua da Glória,-23.552963,-46.634799,0,00:00,24:00,0,0,esquina
+1832,Rua Pais de Andrade × Rua Rubi,-23.569601,-46.630722,0,00:00,24:00,0,0,esquina
+1833,Praça da Liberdade,-23.554983,-46.635318,0,00:00,24:00,0,0,esquina
+1834,Avenida Brigadeiro Luís Antônio × Rua José Maria Lisboa,-23.57205,-46.65355,0,00:00,24:00,0,0,esquina
+1835,Parque Dom Pedro II × Rua Cavalheiro Basílio Jafet,-23.544508,-46.630579,0,00:00,24:00,0,0,esquina
+1836,Praça Marechal Cordeiro de Farias,-23.554336,-46.664472,0,00:00,24:00,0,0,esquina
+1837,Avenida São João × Rua Pedro Américo,-23.541376,-46.641978,0,00:00,24:00,0,0,esquina
+1838,Rua João Guimarães Rosa,-23.547722,-46.647818,0,00:00,24:00,0,0,esquina
+1839,Avenida Radial Leste-Oeste,-23.548363,-46.64714,0,00:00,24:00,0,0,esquina
+1840,Rua Augusta × Rua João Guimarães Rosa,-23.550154,-46.646719,0,00:00,24:00,0,0,esquina
+1841,Rua da Consolação,-23.547075,-46.646464,0,00:00,24:00,0,0,esquina
+1842,Rua Augusta × Rua Martins Fontes,-23.550003,-46.64627,0,00:00,24:00,0,0,esquina
+1843,Praça Contos Fluminenses × Rua Avanhandava,-23.552866,-46.649226,0,00:00,24:00,0,0,esquina
+1844,Rua Avanhandava × Rua Martinho Prado,-23.550705,-46.645931,0,00:00,24:00,0,0,esquina
+1845,Avenida Nove de Julho × Rua Avanhandava,-23.552209,-46.647423,0,00:00,24:00,0,0,esquina
+1846,Praça Desembargador Mario Pires × Rua Martins Fontes,-23.548247,-46.64316,0,00:00,24:00,0,0,esquina
+1847,Rua Araújo × Rua da Consolação,-23.547302,-46.64526,0,00:00,24:00,0,0,esquina
+1848,Praça da República × Rua Araújo,-23.544349,-46.644214,0,00:00,24:00,0,0,esquina
+1849,Rua Araújo,-23.544411,-46.644438,0,00:00,24:00,0,0,esquina
+1850,Avenida Ipiranga × Rua Araújo,-23.546526,-46.645038,0,00:00,24:00,0,0,esquina
+1851,Praça Franklin Roosevelt × Rua da Consolação,-23.547365,-46.645821,0,00:00,24:00,0,0,esquina
+1852,Rua Major Quedinho × Viaduto Nove de Julho,-23.548623,-46.642563,0,00:00,24:00,0,0,esquina
+1853,Praça Franklin Roosevelt × Rua Martinho Prado,-23.549525,-46.646299,0,00:00,24:00,0,0,esquina
+1854,Rua Martins Fontes × Rua Álvaro de Carvalho,-23.549435,-46.64458,0,00:00,24:00,0,0,esquina
+1855,Rua Álvaro de Carvalho,-23.549517,-46.644245,0,00:00,24:00,0,0,esquina
+1856,Largo do Paissandú × Rua Capitão Salomão,-23.543,-46.637608,0,00:00,24:00,0,0,esquina
+1857,Avenida São João × Largo do Paissandú,-23.543553,-46.638088,0,00:00,24:00,0,0,esquina
+1858,Avenida Vieira de Carvalho × Praça da República,-23.542574,-46.642988,0,00:00,24:00,0,0,esquina
+1859,Avenida Vieira de Carvalho × Largo do Arouche,-23.541112,-46.644373,0,00:00,24:00,0,0,esquina
+1860,Largo do Arouche,-23.540429,-46.644993,0,00:00,24:00,0,0,esquina
+1861,Avenida Vieira de Carvalho × Rua Aurora,-23.54205,-46.64348,0,00:00,24:00,0,0,esquina
+1862,Largo do Arouche,-23.541501,-46.645782,0,00:00,24:00,0,0,esquina
+1863,Largo do Arouche,-23.541781,-46.645783,0,00:00,24:00,0,0,esquina
+1864,Largo do Arouche,-23.5415,-46.646076,0,00:00,24:00,0,0,esquina
+1865,Largo do Arouche,-23.540128,-46.645162,0,00:00,24:00,0,0,esquina
+1866,Praça Farias Brito × Rua Avaré,-23.548323,-46.66236,0,00:00,24:00,0,0,esquina
+1867,Parque Anhangabau,-23.546819,-46.638154,0,00:00,24:00,0,0,esquina
+1868,Avenida Radial Leste-Oeste × Viaduto Jaceguai,-23.556092,-46.638168,0,00:00,24:00,0,0,esquina
+1869,Esquina 1869,-23.556112,-46.636733,0,00:00,24:00,0,0,esquina
+1870,Rua Conde do Pinhal,-23.552753,-46.633219,0,00:00,24:00,0,0,esquina
+1871,Rua Conde do Pinhal × Rua Conselheiro Furtado,-23.552808,-46.633285,0,00:00,24:00,0,0,esquina
+1872,Rua Conde do Pinhal × Rua da Glória,-23.553526,-46.63436,0,00:00,24:00,0,0,esquina
+1873,Rua Assembleia,-23.554711,-46.637615,0,00:00,24:00,0,0,esquina
+1874,Avenida Radial Leste-Oeste × Rua Assembleia,-23.555759,-46.63935,0,00:00,24:00,0,0,esquina
+1875,Rua José Tenaglia × Rua São Vicente,-23.556505,-46.648558,0,00:00,24:00,0,0,esquina
+1876,Rua Barbosa Rodrigues × Rua Frei Caneca,-23.555565,-46.656108,0,00:00,24:00,0,0,esquina
+1877,Rua Carlos Comenale × Rua Peixoto Gomide,-23.560209,-46.656403,0,00:00,24:00,0,0,esquina
+1878,Rua Doutor Albuquerque Lins × Rua Doutor Veiga Filho,-23.540642,-46.658442,0,00:00,24:00,0,0,esquina
+1879,Rua Dona Antônia de Queirós × Rua da Consolação,-23.549912,-46.65372,0,00:00,24:00,0,0,esquina
+1880,Rua Sergipe × Rua da Consolação,-23.550357,-46.654508,0,00:00,24:00,0,0,esquina
+1881,Rua Angatuba,-23.552082,-46.66434,0,00:00,24:00,0,0,esquina
+1882,Rua Barão de Ijuí,-23.561484,-46.639567,0,00:00,24:00,0,0,esquina
+1883,Rua Barão de Ijuí × Rua Condessa de São Joaquim,-23.5591,-46.637968,0,00:00,24:00,0,0,esquina
+1884,Rua Artur Prado × Rua Pedroso,-23.562053,-46.642941,0,00:00,24:00,0,0,esquina
+1885,Rua dos Aflitos,-23.556068,-46.634651,0,00:00,24:00,0,0,esquina
+1886,Rua dos Aflitos × Rua dos Estudantes,-23.555527,-46.634633,0,00:00,24:00,0,0,esquina
+1887,Rua Livreiro Alves × Rua dos Estudantes,-23.555264,-46.630276,0,00:00,24:00,0,0,esquina
+1888,Rua dos Estudantes × Travessa dos Estudantes,-23.555362,-46.63161,0,00:00,24:00,0,0,esquina
+1889,Rua Barão de Ijuí,-23.560955,-46.639389,0,00:00,24:00,0,0,esquina
+1890,Avenida da Liberdade × Rua Jaceguaí,-23.556686,-46.636382,0,00:00,24:00,0,0,esquina
+1891,Rua Baronesa de Itu × Rua Barão de Tatuí,-23.539897,-46.654454,0,00:00,24:00,0,0,esquina
+1892,Rua Frederico Abranches × Rua Jesuíno Pascoal,-23.540099,-46.649536,0,00:00,24:00,0,0,esquina
+1893,Rua Jaguaribe × Rua Jesuíno Pascoal,-23.541684,-46.65004,0,00:00,24:00,0,0,esquina
+1894,Rua Martim Francisco × Rua Martinico Prado,-23.542671,-46.65455,0,00:00,24:00,0,0,esquina
+1895,Rua Marquês de Itu × Rua Martim Francisco,-23.543639,-46.654585,0,00:00,24:00,0,0,esquina
+1896,Praça Vilaboim × Rua Aracaju,-23.544043,-46.660749,0,00:00,24:00,0,0,esquina
+1897,Rua Martins Fontes × Rua da Consolação,-23.547983,-46.642867,0,00:00,24:00,0,0,esquina
+1898,Avenida Cásper Líbero × Avenida Senador Queirós,-23.539055,-46.63624,0,00:00,24:00,0,0,esquina
+1899,Avenida Cásper Líbero × Avenida Senador Queirós,-23.53921,-46.636275,0,00:00,24:00,0,0,esquina
+1900,Avenida Cásper Líbero × Avenida Senador Queirós,-23.538948,-46.636081,0,00:00,24:00,0,0,esquina
+1901,Avenida Mercúrio × Avenida Senador Queirós,-23.540292,-46.629443,0,00:00,24:00,0,0,esquina
+1902,Avenida Senador Queirós × Rua Barão de Duprat,-23.539784,-46.630724,0,00:00,24:00,0,0,esquina
+1903,Rua Mauá × Rua Plínio Ramos,-23.536984,-46.629065,0,00:00,24:00,0,0,esquina
+1904,Rua Vinícius de Moraes,-23.556235,-46.664264,0,00:00,24:00,0,0,esquina
+1905,Avenida Angélica × Rua Martinico Prado,-23.542615,-46.656227,0,00:00,24:00,0,0,esquina
+1906,Rua Itambé × Rua Sergipe,-23.548915,-46.655472,0,00:00,24:00,0,0,esquina
+1907,Rua Alagoas × Rua Itambé,-23.547993,-46.654545,0,00:00,24:00,0,0,esquina
+1908,Rua Antônio Carlos × Rua da Consolação,-23.553993,-46.660998,0,00:00,24:00,0,0,esquina
+1909,Avenida Angélica × Rua Coronel José Eusébio,-23.550759,-46.660208,0,00:00,24:00,0,0,esquina
+1910,Rua Sabará × Rua Sergipe,-23.548784,-46.655781,0,00:00,24:00,0,0,esquina
+1911,Rua Sergipe × Rua da Consolação,-23.550297,-46.654769,0,00:00,24:00,0,0,esquina
+1912,Rua Sergipe,-23.548815,-46.655708,0,00:00,24:00,0,0,esquina
+1913,Rua Coronel José Eusébio × Rua da Consolação,-23.552339,-46.65862,0,00:00,24:00,0,0,esquina
+1914,Rua Sergipe,-23.549817,-46.654877,0,00:00,24:00,0,0,esquina
+1915,Rua Mato Grosso × Rua Pará,-23.54967,-46.657479,0,00:00,24:00,0,0,esquina
+1916,Rua Itapeva × Rua Pamplona,-23.558804,-46.65168,0,00:00,24:00,0,0,esquina
+1917,Rua Itapeva × Rua Sílvia,-23.558391,-46.650917,0,00:00,24:00,0,0,esquina
+1918,Rua Itapeva × Rua Rocha,-23.557507,-46.64976,0,00:00,24:00,0,0,esquina
+1919,Praça 14 Bis × Rua Doutor Plínio Barreto,-23.556139,-46.649954,0,00:00,24:00,0,0,esquina
+1920,Rua Maceió × Rua Matias Aires,-23.553321,-46.660106,0,00:00,24:00,0,0,esquina
+1921,Rua Matias Aires × Rua da Consolação,-23.55341,-46.659963,0,00:00,24:00,0,0,esquina
+1922,Rua Itápolis,-23.5541,-46.665022,0,00:00,24:00,0,0,esquina
+1923,Rua Angatuba,-23.553218,-46.666139,0,00:00,24:00,0,0,esquina
+1924,Rua Buri,-23.553503,-46.666181,0,00:00,24:00,0,0,esquina
+1925,Rua Armando Penteado × Rua Itápolis,-23.546271,-46.66434,0,00:00,24:00,0,0,esquina
+1926,Rua Armando Penteado,-23.546055,-46.664033,0,00:00,24:00,0,0,esquina
+1927,Rua Capivari,-23.551314,-46.665111,0,00:00,24:00,0,0,esquina
+1928,Rua Itápolis,-23.549469,-46.663876,0,00:00,24:00,0,0,esquina
+1929,Rua Armando Penteado × Rua Itatiara,-23.546138,-46.662982,0,00:00,24:00,0,0,esquina
+1930,Rua Armando Penteado × Rua Itatiara,-23.546165,-46.662614,0,00:00,24:00,0,0,esquina
+1931,Praça Charles Miller,-23.544462,-46.665135,0,00:00,24:00,0,0,esquina
+1932,Praça Raízes do Brasil × Rua Itápolis,-23.554114,-46.664533,0,00:00,24:00,0,0,esquina
+1933,Praça Marechal Cordeiro de Farias × Praça Raízes do Brasil,-23.554221,-46.664575,0,00:00,24:00,0,0,esquina
+1934,Praça Raízes do Brasil × Rua Itápolis,-23.554145,-46.664753,0,00:00,24:00,0,0,esquina
+1935,Avenida Paulista × Rua Peixoto Gomide,-23.560949,-46.657146,0,00:00,24:00,0,0,esquina
+1936,Avenida Paulista × Rua Augusta,-23.558039,-46.660117,0,00:00,24:00,0,0,esquina
+1937,Avenida Paulista × Rua Maria Figueiredo,-23.568964,-46.647413,0,00:00,24:00,0,0,esquina
+1938,Avenida Brigadeiro Luís Antônio × Avenida Paulista,-23.567591,-46.648985,0,00:00,24:00,0,0,esquina
+1939,Alameda Campinas × Avenida Paulista,-23.564885,-46.652239,0,00:00,24:00,0,0,esquina
+1940,Avenida Brigadeiro Luís Antônio × Avenida Paulista,-23.567716,-46.649056,0,00:00,24:00,0,0,esquina
+1941,Avenida Paulista × Rua Haddock Lobo,-23.55725,-46.660986,0,00:00,24:00,0,0,esquina
+1942,Avenida Paulista × Rua Augusta,-23.558175,-46.660259,0,00:00,24:00,0,0,esquina
+1943,Avenida Paulista × Rua Haddock Lobo,-23.557405,-46.661149,0,00:00,24:00,0,0,esquina
+1944,Alameda Ministro Rocha Azevedo × Avenida Paulista,-23.559989,-46.657954,0,00:00,24:00,0,0,esquina
+1945,Alameda Ministro Rocha Azevedo × Avenida Paulista,-23.560106,-46.658075,0,00:00,24:00,0,0,esquina
+1946,Alameda Campinas × Avenida Paulista,-23.564986,-46.652332,0,00:00,24:00,0,0,esquina
+1947,Avenida Paulista × Rua Teixeira da Silva,-23.569637,-46.646533,0,00:00,24:00,0,0,esquina
+1948,Avenida Paulista × Rua Peixoto Gomide,-23.560846,-46.657047,0,00:00,24:00,0,0,esquina
+1949,Avenida Paulista × Rua Carlos Sampaio,-23.568856,-46.647314,0,00:00,24:00,0,0,esquina
+1950,Rua Angatuba × Rua Itápolis,-23.551899,-46.664098,0,00:00,24:00,0,0,esquina
+1951,Rua Goiás × Rua Itaquera,-23.549613,-46.661906,0,00:00,24:00,0,0,esquina
+1952,Rua Angatuba × Rua Itápolis,-23.552151,-46.664087,0,00:00,24:00,0,0,esquina
+1953,Rua Itaquera,-23.550041,-46.662228,0,00:00,24:00,0,0,esquina
+1954,Rua Itaquera × Rua Itápolis,-23.54974,-46.662092,0,00:00,24:00,0,0,esquina
+1955,Rua Rego Freitas × Rua da Consolação,-23.547337,-46.646932,0,00:00,24:00,0,0,esquina
+1956,Rua Amaral Gurgel × Rua Major Sertório,-23.545402,-46.647944,0,00:00,24:00,0,0,esquina
+1957,Rua Avanhandava × Rua Martins Fontes,-23.549731,-46.645384,0,00:00,24:00,0,0,esquina
+1958,Rua Doutor Cesário Mota Júnior × Rua Major Sertório,-23.54538,-46.648934,0,00:00,24:00,0,0,esquina
+1959,Rua Amaral Gurgel × Rua Maria Borba,-23.547173,-46.647943,0,00:00,24:00,0,0,esquina
+1960,Largo do Arouche,-23.541368,-46.647388,0,00:00,24:00,0,0,esquina
+1961,Avenida Angélica × Avenida Higienópolis,-23.543605,-46.656649,0,00:00,24:00,0,0,esquina
+1962,Avenida Angélica × Rua Baronesa de Itu,-23.539874,-46.655224,0,00:00,24:00,0,0,esquina
+1963,Alameda Barros × Avenida Angélica,-23.536973,-46.654346,0,00:00,24:00,0,0,esquina
+1964,Avenida Paulista × Rua Pamplona,-23.563654,-46.653707,0,00:00,24:00,0,0,esquina
+1965,Avenida Paulista × Rua Pamplona,-23.563756,-46.653819,0,00:00,24:00,0,0,esquina
+1966,Alameda Joaquim Eugênio de Lima × Rua São Carlos do Pinhal,-23.56516,-46.649861,0,00:00,24:00,0,0,esquina
+1967,Alameda Joaquim Eugênio de Lima × Avenida Paulista,-23.566091,-46.650784,0,00:00,24:00,0,0,esquina
+1968,Alameda Joaquim Eugênio de Lima × Avenida Paulista,-23.566194,-46.650882,0,00:00,24:00,0,0,esquina
+1969,Alameda Joaquim Eugênio de Lima × Alameda Santos,-23.567073,-46.65175,0,00:00,24:00,0,0,esquina
+1970,Alameda Jaú × Alameda Joaquim Eugênio de Lima,-23.567956,-46.652639,0,00:00,24:00,0,0,esquina
+1971,Alameda Fernão Cardim × Alameda Joaquim Eugênio de Lima,-23.568731,-46.65341,0,00:00,24:00,0,0,esquina
+1972,Alameda Joaquim Eugênio de Lima × Alameda Sarutaiá,-23.569501,-46.654176,0,00:00,24:00,0,0,esquina
+1973,Rua Imaculada Conceição × Rua Martim Francisco,-23.539402,-46.65251,0,00:00,24:00,0,0,esquina
+1974,Rua Barão de Tatuí × Rua Imaculada Conceição,-23.538236,-46.653894,0,00:00,24:00,0,0,esquina
+1975,Alameda Lorena × Rua Padre João Manuel,-23.564611,-46.665093,0,00:00,24:00,0,0,esquina
+1976,Alameda Casa Branca × Alameda Lorena,-23.567695,-46.661665,0,00:00,24:00,0,0,esquina
+1977,Alameda Lorena × Rua Peixoto Gomide,-23.56656,-46.662926,0,00:00,24:00,0,0,esquina
+1978,Alameda Lorena × Avenida Nove de Julho,-23.568729,-46.660544,0,00:00,24:00,0,0,esquina
+1979,Alameda Lorena × Avenida Nove de Julho,-23.568634,-46.660637,0,00:00,24:00,0,0,esquina
+1980,Alameda Lorena × Alameda Ministro Rocha Azevedo,-23.565715,-46.663865,0,00:00,24:00,0,0,esquina
+1981,Alameda Lorena × Rua Augusta,-23.563729,-46.666073,0,00:00,24:00,0,0,esquina
+1982,Rua Antônio Carlos × Rua Haddock Lobo,-23.555515,-46.659097,0,00:00,24:00,0,0,esquina
+1983,Alameda Franca × Rua Haddock Lobo,-23.560885,-46.664786,0,00:00,24:00,0,0,esquina
+1984,Alameda Tietê × Rua Haddock Lobo,-23.561923,-46.66587,0,00:00,24:00,0,0,esquina
+1985,Alameda Santos × Rua Haddock Lobo,-23.558254,-46.662042,0,00:00,24:00,0,0,esquina
+1986,Rua Haddock Lobo × Rua Luís Coelho,-23.556186,-46.659828,0,00:00,24:00,0,0,esquina
+1987,Alameda Itu × Rua Haddock Lobo,-23.56,-46.663863,0,00:00,24:00,0,0,esquina
+1988,Rua Haddock Lobo × Rua Matias Aires,-23.554815,-46.658335,0,00:00,24:00,0,0,esquina
+1989,Praça Contos Fluminenses,-23.552978,-46.649543,0,00:00,24:00,0,0,esquina
+1990,Avenida Paulista × Rua Itapeva,-23.562559,-46.65504,0,00:00,24:00,0,0,esquina
+1991,Alameda Franca × Avenida Nove de Julho,-23.566361,-46.658258,0,00:00,24:00,0,0,esquina
+1992,Avenida da Liberdade × Rua Barão de Iguape,-23.558239,-46.637106,0,00:00,24:00,0,0,esquina
+1993,Avenida da Liberdade × Rua Condessa de São Joaquim,-23.559369,-46.637608,0,00:00,24:00,0,0,esquina
+1994,Avenida Angélica × Rua Sergipe,-23.547586,-46.658653,0,00:00,24:00,0,0,esquina
+1995,Rua Professor Antônio Prudente × Rua Vergueiro,-23.564761,-46.639225,0,00:00,24:00,0,0,esquina
+1996,Avenida Angélica × Rua Maranhão,-23.5445,-46.657093,0,00:00,24:00,0,0,esquina
+1997,Avenida Higienópolis × Rua Sabará,-23.544743,-46.653762,0,00:00,24:00,0,0,esquina
+1998,Rua Itacolomi × Rua Pará,-23.549517,-46.657834,0,00:00,24:00,0,0,esquina
+1999,Avenida Paulista × Rua Bela Cintra,-23.5566,-46.662095,0,00:00,24:00,0,0,esquina
+2000,Rua dos Alemães × Rua dos Franceses,-23.561772,-46.647753,0,00:00,24:00,0,0,esquina
+2001,Travessa Dona Paula,-23.552453,-46.660144,0,00:00,24:00,0,0,esquina
+2002,Rua Doutor Frederico Steidel × Vila Adelaíde,-23.539269,-46.64762,0,00:00,24:00,0,0,esquina
+2003,Vila Adelaíde,-23.539638,-46.646713,0,00:00,24:00,0,0,esquina
+2004,Rua Cunha Horta × Rua Doutor Cesário Mota Júnior,-23.546183,-46.648962,0,00:00,24:00,0,0,esquina
+2005,Rua Amaral Gurgel × Rua Cunha Horta,-23.546207,-46.64795,0,00:00,24:00,0,0,esquina
+2006,Avenida Nove de Julho × Praça 14 Bis,-23.555617,-46.64945,0,00:00,24:00,0,0,esquina
+2007,Praça 14 Bis × Rua Manoel Dutra,-23.555769,-46.649475,0,00:00,24:00,0,0,esquina
+2008,Rua Senador Felício dos Santos,-23.56699,-46.635911,0,00:00,24:00,0,0,esquina
+2009,Avenida da Liberdade × Rua Doutor Américo de Campos,-23.557285,-46.636587,0,00:00,24:00,0,0,esquina
+2010,Rua Bueno de Andrade × Rua da Glória,-23.559959,-46.631455,0,00:00,24:00,0,0,esquina
+2011,Alameda Jaú × Rua Marília,-23.566072,-46.654904,0,00:00,24:00,0,0,esquina
+2012,Alameda Santos × Rua Marília,-23.565185,-46.654035,0,00:00,24:00,0,0,esquina
+2013,Praça Doutor João Mendes,-23.552115,-46.63486,0,00:00,24:00,0,0,esquina
+2014,Avenida Paulista,-23.56284,-46.654936,0,00:00,24:00,0,0,esquina
+2015,Rua Doutor Plínio Barreto,-23.556339,-46.650133,0,00:00,24:00,0,0,esquina
+2016,Rua 13 de Maio × Rua Pio XII,-23.564991,-46.645181,0,00:00,24:00,0,0,esquina
+2017,Rua da Cantareira,-23.543614,-46.630815,0,00:00,24:00,0,0,esquina
+2018,Rua Cavalheiro Basílio Jafet,-23.544265,-46.63086,0,00:00,24:00,0,0,esquina
+2019,Rua da Cantareira,-23.543864,-46.630915,0,00:00,24:00,0,0,esquina
+2020,Rua Egas Moniz de Aragão × Travessa dos Estudantes,-23.555988,-46.631037,0,00:00,24:00,0,0,esquina
+2021,Rua Fernando de Albuquerque × Rua da Consolação,-23.552651,-46.659111,0,00:00,24:00,0,0,esquina
+2022,Rua Rego Freitas × Rua da Consolação,-23.547069,-46.646679,0,00:00,24:00,0,0,esquina
+2023,Rua Doutor Teodoro Baima × Rua da Consolação,-23.547079,-46.646228,0,00:00,24:00,0,0,esquina
+2024,Rua Amaral Gurgel × Rua da Consolação,-23.547481,-46.647408,0,00:00,24:00,0,0,esquina
+2025,Avenida Ipiranga,-23.547004,-46.645791,0,00:00,24:00,0,0,esquina
+2026,Rua da Consolação,-23.547654,-46.648484,0,00:00,24:00,0,0,esquina
+2027,Rua Rego Freitas × Rua da Consolação,-23.547164,-46.646757,0,00:00,24:00,0,0,esquina
+2028,Avenida Cásper Líbero × Rua dos Andradas,-23.539943,-46.636411,0,00:00,24:00,0,0,esquina
+2029,Rua Brigadeiro Tobias × Rua Capitão Mor Jerônimo Leitão,-23.540931,-46.635599,0,00:00,24:00,0,0,esquina
+2030,Rua Rui Barbosa,-23.557313,-46.6455,0,00:00,24:00,0,0,esquina
+2031,Rua Rui Barbosa,-23.5573,-46.645354,0,00:00,24:00,0,0,esquina
+2032,Avenida Radial Leste-Oeste × Rua Amaral Gurgel,-23.548276,-46.647061,0,00:00,24:00,0,0,esquina
+2033,Largo do Arouche × Rua Sebastião Pereira,-23.541579,-46.64758,0,00:00,24:00,0,0,esquina
+2034,Largo do Arouche × Rua Sebastião Pereira,-23.541764,-46.647374,0,00:00,24:00,0,0,esquina
+2035,Rua Ana Cintra × Rua Roberto Piva,-23.538462,-46.648559,0,00:00,24:00,0,0,esquina
+2036,Largo do Arouche,-23.540438,-46.645332,0,00:00,24:00,0,0,esquina
+2037,Largo do Arouche,-23.541439,-46.644959,0,00:00,24:00,0,0,esquina
+2038,Largo do Arouche × Rua do Arouche,-23.541763,-46.645556,0,00:00,24:00,0,0,esquina
+2039,Alameda Barão de Limeira × Rua General Rondon,-23.537392,-46.645274,0,00:00,24:00,0,0,esquina
+2040,Rua General Rondon × Rua Guaianases,-23.536321,-46.64381,0,00:00,24:00,0,0,esquina
+2041,Rua Conselheiro Nébias × Rua General Rondon,-23.536897,-46.644594,0,00:00,24:00,0,0,esquina
+2042,Avenida Paulista × Praça Marechal Cordeiro de Farias,-23.554515,-46.664057,0,00:00,24:00,0,0,esquina
+2043,Avenida São João × Praça Júlio Mesquita,-23.540571,-46.643415,0,00:00,24:00,0,0,esquina
+2044,Largo do Arouche,-23.540161,-46.645049,0,00:00,24:00,0,0,esquina
+2045,Avenida São João × Praça Júlio Mesquita,-23.541157,-46.642101,0,00:00,24:00,0,0,esquina
+2046,Rua Barão de Campinas × Rua General Osório,-23.539582,-46.644661,0,00:00,24:00,0,0,esquina
+2047,Praça Júlio Mesquita,-23.540958,-46.64234,0,00:00,24:00,0,0,esquina
+2048,Rua Helvétia × Rua Roberto Piva,-23.537875,-46.649032,0,00:00,24:00,0,0,esquina
+2049,Rua Sebastião Pereira,-23.541298,-46.647778,0,00:00,24:00,0,0,esquina
+2050,Rua Mauá × Rua da Cantareira,-23.53722,-46.628154,0,00:00,24:00,0,0,esquina
+2051,Avenida São João × Largo do Paissandú,-23.543154,-46.638804,0,00:00,24:00,0,0,esquina
+2052,Largo Pátio do Colégio × Praça da Sé,-23.54887,-46.632995,0,00:00,24:00,0,0,esquina
+2053,Rua Doutor Siqueira Campos × Rua Vergueiro,-23.563261,-46.638914,0,00:00,24:00,0,0,esquina
+2054,Avenida da Liberdade × Rua São Joaquim,-23.562027,-46.638776,0,00:00,24:00,0,0,esquina
+2055,Avenida Brigadeiro Luís Antônio,-23.567958,-46.649265,0,00:00,24:00,0,0,esquina
+2056,Rua Manuel da Nóbrega,-23.567929,-46.648968,0,00:00,24:00,0,0,esquina
+2057,Alameda Jaú × Rua Convenção de Itu,-23.564538,-46.656745,0,00:00,24:00,0,0,esquina
+2058,Alameda Itu × Rua Severo Fournier,-23.565474,-46.65767,0,00:00,24:00,0,0,esquina
+2059,Alameda Itu × Avenida Nove de Julho,-23.565595,-46.65754,0,00:00,24:00,0,0,esquina
+2060,Alameda Jaú × Rua Severo Fournier,-23.564246,-46.657096,0,00:00,24:00,0,0,esquina
+2061,Rua Mituto Mizumoto,-23.556639,-46.631989,0,00:00,24:00,0,0,esquina
+2062,Avenida Pacaembu × Rua Itamarati,-23.540115,-46.664265,0,00:00,24:00,0,0,esquina
+2063,Rua Itamarati,-23.53996,-46.664457,0,00:00,24:00,0,0,esquina
+2064,Rua Itassucê,-23.54025,-46.664681,0,00:00,24:00,0,0,esquina
+2065,Rua João Passalaqua,-23.553658,-46.64589,0,00:00,24:00,0,0,esquina
+2066,Rua Rui Barbosa,-23.558881,-46.645347,0,00:00,24:00,0,0,esquina
+2067,Rua Rui Barbosa,-23.558707,-46.645363,0,00:00,24:00,0,0,esquina
+2068,Rua Rui Barbosa,-23.558838,-46.645202,0,00:00,24:00,0,0,esquina
+2069,Rua Rui Barbosa,-23.558699,-46.645216,0,00:00,24:00,0,0,esquina
+2070,Avenida Nove de Julho × Rua José Maria Lisboa,-23.56715,-46.659022,0,00:00,24:00,0,0,esquina
+2071,Rua Dona Teresa,-23.554887,-46.65766,0,00:00,24:00,0,0,esquina
+2072,Rua Dona Teresa × Rua Fernando de Albuquerque,-23.554448,-46.657201,0,00:00,24:00,0,0,esquina
+2073,Rua Manoel Dutra × Rua Maria José,-23.555265,-46.643883,0,00:00,24:00,0,0,esquina
+2074,Viaduto Dona Paulina,-23.552478,-46.637464,0,00:00,24:00,0,0,esquina
+2075,Viaduto Dona Paulina,-23.552536,-46.637678,0,00:00,24:00,0,0,esquina
+2076,Avenida Brigadeiro Luís Antônio × Rua Asdrubal do Nascimento,-23.552656,-46.63783,0,00:00,24:00,0,0,esquina
+2077,Rua Doutor Cesário Mota Júnior × Rua Marquês de Itu,-23.543781,-46.648891,0,00:00,24:00,0,0,esquina
+2078,Rua Doutor Vila Nova × Rua Major Sertório,-23.545348,-46.650306,0,00:00,24:00,0,0,esquina
+2079,Rua Itambé × Rua Maranhão,-23.546258,-46.65291,0,00:00,24:00,0,0,esquina
+2080,Rua Piauí × Rua da Consolação,-23.548968,-46.652419,0,00:00,24:00,0,0,esquina
+2081,Rua Sergipe,-23.549989,-46.654964,0,00:00,24:00,0,0,esquina
+2082,Rua Itacolomi × Rua Mato Grosso,-23.550007,-46.658102,0,00:00,24:00,0,0,esquina
+2083,Rua Sergipe × Rua da Consolação,-23.550212,-46.654619,0,00:00,24:00,0,0,esquina
+2084,Rua Coronel José Eusébio × Rua Mato Grosso,-23.550937,-46.659769,0,00:00,24:00,0,0,esquina
+2085,Rua Coronel José Eusébio × Travessa Dona Paula,-23.551617,-46.659181,0,00:00,24:00,0,0,esquina
+2086,Rua Jaceguaí × Rua Major Diogo,-23.554517,-46.643081,0,00:00,24:00,0,0,esquina
+2087,Rua Rocha,-23.556322,-46.649872,0,00:00,24:00,0,0,esquina
+2088,Rua Doutor Rodrigo Silva,-23.554254,-46.635687,0,00:00,24:00,0,0,esquina
+2089,Avenida da Liberdade,-23.554335,-46.635351,0,00:00,24:00,0,0,esquina
+2090,Avenida da Liberdade,-23.554371,-46.63552,0,00:00,24:00,0,0,esquina
+2091,Praça Ramos de Azevedo,-23.5455,-46.639286,0,00:00,24:00,0,0,esquina
+2092,Praça Desembargador Mario Pires × Rua da Consolação,-23.547919,-46.643205,0,00:00,24:00,0,0,esquina
+2093,Avenida Brigadeiro Luís Antônio,-23.552816,-46.637919,0,00:00,24:00,0,0,esquina
+2094,Rua General Couto de Magalhães,-23.537654,-46.63699,0,00:00,24:00,0,0,esquina
+2095,Rua do Triunfo,-23.537697,-46.63713,0,00:00,24:00,0,0,esquina
+2096,Rua Helvétia × Rua Roberto Piva,-23.537794,-46.648893,0,00:00,24:00,0,0,esquina
+2097,Rua Alagoas × Rua Barão de Bocaina,-23.54394,-46.664048,0,00:00,24:00,0,0,esquina
+2098,Rua Pedroso × Rua Vergueiro,-23.56305,-46.639009,0,00:00,24:00,0,0,esquina
+2099,Rua Santana do Paraíso,-23.566037,-46.640347,0,00:00,24:00,0,0,esquina
+2100,Rua Santana do Paraíso × Rua Vergueiro,-23.56625,-46.639698,0,00:00,24:00,0,0,esquina
+2101,Avenida Paulista,-23.559638,-46.658345,0,00:00,24:00,0,0,esquina
+2102,Rua Glicério × Rua Sinimbú,-23.55978,-46.631136,0,00:00,24:00,0,0,esquina
+2103,Rua Santa Isabel,-23.54278,-46.646447,0,00:00,24:00,0,0,esquina
+2104,Parque Anhangabau,-23.548078,-46.638257,0,00:00,24:00,0,0,esquina
+2105,Rua Rui Barbosa,-23.56148,-46.645122,0,00:00,24:00,0,0,esquina
+2106,Avenida Brigadeiro Luís Antônio × Rua Pedroso,-23.561662,-46.64441,0,00:00,24:00,0,0,esquina
+2107,Rua Martins Fontes,-23.549339,-46.644419,0,00:00,24:00,0,0,esquina
+2108,Esquina 2108,-23.560914,-46.63953,0,00:00,24:00,0,0,esquina
+2109,Avenida Nove de Julho × Rua Avanhandava,-23.551701,-46.64706,0,00:00,24:00,0,0,esquina
+2110,Rua Avanhandava,-23.552062,-46.647385,0,00:00,24:00,0,0,esquina
+2111,Avenida Nove de Julho × Viaduto Doutor Plínio de Queiroz,-23.55799,-46.653328,0,00:00,24:00,0,0,esquina
+2112,Avenida Senador Queirós × Praça Alfredo Issa,-23.53899,-46.635828,0,00:00,24:00,0,0,esquina
+2113,Avenida Duque de Caxias,-23.537597,-46.643922,0,00:00,24:00,0,0,esquina
+2114,Alameda Jaú × Rua Doutor Nelson Vasoler,-23.566244,-46.654696,0,00:00,24:00,0,0,esquina
+2115,Alameda Santos × Rua Doutor Nelson Vasoler,-23.565358,-46.653827,0,00:00,24:00,0,0,esquina
+2116,Rua Paim,-23.554779,-46.649123,0,00:00,24:00,0,0,esquina
+2117,Avenida Radial Leste-Oeste,-23.548059,-46.647099,0,00:00,24:00,0,0,esquina
+2118,Travessa Rugiero × Travessa dos Estudantes,-23.555969,-46.63077,0,00:00,24:00,0,0,esquina
+2119,Alameda Casa Branca × Rua Cravinhos,-23.568948,-46.662965,0,00:00,24:00,0,0,esquina
+2120,Avenida Nove de Julho × Rua Caçapava,-23.56924,-46.66123,0,00:00,24:00,0,0,esquina
+2121,Alameda Casa Branca × Rua Caçapava,-23.568304,-46.662296,0,00:00,24:00,0,0,esquina
+2122,Rua Estados Unidos × Rua Paraguai,-23.570774,-46.663972,0,00:00,24:00,0,0,esquina
+2123,Rua Paraguai × Rua Presidente Prudente,-23.5701,-46.663058,0,00:00,24:00,0,0,esquina
+2124,Rua Capivari × Rua Itapemirim,-23.550044,-46.663671,0,00:00,24:00,0,0,esquina
+2125,Rua Conde de Sarzedas × Rua Oscar Cintra Gordinho,-23.554272,-46.629883,0,00:00,24:00,0,0,esquina
+2126,Praça Doutor Mário Margarido × Rua Conde de Sarzedas,-23.554487,-46.629162,0,00:00,24:00,0,0,esquina
+2127,Avenida São João,-23.537277,-46.649499,0,00:00,24:00,0,0,esquina
+2128,Praça da Bandeira × Rua Santo Amaro,-23.550238,-46.638997,0,00:00,24:00,0,0,esquina
+2129,Avenida Brigadeiro Luís Antônio × Rua Maria Paula,-23.55252,-46.63776,0,00:00,24:00,0,0,esquina
+2130,Rua Asdrúbal Nascimento × Travessa Grassi,-23.551723,-46.637924,0,00:00,24:00,0,0,esquina
+2131,Avenida Vinte e Três de Maio × Travessa Grassi,-23.55134,-46.637499,0,00:00,24:00,0,0,esquina
+2132,Avenida Vinte e Três de Maio × Praça da Bandeira,-23.550419,-46.638154,0,00:00,24:00,0,0,esquina
+2133,Rua Itápolis × Rua Morro Verde,-23.553199,-46.663753,0,00:00,24:00,0,0,esquina
+2134,Rua Barão de Capanema × Rua Rio Preto,-23.567039,-46.666478,0,00:00,24:00,0,0,esquina
+2135,Alameda Ministro Rocha Azevedo × Rua Lupércio de Camargo,-23.568102,-46.666286,0,00:00,24:00,0,0,esquina
+2136,Rua Lupércio de Camargo × Rua Peixoto Gomide,-23.56883,-46.665226,0,00:00,24:00,0,0,esquina
+2137,Rua Barão de Capanema × Rua Professor Azevedo Amaral,-23.569125,-46.664069,0,00:00,24:00,0,0,esquina
+2138,Avenida Brigadeiro Luís Antônio × Rua Cristóvão Colombo,-23.550616,-46.63674,0,00:00,24:00,0,0,esquina
+2139,Avenida Prestes Maia × Rua Capitão Mor Jerônimo Leitão,-23.541595,-46.634461,0,00:00,24:00,0,0,esquina
+2140,Rua Ilha das Flores,-23.538779,-46.631374,0,00:00,24:00,0,0,esquina
+2141,Rua Barão de Duprat × Rua Ilha das Flores,-23.538942,-46.6307,0,00:00,24:00,0,0,esquina
+2142,Rua Barão de Duprat × Rua Ilha das Flores,-23.539207,-46.630709,0,00:00,24:00,0,0,esquina
+2143,Vila Suíça,-23.5546,-46.629685,0,00:00,24:00,0,0,esquina
+2144,Vila Suíça,-23.554772,-46.629709,0,00:00,24:00,0,0,esquina
+2145,Vila Suíça,-23.554959,-46.629736,0,00:00,24:00,0,0,esquina
+2146,Rua Capitão-Mor Roque Barreto × Rua Martiniano de Carvalho,-23.566434,-46.643002,0,00:00,24:00,0,0,esquina
+2147,Rua Capitão-Mor Roque Barreto × Rua Maestro Cardim,-23.566934,-46.642177,0,00:00,24:00,0,0,esquina
+2148,Avenida Brigadeiro Luís Antônio,-23.572432,-46.65397,0,00:00,24:00,0,0,esquina
+2149,Rua da Cantareira,-23.539981,-46.629314,0,00:00,24:00,0,0,esquina
+2150,Avenida Pacaembu × Rua Itamarati,-23.539864,-46.664169,0,00:00,24:00,0,0,esquina
+2151,Rua Itamarati × Rua Traipu,-23.538298,-46.665111,0,00:00,24:00,0,0,esquina
+2152,Rua Itamarati,-23.538482,-46.664878,0,00:00,24:00,0,0,esquina
+2153,Rua Itamarati,-23.538391,-46.664902,0,00:00,24:00,0,0,esquina
+2154,Rua Itamarati × Rua Traipu,-23.538213,-46.665067,0,00:00,24:00,0,0,esquina
+2155,Avenida da Liberdade,-23.559102,-46.637582,0,00:00,24:00,0,0,esquina
+2156,Avenida Senador Queirós,-23.540284,-46.62967,0,00:00,24:00,0,0,esquina
+2157,Praça da Sé,-23.549035,-46.633657,0,00:00,24:00,0,0,esquina
+2158,Praça da Sé × Rua Venceslau Brás,-23.549439,-46.633186,0,00:00,24:00,0,0,esquina
+2159,Praça Clóvis Beviláqua × Rua Filipe de Oliveira,-23.551382,-46.633501,0,00:00,24:00,0,0,esquina
+2160,Rua Irmã Simpliciana,-23.550075,-46.632877,0,00:00,24:00,0,0,esquina
+2161,Alameda Jaú × Praça Alexandre de Gusmão,-23.564407,-46.656904,0,00:00,24:00,0,0,esquina
+2162,Largo São Bento × Rua Boa Vista,-23.544361,-46.63415,0,00:00,24:00,0,0,esquina
+2163,Praça da Sé × Rua Benjamim Constant,-23.550072,-46.634111,0,00:00,24:00,0,0,esquina
+2164,Rua dos Ingleses,-23.560673,-46.646958,0,00:00,24:00,0,0,esquina
+2165,Rua dos Holandeses × Rua dos Ingleses,-23.560845,-46.646944,0,00:00,24:00,0,0,esquina
+2166,Rua Doutor Luís Barreto × Rua São Vicente,-23.556457,-46.647403,0,00:00,24:00,0,0,esquina
+2167,Rua São Vicente × Rua Treze de Maio,-23.556468,-46.646614,0,00:00,24:00,0,0,esquina
+2168,Rua Doutor José Pereira de Queirós × Rua Piauí,-23.543415,-46.6622,0,00:00,24:00,0,0,esquina
+2169,Rua Alagoas × Rua Doutor José Pereira de Queirós,-23.5445,-46.662748,0,00:00,24:00,0,0,esquina
+2170,Praça Vilaboim × Rua Tinhorão,-23.54462,-46.661039,0,00:00,24:00,0,0,esquina
+2171,Avenida Angélica × Rua Maceió,-23.55241,-46.661034,0,00:00,24:00,0,0,esquina
+2172,Avenida Angélica × Rua Pará,-23.548924,-46.659306,0,00:00,24:00,0,0,esquina
+2173,Avenida Ipiranga × Avenida São Luís,-23.544942,-46.643566,0,00:00,24:00,0,0,esquina
+2174,Avenida Ipiranga × Rua Major Sertório,-23.54551,-46.644238,0,00:00,24:00,0,0,esquina
+2175,Praça da Bandeira × Rua Asdrúbal Nascimento,-23.55033,-46.638361,0,00:00,24:00,0,0,esquina
+2176,Rua Doutor Gabriel dos Santos × Rua Doutor Veiga Filho,-23.53943,-46.66054,0,00:00,24:00,0,0,esquina
+2177,Rua Pandiá Calógeras × Rua Rocha Pombo,-23.564044,-46.63334,0,00:00,24:00,0,0,esquina
+2178,Praça Charles Miller,-23.54429,-46.664948,0,00:00,24:00,0,0,esquina
+2179,Avenida Paulista × Túnel José Roberto Fanganiello Melhem,-23.557312,-46.661257,0,00:00,24:00,0,0,esquina
+2180,Avenida Paulista,-23.556743,-46.661922,0,00:00,24:00,0,0,esquina
+2181,Rua Brigadeiro Tobias × Rua Coronel Batista da Luz,-23.541151,-46.635674,0,00:00,24:00,0,0,esquina
+2182,Rua Avaré,-23.548382,-46.662954,0,00:00,24:00,0,0,esquina
+2183,Rua Avaré,-23.54839,-46.662533,0,00:00,24:00,0,0,esquina
+2184,Praça Garcia Redondo × Rua Avaré,-23.548315,-46.663132,0,00:00,24:00,0,0,esquina
+2185,Praça Garcia Redondo × Rua Avaré,-23.548476,-46.663128,0,00:00,24:00,0,0,esquina
+2186,Praça Farias Brito × Rua Avaré,-23.548479,-46.662338,0,00:00,24:00,0,0,esquina
+2187,Rua Morro Verde,-23.553159,-46.663958,0,00:00,24:00,0,0,esquina
+2188,Rua Itabirito × Rua Itápolis,-23.553234,-46.663759,0,00:00,24:00,0,0,esquina
+2189,Rua Itabirito × Rua Morro Verde,-23.553341,-46.663881,0,00:00,24:00,0,0,esquina
+2190,Rua Barão de Bocaina,-23.54343,-46.66291,0,00:00,24:00,0,0,esquina
+2191,Praça Vilaboim,-23.544392,-46.660924,0,00:00,24:00,0,0,esquina
+2192,Praça Vilaboim,-23.5446,-46.660768,0,00:00,24:00,0,0,esquina
+2193,Rua Rego Freitas × Rua da Consolação,-23.54694,-46.646677,0,00:00,24:00,0,0,esquina
+2194,Rua Conselheiro Brotero × Rua Emílio de Menezes,-23.536432,-46.660914,0,00:00,24:00,0,0,esquina
+2195,Rua Doutor Gabriel dos Santos × Rua Emílio de Menezes,-23.536828,-46.659721,0,00:00,24:00,0,0,esquina
+2196,Rua Ana Cintra × Rua Roberto Piva,-23.538438,-46.648782,0,00:00,24:00,0,0,esquina
+2197,Rua Ana Cintra × Rua Sebastião Pereira,-23.538964,-46.649297,0,00:00,24:00,0,0,esquina
+2198,Rua Araquã,-23.552769,-46.648703,0,00:00,24:00,0,0,esquina
+2199,Avenida Nove de Julho × Rua Paim,-23.55489,-46.648991,0,00:00,24:00,0,0,esquina
+2200,Avenida Brigadeiro Luís Antônio × Rua Major Diogo,-23.559481,-46.642547,0,00:00,24:00,0,0,esquina
+2201,Praça Farias Brito × Rua Ceará,-23.548228,-46.662081,0,00:00,24:00,0,0,esquina
+2202,Rua Goiás,-23.549498,-46.662088,0,00:00,24:00,0,0,esquina
+2203,Rua Itápolis,-23.549573,-46.662167,0,00:00,24:00,0,0,esquina
+2204,Rua Itatiara,-23.546002,-46.662847,0,00:00,24:00,0,0,esquina
+2205,Avenida Paulista,-23.555861,-46.662536,0,00:00,24:00,0,0,esquina
+2206,Avenida Paulista,-23.556567,-46.661732,0,00:00,24:00,0,0,esquina
+2207,Rua José Maria Lisboa × Rua Padre João Manuel,-23.563134,-46.663556,0,00:00,24:00,0,0,esquina
+2208,Esquina 2208,-23.564994,-46.662323,0,00:00,24:00,0,0,esquina
+2209,Alameda Ministro Rocha Azevedo × Travessa das Constelações,-23.565308,-46.66345,0,00:00,24:00,0,0,esquina
+2210,Rua Minas Gerais × Rua Novo Horizonte,-23.552549,-46.662426,0,00:00,24:00,0,0,esquina
+2211,Rua Minas Gerais,-23.552737,-46.662426,0,00:00,24:00,0,0,esquina
+2212,Rua Barão de Duprat × Rua Miguel Carlos,-23.539122,-46.630706,0,00:00,24:00,0,0,esquina
+2213,Esquina 2213,-23.54352,-46.630802,0,00:00,24:00,0,0,esquina
+2214,Esquina 2214,-23.54338,-46.630852,0,00:00,24:00,0,0,esquina
+2215,Ladeira Porto Geral × Rua Cavalheiro Basílio Jafet,-23.544282,-46.632618,0,00:00,24:00,0,0,esquina
+2216,Praça Ragueb Chohfi × Rua Vinte e Cinco de Março,-23.545037,-46.632269,0,00:00,24:00,0,0,esquina
+2217,Rua Líbero Badaró × Viaduto do Chá,-23.54758,-46.63689,0,00:00,24:00,0,0,esquina
+2218,Rua José Bonifácio × Rua Líbero Badaró,-23.548901,-46.637553,0,00:00,24:00,0,0,esquina
+2219,Rua Benjamim Constant × Rua Quintino Bocaiuva,-23.549876,-46.635084,0,00:00,24:00,0,0,esquina
+2220,Rua Benjamim Constant,-23.549852,-46.63521,0,00:00,24:00,0,0,esquina
+2221,Rua Líbero Badaró,-23.545993,-46.635992,0,00:00,24:00,0,0,esquina
+2222,Praça Fernando Costa × Rua Vinte e Cinco de Março,-23.54709,-46.631281,0,00:00,24:00,0,0,esquina
+2223,Ladeira Porto Geral × Rua Varnhagen,-23.544563,-46.633071,0,00:00,24:00,0,0,esquina
+2224,Praça da Bandeira,-23.55024,-46.638739,0,00:00,24:00,0,0,esquina
+2225,Parque Anhangabau × Rua Formosa,-23.546703,-46.638226,0,00:00,24:00,0,0,esquina
+2226,Rua Formosa,-23.547655,-46.638943,0,00:00,24:00,0,0,esquina
+2227,Parque Anhangabau,-23.547964,-46.638659,0,00:00,24:00,0,0,esquina
+2228,Rua Doutor Plínio Barreto,-23.556239,-46.650033,0,00:00,24:00,0,0,esquina
+2229,Rua São Vicente,-23.556566,-46.649199,0,00:00,24:00,0,0,esquina
+2230,Rua Manoel Dutra,-23.555438,-46.645818,0,00:00,24:00,0,0,esquina
+2231,Rua Santo Antônio,-23.553291,-46.647072,0,00:00,24:00,0,0,esquina
+2232,Alameda Itu × Rua Pamplona,-23.566511,-46.656493,0,00:00,24:00,0,0,esquina
+2233,Praça Raízes do Brasil × Rua Itápolis,-23.554038,-46.664621,0,00:00,24:00,0,0,esquina
+2234,Praça Raízes do Brasil × Rua Itápolis,-23.55407,-46.664724,0,00:00,24:00,0,0,esquina
+2235,Rua Zeferino Costa,-23.568256,-46.631691,0,00:00,24:00,0,0,esquina
+2236,Rua Doutora Romilda Valentino,-23.566526,-46.633152,0,00:00,24:00,0,0,esquina
+2237,Rua Galvão Bueno × Rua Tamandaré,-23.563524,-46.634555,0,00:00,24:00,0,0,esquina
+2238,Esquina 2238,-23.565763,-46.635318,0,00:00,24:00,0,0,esquina
+2239,Esquina 2239,-23.565943,-46.635559,0,00:00,24:00,0,0,esquina
+2240,Rua Senador Felício dos Santos,-23.566575,-46.635475,0,00:00,24:00,0,0,esquina
+2241,Esquina 2241,-23.566762,-46.63492,0,00:00,24:00,0,0,esquina
+2242,Esquina 2242,-23.561648,-46.631018,0,00:00,24:00,0,0,esquina
+2243,Rua Espírita,-23.562248,-46.629216,0,00:00,24:00,0,0,esquina
+2244,Rua Fagundes × Rua José Bento Ferreira Rocha,-23.559893,-46.635476,0,00:00,24:00,0,0,esquina
+2245,Rua José Bento Ferreira Rocha,-23.560319,-46.635869,0,00:00,24:00,0,0,esquina
+2246,Rua Doutor Jambeiro Costa × Rua Professor Antônio Prudente,-23.565755,-46.637616,0,00:00,24:00,0,0,esquina
+2247,Rua Doutor Jambeiro Costa,-23.566449,-46.638179,0,00:00,24:00,0,0,esquina
+2248,Rua Lins,-23.557457,-46.630727,0,00:00,24:00,0,0,esquina
+2249,Rua Lins × Rua Sinimbú,-23.557515,-46.631456,0,00:00,24:00,0,0,esquina
+2250,Rua Vergueiro × Travessa Carneiro,-23.563822,-46.639184,0,00:00,24:00,0,0,esquina
+2251,Rua Vergueiro × Travessa Calado,-23.565679,-46.639606,0,00:00,24:00,0,0,esquina
+2252,Rua Desembargador Macedo Vieira,-23.568912,-46.629447,0,00:00,24:00,0,0,esquina
+2253,Esquina 2253,-23.569219,-46.629095,0,00:00,24:00,0,0,esquina
+2254,Rua Pais de Andrade,-23.569361,-46.630915,0,00:00,24:00,0,0,esquina
+2255,Esquina 2255,-23.569385,-46.631346,0,00:00,24:00,0,0,esquina
+2256,Esquina 2256,-23.569462,-46.629475,0,00:00,24:00,0,0,esquina
+2257,Rua Oliveira Peixoto,-23.569526,-46.629134,0,00:00,24:00,0,0,esquina
+2258,Rua Cacilda × Rua Major Diogo,-23.553873,-46.64315,0,00:00,24:00,0,0,esquina
+2259,Rua Francisco Frias × Rua Major Diogo,-23.554128,-46.643126,0,00:00,24:00,0,0,esquina
+2260,Praça Pérola Byington × Rua Jaceguaí,-23.555401,-46.640242,0,00:00,24:00,0,0,esquina
+2261,Avenida Nove de Julho × Praça 14 Bis,-23.55586,-46.650327,0,00:00,24:00,0,0,esquina
+2262,Avenida Nove de Julho,-23.556092,-46.650591,0,00:00,24:00,0,0,esquina
+2263,Avenida Nove de Julho × Rua Professor Daher Cutait,-23.557399,-46.652701,0,00:00,24:00,0,0,esquina
+2264,Avenida Nove de Julho × Rua Severo Fournier,-23.565816,-46.657917,0,00:00,24:00,0,0,esquina
+2265,Rua Buri × Rua Itabirito,-23.554071,-46.665565,0,00:00,24:00,0,0,esquina
+2266,Rua Vinícius de Moraes × Rua da Consolação,-23.555805,-46.663204,0,00:00,24:00,0,0,esquina
+2267,Rua Brigadeiro Tobias × Rua Doutor Luiz Silveira,-23.538509,-46.63479,0,00:00,24:00,0,0,esquina
+2268,Rua Dom Raimundo Brito,-23.567922,-46.632171,0,00:00,24:00,0,0,esquina
+2269,Rua Carlos de Sousa Nazaré,-23.540265,-46.630232,0,00:00,24:00,0,0,esquina
+2270,Avenida Senador Queirós × Rua Carlos de Sousa Nazaré,-23.540025,-46.630244,0,00:00,24:00,0,0,esquina
+2271,Rua Ilha das Flores,-23.538738,-46.631533,0,00:00,24:00,0,0,esquina
+2272,Avenida Senador Queirós × Rua Florêncio de Abreu,-23.53927,-46.632896,0,00:00,24:00,0,0,esquina
+2273,Rua Coronel José Eusébio,-23.551074,-46.659591,0,00:00,24:00,0,0,esquina
+2274,Rua Itaquera × Rua Itápolis,-23.550017,-46.661832,0,00:00,24:00,0,0,esquina
+2275,Avenida Angélica × Rua Piauí,-23.545392,-46.657539,0,00:00,24:00,0,0,esquina
+2276,Avenida Angélica × Rua Alagoas,-23.546501,-46.658092,0,00:00,24:00,0,0,esquina
+2277,Largo do Arouche,-23.540507,-46.645114,0,00:00,24:00,0,0,esquina
+2278,Largo do Arouche,-23.541781,-46.646096,0,00:00,24:00,0,0,esquina
+2279,AC A RUA ANA CINTRA × Rua Ana Cintra,-23.538425,-46.64845,0,00:00,24:00,0,0,esquina
+2280,Rua General Carneiro,-23.546102,-46.632063,0,00:00,24:00,0,0,esquina
+2281,Rua General Carneiro × Rua Vinte e Cinco de Março,-23.546143,-46.631759,0,00:00,24:00,0,0,esquina
+2282,Rua José Bonifácio × Rua São Francisco,-23.54865,-46.638441,0,00:00,24:00,0,0,esquina
+2283,Rua Aguiar de Barros × Rua Francisca Miquelina,-23.553856,-46.639598,0,00:00,24:00,0,0,esquina
+2284,Rua Genebra,-23.552015,-46.639719,0,00:00,24:00,0,0,esquina
+2285,Rua Santo Amaro,-23.551632,-46.640574,0,00:00,24:00,0,0,esquina
+2286,Rua da Consolação,-23.547219,-46.645674,0,00:00,24:00,0,0,esquina
+2287,Avenida São Luís × Rua da Consolação,-23.548017,-46.64269,0,00:00,24:00,0,0,esquina
+2288,Avenida São Luís × Rua da Consolação,-23.548026,-46.642558,0,00:00,24:00,0,0,esquina
+2289,Rua da Consolação,-23.547177,-46.64591,0,00:00,24:00,0,0,esquina
+2290,Avenida Ipiranga × Rua da Consolação,-23.547167,-46.646051,0,00:00,24:00,0,0,esquina
+2291,Avenida Ipiranga × Avenida São Luís,-23.545068,-46.643399,0,00:00,24:00,0,0,esquina
+2292,Avenida Cásper Líbero × Avenida Ipiranga,-23.539335,-46.636303,0,00:00,24:00,0,0,esquina
+2293,Avenida São Luís × Praça da República,-23.544698,-46.643208,0,00:00,24:00,0,0,esquina
+2294,Largo do Paissandú,-23.542533,-46.637903,0,00:00,24:00,0,0,esquina
+2295,Rua Santo Antônio,-23.553645,-46.647259,0,00:00,24:00,0,0,esquina
+2296,Rua Avanhandava,-23.551782,-46.647313,0,00:00,24:00,0,0,esquina
+2297,Rua São Domingos × Travessa Ana Maria Giffoni,-23.552786,-46.644309,0,00:00,24:00,0,0,esquina
+2298,Rua São Domingos,-23.552866,-46.645238,0,00:00,24:00,0,0,esquina
+2299,Rua da Consolação,-23.547216,-46.647138,0,00:00,24:00,0,0,esquina
+2300,Rua Augusta × Rua Caio Prado,-23.550581,-46.648033,0,00:00,24:00,0,0,esquina
+2301,Rua Coronel Xavier de Toledo,-23.547133,-46.639546,0,00:00,24:00,0,0,esquina
+2302,Avenida Prestes Maia × Rua Riskallah Jorge,-23.542122,-46.634858,0,00:00,24:00,0,0,esquina
+2303,Avenida Brigadeiro Luís Antônio × Rua Condessa de São Joaquim,-23.557172,-46.640582,0,00:00,24:00,0,0,esquina
+2304,Rua Avaré,-23.546461,-46.662089,0,00:00,24:00,0,0,esquina
+2305,Rua Armando Penteado,-23.546018,-46.664119,0,00:00,24:00,0,0,esquina
+2306,Praça Charles Miller × Rua Alagoas,-23.543442,-46.665196,0,00:00,24:00,0,0,esquina
+2307,Avenida Pacaembu × Praça Charles Miller,-23.543019,-46.66533,0,00:00,24:00,0,0,esquina
+2308,Rua das Mangabeiras,-23.541243,-46.663512,0,00:00,24:00,0,0,esquina
+2309,Rua Piauí × Vila Martha,-23.543658,-46.661644,0,00:00,24:00,0,0,esquina
+2310,Praça Geremia Lunardelli × Rua Professor Picarolo,-23.560945,-46.655263,0,00:00,24:00,0,0,esquina
+2311,Rua Major Quedinho × Viaduto Nove de Julho,-23.548351,-46.642626,0,00:00,24:00,0,0,esquina
+2312,Praça da República × Rua Araújo,-23.544155,-46.644374,0,00:00,24:00,0,0,esquina
+2313,Avenida São João,-23.541349,-46.642024,0,00:00,24:00,0,0,esquina
+2314,Praça Ragueb Chohfi × Rua Jorge Azem,-23.544845,-46.631559,0,00:00,24:00,0,0,esquina
+2315,Rua General Carneiro × Rua Vinte e Cinco de Março,-23.545898,-46.631881,0,00:00,24:00,0,0,esquina
+2316,Parque Dom Pedro II × Praça Fernando Costa,-23.545462,-46.631409,0,00:00,24:00,0,0,esquina
+2317,Praça Ragueb Chohfi × Rua General Carneiro,-23.545588,-46.631617,0,00:00,24:00,0,0,esquina
+2318,Rua Líbero Badaró × Viaduto do Chá,-23.54731,-46.636727,0,00:00,24:00,0,0,esquina
+2319,Avenida São João × Largo do Arouche,-23.5398,-46.645017,0,00:00,24:00,0,0,esquina
+2320,Avenida São João,-23.539578,-46.64537,0,00:00,24:00,0,0,esquina
+2321,Alameda Itu × Rua Moacir Piza,-23.559493,-46.664436,0,00:00,24:00,0,0,esquina
+2322,Alameda Jaú × Rua Moacir Piza,-23.55861,-46.663511,0,00:00,24:00,0,0,esquina
+2323,Travessa Doutor Luiz Ribeiro de Mendonça,-23.559014,-46.663455,0,00:00,24:00,0,0,esquina
+2324,Alameda Jaú × Travessa Doutor Luiz Ribeiro de Mendonça,-23.558829,-46.663264,0,00:00,24:00,0,0,esquina
+2325,Rua França,-23.559877,-46.665028,0,00:00,24:00,0,0,esquina
+2326,Passagem Servidão Franca × Rua França,-23.559967,-46.664925,0,00:00,24:00,0,0,esquina
+2327,Rua França,-23.56006,-46.664818,0,00:00,24:00,0,0,esquina
+2328,Avenida Duque de Caxias × Largo do Arouche,-23.540938,-46.64668,0,00:00,24:00,0,0,esquina
+2329,Rua Dom Raimundo Brito,-23.567813,-46.632004,0,00:00,24:00,0,0,esquina
+2330,Praça Fernando Costa × Rua Doutor Bittencourt Rodrigues,-23.547357,-46.631929,0,00:00,24:00,0,0,esquina
+2331,Largo Pátio do Colégio,-23.548448,-46.632978,0,00:00,24:00,0,0,esquina
+2332,Vila Adelaíde,-23.539409,-46.64717,0,00:00,24:00,0,0,esquina
+2333,Vila Adelaíde,-23.53956,-46.647215,0,00:00,24:00,0,0,esquina
+2334,Praça Raízes do Brasil × Rua Marcelino Ritter,-23.554179,-46.664745,0,00:00,24:00,0,0,esquina
+2335,Alameda Santos × Praça Alexandre de Gusmão,-23.563529,-46.656023,0,00:00,24:00,0,0,esquina
+2336,Alameda Ministro Rocha Azevedo,-23.564431,-46.662556,0,00:00,24:00,0,0,esquina
+2337,Alameda Lorena,-23.566074,-46.663465,0,00:00,24:00,0,0,esquina
+2338,Travessa Dona Paula,-23.552,-46.659617,0,00:00,24:00,0,0,esquina
+2339,Travessa Dona Paula,-23.551726,-46.659915,0,00:00,24:00,0,0,esquina
+2340,Rua Minas Gerais × Rua Novo Horizonte,-23.552754,-46.662173,0,00:00,24:00,0,0,esquina
+2341,Esquina 2341,-23.565814,-46.635263,0,00:00,24:00,0,0,esquina
+2342,Rua Rocha Pombo,-23.564091,-46.633522,0,00:00,24:00,0,0,esquina
+2343,Praça Almeida Júnior,-23.556218,-46.633454,0,00:00,24:00,0,0,esquina
+2344,Praça Almeida Júnior × Rua da Glória,-23.55613,-46.634194,0,00:00,24:00,0,0,esquina
+2345,Rua Livreiro Alves,-23.555951,-46.629907,0,00:00,24:00,0,0,esquina
+2346,Praça Farias Brito × Rua Ceará,-23.548508,-46.662063,0,00:00,24:00,0,0,esquina
+2347,Praça Doutor João Mendes × Praça da Sé,-23.551677,-46.634896,0,00:00,24:00,0,0,esquina
+2348,Rua Castro Alves,-23.566553,-46.639235,0,00:00,24:00,0,0,esquina
+2349,Rua Carlos de Sousa Nazaré,-23.540224,-46.63002,0,00:00,24:00,0,0,esquina
+2350,Avenida Senador Queirós,-23.539903,-46.630204,0,00:00,24:00,0,0,esquina
+2351,Rua Doutor Vila Nova × Rua Maria Antônia,-23.546789,-46.650393,0,00:00,24:00,0,0,esquina
+2352,Praça Amadeu Amaral × Rua 13 de Maio,-23.568794,-46.643942,0,00:00,24:00,0,0,esquina
+2353,Praça Amadeu Amaral × Rua 13 de Maio,-23.568799,-46.644047,0,00:00,24:00,0,0,esquina
+2354,Praça Amadeu Amaral × Rua 13 de Maio,-23.56816,-46.644136,0,00:00,24:00,0,0,esquina
+2355,Praça Amadeu Amaral × Rua 13 de Maio,-23.568142,-46.64403,0,00:00,24:00,0,0,esquina
+2356,Praça Amadeu Amaral × Rua João Julião,-23.568461,-46.643575,0,00:00,24:00,0,0,esquina
+2357,Rua Dona Antônia de Queirós × Rua da Consolação,-23.54976,-46.653822,0,00:00,24:00,0,0,esquina
+2358,Avenida Paulista,-23.556516,-46.662197,0,00:00,24:00,0,0,esquina
+2359,Avenida Paulista,-23.556327,-46.661994,0,00:00,24:00,0,0,esquina
+2360,Rua Glicério × Rua São Paulo,-23.556755,-46.629553,0,00:00,24:00,0,0,esquina
+2361,Praça Alfredo Issa × Rua Beneficência Portuguesa,-23.540039,-46.636067,0,00:00,24:00,0,0,esquina
+2362,Avenida Duque de Caxias × Avenida São João,-23.539158,-46.646122,0,00:00,24:00,0,0,esquina
+2363,Praça da Bandeira × Rua Santo Antônio,-23.549753,-46.640273,0,00:00,24:00,0,0,esquina
+2364,Rua Maestro Cardim × Rua Pedroso,-23.562585,-46.640719,0,00:00,24:00,0,0,esquina
+2365,Rua Maestro Cardim,-23.56276,-46.640797,0,00:00,24:00,0,0,esquina
+2366,Rua Maestro Cardim × Rua Pedroso,-23.562556,-46.640845,0,00:00,24:00,0,0,esquina
+2367,Rua Sebastião Pereira,-23.54069,-46.648241,0,00:00,24:00,0,0,esquina
+2368,Rua Augusta × Rua Peixoto Gomide,-23.553997,-46.655816,0,00:00,24:00,0,0,esquina
+2369,Alameda Jaú × Rua Haddock Lobo,-23.559116,-46.662941,0,00:00,24:00,0,0,esquina
+2370,Rua Pandiá Calógeras × Rua Rocha Pombo,-23.564278,-46.633409,0,00:00,24:00,0,0,esquina
+2371,Rua Desembargador Paulo Passaláqua,-23.551344,-46.665336,0,00:00,24:00,0,0,esquina
+2372,Rua Itápolis,-23.549176,-46.664267,0,00:00,24:00,0,0,esquina
+2373,Alameda Ribeirão Preto × Rua Almirante Marques de Leão,-23.564188,-46.64916,0,00:00,24:00,0,0,esquina
+2374,Rua Marcelino Ritter,-23.554263,-46.664814,0,00:00,24:00,0,0,esquina
+2375,Avenida São João × Rua Conselheiro Nébias,-23.542158,-46.640589,0,00:00,24:00,0,0,esquina
+2376,Alameda Franca × Passagem Servidão Franca,-23.560383,-46.665354,0,00:00,24:00,0,0,esquina
+2377,Rua Conde do Pinhal,-23.553429,-46.634218,0,00:00,24:00,0,0,esquina
+2378,Rua Anita Ferraz,-23.554207,-46.631086,0,00:00,24:00,0,0,esquina
+2379,Avenida da Aclimação,-23.566991,-46.633344,0,00:00,24:00,0,0,esquina
+2380,Rua Pires da Mota,-23.566896,-46.633506,0,00:00,24:00,0,0,esquina
+2381,Avenida Brigadeiro Luís Antônio,-23.556275,-46.639834,0,00:00,24:00,0,0,esquina
+2382,Rua Santo Amaro,-23.5562,-46.640029,0,00:00,24:00,0,0,esquina
+2383,Praça Contos Fluminenses,-23.552969,-46.649611,0,00:00,24:00,0,0,esquina
+2384,Avenida Ipiranga × Rua Araújo,-23.546333,-46.644975,0,00:00,24:00,0,0,esquina
+2385,Esquina 2385,-23.564354,-46.662643,0,00:00,24:00,0,0,esquina
+2386,Avenida Nove de Julho × Rua Alfredo Gagliotti,-23.548845,-46.639808,0,00:00,24:00,0,0,esquina
+2387,Rua Francisco Frias,-23.554133,-46.643188,0,00:00,24:00,0,0,esquina
+2388,Rua Cacilda,-23.553879,-46.643216,0,00:00,24:00,0,0,esquina
+2389,Travessa Calado,-23.565656,-46.639709,0,00:00,24:00,0,0,esquina
+2390,Travessa Carneiro,-23.563665,-46.639844,0,00:00,24:00,0,0,esquina
+2391,Rua Garcia Fernandes,-23.561893,-46.651142,0,00:00,24:00,0,0,esquina
+2392,Rua Professor Laerte Ramos de Carvalho,-23.554738,-46.644498,0,00:00,24:00,0,0,esquina
+2393,Rua Barão de Duprat,-23.543833,-46.631022,0,00:00,24:00,0,0,esquina
+2394,Avenida Nove de Julho × Praça da Bandeira,-23.549193,-46.640722,0,00:00,24:00,0,0,esquina
+2395,Rua Conselheiro Ramalho × Rua Quatorze de Julho,-23.554064,-46.644788,0,00:00,24:00,0,0,esquina
+2396,Avenida Vinte e Três de Maio × Rua Asdrúbal Nascimento,-23.549922,-46.638447,0,00:00,24:00,0,0,esquina
+2397,Rua Araújo,-23.546274,-46.644953,0,00:00,24:00,0,0,esquina
+2398,Rua Cavalheiro Basílio Jafet × Rua da Cantareira,-23.543995,-46.630956,0,00:00,24:00,0,0,esquina
+2399,Avenida São Luís × Rua da Consolação,-23.547882,-46.642603,0,00:00,24:00,0,0,esquina
+2400,Rua Armando Penteado,-23.546088,-46.664104,0,00:00,24:00,0,0,esquina
+2401,Avenida Rio Branco × Largo do Paissandú,-23.542484,-46.637989,0,00:00,24:00,0,0,esquina
+2402,Rua Bahia × Rua Piauí,-23.544569,-46.659496,0,00:00,24:00,0,0,esquina
+2403,Rua Alagoas × Rua Bahia,-23.545697,-46.659956,0,00:00,24:00,0,0,esquina
+2404,Avenida São Luís,-23.545197,-46.64326,0,00:00,24:00,0,0,esquina
+2405,Viaduto Brigadeiro Luís Antônio,-23.552262,-46.637619,0,00:00,24:00,0,0,esquina
+2406,Rua Luís Porrio × Rua Santo Antônio,-23.553156,-46.646986,0,00:00,24:00,0,0,esquina
+2407,Esquina 2407,-23.565991,-46.663376,0,00:00,24:00,0,0,esquina
+2408,Avenida Prestes Maia × Rua Dom Francisco de Sousa,-23.541349,-46.634311,0,00:00,24:00,0,0,esquina
+2409,Rua General Couto de Magalhães × Rua dos Protestantes,-23.536687,-46.63697,0,00:00,24:00,0,0,esquina
+2410,Rua Rocha,-23.556243,-46.6499,0,00:00,24:00,0,0,esquina
+2411,Rua Rui Barbosa,-23.561984,-46.645078,0,00:00,24:00,0,0,esquina
+2412,Rua Pais de Andrade,-23.567889,-46.632089,0,00:00,24:00,0,0,esquina
+2413,Rua Pais de Andrade,-23.567762,-46.632195,0,00:00,24:00,0,0,esquina
+2414,Rua Perdões,-23.567705,-46.632078,0,00:00,24:00,0,0,esquina
+2415,Rua Barão de Ijuí × Rua Pedroso,-23.562861,-46.639737,0,00:00,24:00,0,0,esquina
+2416,Rua Pamplona × Rua São Carlos do Pinhal,-23.562709,-46.652832,0,00:00,24:00,0,0,esquina
+2417,Rua Alberto de Oliveira,-23.56492,-46.645912,0,00:00,24:00,0,0,esquina
+2418,Rua Treze de Maio,-23.563512,-46.645756,0,00:00,24:00,0,0,esquina
+2419,Rua Treze de Maio,-23.56345,-46.645514,0,00:00,24:00,0,0,esquina
+2420,Rua Treze de Maio,-23.562963,-46.645669,0,00:00,24:00,0,0,esquina
+2421,Rua Treze de Maio,-23.563152,-46.645868,0,00:00,24:00,0,0,esquina
+2422,Avenida São João × Largo do Arouche,-23.539758,-46.644873,0,00:00,24:00,0,0,esquina
+2423,Avenida Vieira de Carvalho,-23.542413,-46.64331,0,00:00,24:00,0,0,esquina
+2424,Avenida Vieira de Carvalho,-23.542333,-46.643218,0,00:00,24:00,0,0,esquina
+2425,Rua Jaceguaí,-23.556373,-46.637359,0,00:00,24:00,0,0,esquina
+2426,Avenida Duque de Caxias,-23.537314,-46.643717,0,00:00,24:00,0,0,esquina
+2427,Travessa Ana Maria Giffoni,-23.5533,-46.644261,0,00:00,24:00,0,0,esquina
+2428,Praça da Bandeira,-23.550133,-46.638959,0,00:00,24:00,0,0,esquina
+2429,Praça 14 Bis × Rua Rocha,-23.556108,-46.649819,0,00:00,24:00,0,0,esquina
+2430,Rua Capivari × Rua Itapemirim,-23.549844,-46.663732,0,00:00,24:00,0,0,esquina
+2431,Rua Itapemirim,-23.549887,-46.66351,0,00:00,24:00,0,0,esquina
+2432,Praça Vilaboim,-23.544469,-46.660346,0,00:00,24:00,0,0,esquina
+2433,Praça Vilaboim,-23.54421,-46.660367,0,00:00,24:00,0,0,esquina
+2434,Rua Luís Porrio × Rua Santo Antônio,-23.55284,-46.646728,0,00:00,24:00,0,0,esquina
+2435,Rua Luís Porrio,-23.552988,-46.646707,0,00:00,24:00,0,0,esquina
+2436,Rua Dona Adma Jafet × Rua Engenheiro Monlevade,-23.559343,-46.654702,0,00:00,24:00,0,0,esquina
+2437,Rua Dona Adma Jafet,-23.559162,-46.654694,0,00:00,24:00,0,0,esquina
+2438,Avenida São João × Rua Pedro Américo,-23.541543,-46.64168,0,00:00,24:00,0,0,esquina
+2439,Rua Pedro Américo,-23.541613,-46.641928,0,00:00,24:00,0,0,esquina
+2440,Rua Bento Freitas × Rua do Arouche,-23.541881,-46.64543,0,00:00,24:00,0,0,esquina
+2441,Avenida Angélica,-23.535699,-46.653951,0,00:00,24:00,0,0,esquina
+2442,Praça Vilaboim × Rua Tinhorão,-23.54467,-46.660968,0,00:00,24:00,0,0,esquina
+2443,Vila Martha,-23.54358,-46.661606,0,00:00,24:00,0,0,esquina
+2444,Avenida Pacaembu × Rua Itamarati,-23.540086,-46.664097,0,00:00,24:00,0,0,esquina
+2445,Avenida Pacaembu × Rua Itamarati,-23.540037,-46.664234,0,00:00,24:00,0,0,esquina
+2446,Rua Itápolis,-23.54562,-46.66443,0,00:00,24:00,0,0,esquina
+2447,Rua Martins Fontes × Viaduto Nove de Julho,-23.548365,-46.642492,0,00:00,24:00,0,0,esquina
+2448,Rua Maria Paula × Rua Santo Amaro,-23.551502,-46.640287,0,00:00,24:00,0,0,esquina
+2449,Rua Jacareí × Rua Japurá,-23.551186,-46.641661,0,00:00,24:00,0,0,esquina
+2450,Rua Jacareí × Rua Japurá,-23.551124,-46.641772,0,00:00,24:00,0,0,esquina
+2451,Rua do Lavapés,-23.559901,-46.631058,0,00:00,24:00,0,0,esquina
+2452,Rua Glicério,-23.559812,-46.631152,0,00:00,24:00,0,0,esquina
+2453,Rua da Glória,-23.553333,-46.634377,0,00:00,24:00,0,0,esquina
+2454,Rua Jenner × Rua Pires da Mota,-23.564487,-46.630392,0,00:00,24:00,0,0,esquina
+2455,Rua Pires da Mota,-23.564606,-46.630374,0,00:00,24:00,0,0,esquina
+2456,Rua Barão de Duprat,-23.543477,-46.630983,0,00:00,24:00,0,0,esquina
+2457,Rua Barão de Duprat,-23.543983,-46.631044,0,00:00,24:00,0,0,esquina
+2458,Rua Antônio Carlos,-23.557839,-46.656067,0,00:00,24:00,0,0,esquina
+2459,Rua Antônio Carlos × Rua São Carlos do Pinhal,-23.557913,-46.65627,0,00:00,24:00,0,0,esquina
+2460,Rua Conselheiro Furtado,-23.56026,-46.632808,0,00:00,24:00,0,0,esquina
+2461,Rua da Glória,-23.560117,-46.632637,0,00:00,24:00,0,0,esquina
+2462,Rua dos Franceses × Rua dos Ingleses,-23.558297,-46.647352,0,00:00,24:00,0,0,esquina
+2463,Rua dos Ingleses,-23.558403,-46.647193,0,00:00,24:00,0,0,esquina
+2464,Praça 14 Bis × Rua Rocha,-23.556136,-46.649928,0,00:00,24:00,0,0,esquina
+2465,Parque Dom Pedro II × Praça Ragueb Chohfi,-23.545038,-46.630907,0,00:00,24:00,0,0,esquina
+2466,Avenida Brigadeiro Luís Antônio,-23.562943,-46.645495,0,00:00,24:00,0,0,esquina
+2467,Rua Genebra × Rua Maria Paula,-23.551773,-46.639691,0,00:00,24:00,0,0,esquina
+2468,Avenida São João × Rua Helvétia,-23.537612,-46.64859,0,00:00,24:00,0,0,esquina
+2469,Avenida São João × Rua Helvétia,-23.537691,-46.648719,0,00:00,24:00,0,0,esquina
+2470,Rua Conselheiro Nébias × Rua dos Timbiras,-23.541701,-46.640905,0,00:00,24:00,0,0,esquina
+2471,Rua Marquês de Itu,-23.543643,-46.654432,0,00:00,24:00,0,0,esquina
+2472,Rua Sergipe,-23.546656,-46.660887,0,00:00,24:00,0,0,esquina
+2473,Avenida Pacaembu × Rua Itassucê,-23.540248,-46.664318,0,00:00,24:00,0,0,esquina
+2474,Rua Martiniano de Carvalho,-23.562073,-46.641763,0,00:00,24:00,0,0,esquina
+2475,Rua Mato Grosso,-23.549001,-46.656246,0,00:00,24:00,0,0,esquina
+2476,Rua Quintino Bocaiuva × Rua Senador Feijó,-23.55056,-46.635293,0,00:00,24:00,0,0,esquina
+2477,Rua do Seminário,-23.542687,-46.636448,0,00:00,24:00,0,0,esquina
+2478,Rua Brigadeiro Tobias,-23.54271,-46.636266,0,00:00,24:00,0,0,esquina
+2479,Rua São Carlos do Pinhal,-23.563428,-46.651987,0,00:00,24:00,0,0,esquina
+2480,Rua Fortaleza × Rua Rui Barbosa,-23.559812,-46.645107,0,00:00,24:00,0,0,esquina
+2481,Praça Dom Orione × Rua Treze de Maio,-23.560444,-46.645452,0,00:00,24:00,0,0,esquina
+2482,Alameda Ribeirão Preto × Avenida Brigadeiro Luís Antônio,-23.565479,-46.647623,0,00:00,24:00,0,0,esquina
+2483,Rua Dona Antônia de Queirós,-23.552586,-46.652329,0,00:00,24:00,0,0,esquina
+2484,Rua Rui Barbosa,-23.560508,-46.645205,0,00:00,24:00,0,0,esquina
+2485,Rua Baronesa de Itu × Rua São Vicente de Paulo,-23.539514,-46.656725,0,00:00,24:00,0,0,esquina
+2486,Rua Engenheiro Edgar Egídio de Sousa × Rua Itaguaba,-23.542744,-46.66424,0,00:00,24:00,0,0,esquina
+2487,Rua Coronel José Eusébio × Rua Mato Grosso,-23.550852,-46.659626,0,00:00,24:00,0,0,esquina
+2488,Rua Sergipe,-23.548392,-46.656699,0,00:00,24:00,0,0,esquina
+2489,Rua Maria Antônia,-23.545426,-46.652096,0,00:00,24:00,0,0,esquina
+2490,Rua Bela Cintra,-23.552015,-46.654821,0,00:00,24:00,0,0,esquina
+2491,Rua Bela Cintra,-23.551324,-46.653953,0,00:00,24:00,0,0,esquina
+2492,Rua Itapeva,-23.559206,-46.652437,0,00:00,24:00,0,0,esquina
+2493,Rua dos Ingleses,-23.562844,-46.646679,0,00:00,24:00,0,0,esquina
+2494,Rua Barata Ribeiro,-23.556405,-46.652901,0,00:00,24:00,0,0,esquina
+2495,Rua Pamplona,-23.559109,-46.651673,0,00:00,24:00,0,0,esquina
+2496,Esquina 2496,-23.559115,-46.651336,0,00:00,24:00,0,0,esquina
+2497,Esquina 2497,-23.559044,-46.651334,0,00:00,24:00,0,0,esquina
+2498,Esquina 2498,-23.559181,-46.651337,0,00:00,24:00,0,0,esquina
+2499,Rua Leopoldo Miguez × Rua Teixeira Leite,-23.557092,-46.628512,0,00:00,24:00,0,0,esquina
+2500,Rua Dona Antônia de Queirós,-23.55284,-46.652198,0,00:00,24:00,0,0,esquina
+2501,Rua Doutor Lund × Travessa Rugiero,-23.556118,-46.630948,0,00:00,24:00,0,0,esquina
+2502,Rua Artur Prado × Rua Cunha Bueno,-23.564096,-46.643517,0,00:00,24:00,0,0,esquina
+2503,Rua Major Sertório,-23.545312,-46.652031,0,00:00,24:00,0,0,esquina
+2504,Rua Japurá,-23.550984,-46.641634,0,00:00,24:00,0,0,esquina
+2505,Rua Japurá,-23.551017,-46.64157,0,00:00,24:00,0,0,esquina
+2506,Rua Bento Freitas × Rua Santa Isabel,-23.542737,-46.645491,0,00:00,24:00,0,0,esquina
+2507,Avenida Duque de Caxias,-23.540657,-46.646611,0,00:00,24:00,0,0,esquina
+2508,Avenida Duque de Caxias,-23.540549,-46.646454,0,00:00,24:00,0,0,esquina
+2509,Praça Ramos de Azevedo,-23.545881,-46.638719,0,00:00,24:00,0,0,esquina
+2510,Rua Treze de Maio,-23.562978,-46.64591,0,00:00,24:00,0,0,esquina
+2511,Rua Treze de Maio,-23.56286,-46.64569,0,00:00,24:00,0,0,esquina
+2512,Esquina 2512,-23.548463,-46.656734,0,00:00,24:00,0,0,esquina
+2513,Rua Professor Laerte Ramos de Carvalho,-23.555819,-46.640685,0,00:00,24:00,0,0,esquina
+2514,Rua Itaguaba × Rua das Mangabeiras,-23.54122,-46.663619,0,00:00,24:00,0,0,esquina
+2515,Rua Itaguaba × Rua das Mangabeiras,-23.541442,-46.663709,0,00:00,24:00,0,0,esquina
+2516,Rua Vicente Félix,-23.564858,-46.663142,0,00:00,24:00,0,0,esquina
+2517,Rua Pirapitingui,-23.562728,-46.638765,0,00:00,24:00,0,0,esquina
+2518,Avenida da Liberdade,-23.560766,-46.638464,0,00:00,24:00,0,0,esquina
+2519,Avenida da Liberdade,-23.560799,-46.638362,0,00:00,24:00,0,0,esquina

@@ -1,0 +1,28 @@
+{
+  "fontes": {
+    "olist": "https://github.com/NVlabs/olist-vrp-benchmark (coordinates_sao_paulo_test.csv, sellers_sao_paulo.csv) - CC BY-NC-SA 4.0",
+    "ruas": "OpenStreetMap via Overpass - © OpenStreetMap contributors, ODbL 1.0",
+    "osm_data_base": "2026-11-18T13:02:23Z"
+  },
+  "parametros": {
+    "clientes": 30,
+    "raio_km": 1.5,
+    "semente": 42,
+    "bbox": [
+      -23.57037,
+      -46.66567,
+      -23.53623,
+      -46.62843
+    ],
+    "fator_transito": 0.6,
+    "velocidade_acesso_kmh": 15
+  },
+  "deposito_cep_prefixo": "01314",
+  "contagem": {
+    "vertices": 1550,
+    "clientes": 30,
+    "esquinas": 1519,
+    "arestas": 2408,
+    "mao_unica": 1906
+  }
+}

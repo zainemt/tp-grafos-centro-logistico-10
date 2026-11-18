@@ -74,7 +74,7 @@ O sistema exige login. Sem sessão, a página redireciona para `/login` e a API 
 - defina a variável de ambiente `SECRET_KEY` com um valor longo e aleatório para as sessões sobreviverem a reinícios; sem ela, o servidor gera uma chave nova a cada execução e avisa no terminal;
 - ao publicar com HTTPS, defina também `SESSION_COOKIE_SECURE=1`.
 
-> **Dados de exemplo:** os algoritmos já são os reais, mas enquanto não existir `dados/vertices.csv` o grafo vem de `src/api/mock.py` e a tela mostra o selo *dados de exemplo*. Quando o arquivo for criado, a API passa a ler a base real sozinha e o selo some. Veja [Integração](#-integração-duplas-1-e-2).
+> **Base de dados:** a API lê o mapa real de São Paulo em `dados/*.csv` (veja [dados/README.md](dados/README.md)). Se `dados/vertices.csv` for apagado, o grafo volta a vir de `src/api/mock.py` e a tela mostra o selo *dados de exemplo*. Veja [Integração](#-integração-duplas-1-e-2).
 
 ## 🖥️ A tela
 
@@ -208,7 +208,7 @@ A API não depende de como o grafo e os algoritmos são feitos por dentro, só d
 | `POST /api/auth/login` | recebe `{email, senha, manter}` e devolve `{usuario: {nome, email}}`; **401** `{erro}` se as credenciais forem inválidas, **429** se bloqueado por tentativas. As demais rotas abaixo exigem sessão (sem ela, **401**) |
 | `POST /api/auth/registrar` | recebe `{nome, email, senha}`, cria a conta e já inicia a sessão: **201** `{usuario: {nome, email}}`; **400** `{erro, campo}` se algum campo for inválido, **409** se o e-mail já existir, **429** se passar do limite por IP |
 | `POST /api/auth/logout` · `GET /api/auth/me` | encerra a sessão (204) · devolve `{nome, email}` do usuário logado |
-| `GET /api/grafo` | `{vertices: [{id, nome, lat, lon, demanda, janela:[ini,fim], prioridade, deposito}], arestas: [{u, v, distancia, tempo}]}` |
+| `GET /api/grafo` | o mapa: `{vertices: [{id, nome, lat, lon, demanda, janela:[ini,fim], prioridade, deposito, tipo}], arestas: [{u, v, distancia, tempo, mao_unica, nome, geometria}]}`. `tipo` é `deposito`, `cliente` ou `esquina` (esquina é só passagem); `mao_unica: true` vale só de `u` para `v`; `nome` e `geometria` (pontos `[lat, lon]` do trecho) servem para desenhar as ruas. Os três últimos campos das arestas e o `tipo` são opcionais |
 | `GET /api/algoritmos` | `{"nn": "Vizinho mais próximo", "clarke_wright": "Clarke-Wright"}` |
 | `POST /api/rotas` | recebe `{veiculos, capacidade, algoritmo, usar_2opt}` e devolve `{rotas: [{veiculo, paradas, chegadas, saida, retorno, distancia, tempo, carga, ocupacao}], nao_atendidos, metricas: {distancia_total, tempo_total, veiculos_usados, atrasos}, tempo_execucao_ms}` |
 | `GET /api/desempenho?tamanhos=10,50,100` | `{series: [{nome, pontos: [{n, ms}]}]}`: uma série por algoritmo. A Dupla 1 acrescenta as séries do Dijkstra nosso × NetworkX |
@@ -216,7 +216,8 @@ A API não depende de como o grafo e os algoritmos são feitos por dentro, só d
 Entradas inválidas (por exemplo, 0 veículos ou um algoritmo inexistente) devolvem **400** com `{erro: "mensagem"}`.
 
 Detalhes de cada rota:
-- `paradas`: ids dos vértices em ordem, começando e terminando no depósito.
+- `paradas`: ids dos vértices em ordem, começando e terminando no depósito (só depósito e clientes, nunca esquinas).
+- `trajetos` (a API acrescenta): um trecho por perna da rota, com os pontos `[lat, lon]` do caminho mínimo pelas ruas entre duas paradas seguidas.
 - `chegadas`: uma entrada por cliente, na ordem das paradas, no formato `{id, chegada, inicio, fim, atrasado}`:
   - `chegada`: quando o veículo chega ao cliente;
   - `inicio`: quando a entrega começa (pode ser depois da chegada, se o veículo esperar a janela abrir);
@@ -277,12 +278,12 @@ Depois, envie o PNG novo para a pasta `figuras` do Overleaf com **Overwrite** e 
 ## 📁 Estrutura
 
 ```
-src/grafo/        Dupla 1: classe do grafo, leitura dos dados e Dijkstra
+src/grafo/        Dupla 1: classe do grafo, leitura dos dados, Dijkstra, trajetos pelas ruas (mapa.py) e geração da base (preparar_base.py)
 src/algoritmos/   Dupla 2: vizinho mais próximo, Clarke-Wright, 2-opt e métricas
 src/api/          Dupla 3: API Flask (app.py), login e sessão (auth.py), validador do contrato (contrato.py), benchmark da aba Desempenho (desempenho.py) e dados de exemplo (mock.py)
 frontend/         Dupla 3: interface (index.html, style.css, app.js) e telas de login e cadastro (login.*, registrar.*, logo.svg)
 tests/            testes de contrato, de corretude e de autenticação
-dados/            base de dados (CSV) e usuários do login (usuarios.json; usuarios.local.json = contas criadas pela tela, fora do git)
+dados/            base de dados (vertices.csv, arestas.csv: o mapa de São Paulo; ver dados/README.md) e usuários do login (usuarios.json; usuarios.local.json = contas criadas pela tela, fora do git)
 relatorio/        relatório LaTeX (template SBC): main.tex, referencias.bib, figuras/ e a prévia em PDF
 docs/             diagramas UML (diagramas.md), roteiro da apresentação e do vídeo, checklist de entrega
 ```

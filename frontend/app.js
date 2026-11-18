@@ -26,10 +26,13 @@ const PALETA = [
 const COR_OUTROS = { cor: "#7b8794", texto: "#fff" };
 const COR_CRITICO = "#b42318";
 const PRIORIDADE = { 1: "baixa", 2: "média", 3: "alta" };
-const LIMITE_ARESTAS = 3000;
+const LIMITE_ARESTAS = 8000;
 
 const $ = (id) => document.getElementById(id);
 const corDaRota = (i) => PALETA[i] || COR_OUTROS;
+// O grafo é o mapa do local: além do depósito e dos clientes, tem esquinas (só passagem).
+const ehEsquina = (v) => v.tipo === "esquina";
+const ehCliente = (v) => !v.deposito && !ehEsquina(v);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const hhmm = (min) => {
   const m = Math.floor(min);
@@ -98,6 +101,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "&copy; OpenStreetMap",
   maxZoom: 19,
 }).addTo(mapa);
+const renderizadorRuas = L.canvas({ padding: 0.3 });  // milhares de trechos de rua: canvas é bem mais leve
 const camadaArestas = L.layerGroup();
 const camadaRotas = L.layerGroup().addTo(mapa);
 const camadaPontos = L.layerGroup().addTo(mapa);
@@ -138,6 +142,7 @@ function desenharPontos() {
   estado.marcadores = {};
   estado.statusIcone = {};
   for (const v of estado.grafo.vertices) {
+    if (ehEsquina(v)) continue;  // esquinas aparecem só como parte das ruas
     const i = estado.rotaDoCliente[v.id];
     const paleta = i === undefined ? { cor: "#9aa5b1", texto: "#fff" } : corDaRota(i);
     const m = L.marker([v.lat, v.lon], { icon: iconeCliente(v, paleta), zIndexOffset: v.deposito ? 1000 : 0 })
@@ -158,20 +163,25 @@ function desenharArestas() {
   camadaArestas.clearLayers();
   for (const a of estado.grafo.arestas.slice(0, LIMITE_ARESTAS)) {
     const u = estado.vertices[a.u], v = estado.vertices[a.v];
-    L.polyline([[u.lat, u.lon], [v.lat, v.lon]], { color: "#64748b", weight: 1, opacity: 0.25 })
-      .bindTooltip(`${a.u} ↔ ${a.v}: ${a.distancia} km, ${a.tempo} min`, { sticky: true })
+    const pontos = [[u.lat, u.lon], ...(a.geometria || []), [v.lat, v.lon]];
+    const sentido = a.mao_unica ? "→ mão única" : "↔ mão dupla";
+    const nome = a.nome ? `${esc(a.nome)}<br>` : "";
+    L.polyline(pontos, { color: a.mao_unica ? "#1e293b" : "#475569", weight: a.mao_unica ? 1.5 : 2.5,
+      opacity: 0.6, renderer: renderizadorRuas })
+      .bindTooltip(`${nome}${a.u} ${sentido} ${a.v}: ${a.distancia} km, ${a.tempo} min`, { sticky: true })
       .addTo(camadaArestas);
   }
 }
 
 function mostrarResumo() {
-  const clientes = estado.grafo.vertices.filter((v) => !v.deposito);
+  const clientes = estado.grafo.vertices.filter(ehCliente);
   const demandaTotal = clientes.reduce((s, v) => s + v.demanda, 0);
+  const esquinas = estado.grafo.vertices.filter(ehEsquina).length;
   $("resumo").innerHTML = [
-    [estado.grafo.vertices.length, "Vértices"],
-    [estado.grafo.arestas.length, "Arestas"],
+    [estado.grafo.vertices.length, esquinas ? `Vértices (${esquinas} esquinas)` : "Vértices"],
+    [estado.grafo.arestas.length, esquinas ? "Arestas (trechos de rua)" : "Arestas"],
+    [clientes.length, "Clientes"],
     [demandaTotal, "Demanda total"],
-    [clientes.filter((v) => v.prioridade === 3).length, "Prioridade alta"],
   ].map(([valor, nome]) => `<div class="metrica"><b>${valor}</b><span>${nome}</span></div>`).join("");
   atualizarDica();
 }
@@ -241,7 +251,9 @@ function desenharResultado() {
 
   camadaRotas.clearLayers();
   estado.linhasRotas = res.rotas.map((r, i) => {
-    const coords = r.paradas.map((id) => [estado.vertices[id].lat, estado.vertices[id].lon]);
+    const coords = r.trajetos
+      ? r.trajetos.flatMap((t, k) => (k === 0 ? t : t.slice(1)))  // segue as ruas
+      : r.paradas.map((id) => [estado.vertices[id].lat, estado.vertices[id].lon]);
     return L.polyline(coords, { color: corDaRota(i).cor, weight: 4, opacity: 0.85 })
       .bindTooltip(`Veículo ${r.veiculo}`, { sticky: true })
       .on("click", (e) => { L.DomEvent.stopPropagation(e); focarRota(i); })
@@ -331,17 +343,42 @@ function limparFoco() {
 // =====================================================================
 
 // Cada rota vira uma agenda de segmentos: viagem (andando) ou parada (esperando/entregando).
+// Caminho de uma perna da viagem: os pontos das ruas (se a API mandou) ou a linha reta.
+// Guarda o comprimento acumulado para o veículo andar em velocidade constante no trecho.
+function percurso(pontos) {
+  const acum = [0];
+  for (let k = 1; k < pontos.length; k++) {
+    const [a, b] = [pontos[k - 1], pontos[k]];
+    const dx = (b[1] - a[1]) * Math.cos((a[0] * Math.PI) / 180);
+    acum.push(acum[k - 1] + Math.hypot(b[0] - a[0], dx));
+  }
+  return { pontos, acum, total: acum[acum.length - 1] };
+}
+
+function pontoNoPercurso(p, f) {
+  if (p.pontos.length === 1 || p.total === 0) return p.pontos[0];
+  const alvo = f * p.total;
+  let k = 1;
+  while (k < p.acum.length - 1 && p.acum[k] < alvo) k++;
+  const [a, b] = [p.pontos[k - 1], p.pontos[k]];
+  const trecho = p.acum[k] - p.acum[k - 1];
+  const g = trecho > 0 ? (alvo - p.acum[k - 1]) / trecho : 1;
+  return [a[0] + (b[0] - a[0]) * g, a[1] + (b[1] - a[1]) * g];
+}
+
 function construirAgenda(rota) {
   const dep = rota.paradas[0];
+  const coord = (id) => [estado.vertices[id].lat, estado.vertices[id].lon];
+  const caminhoDaPerna = (k, de, para) => percurso(rota.trajetos?.[k]?.length ? rota.trajetos[k] : [coord(de), coord(para)]);
   const segs = [];
-  let t = rota.saida, pos = dep;
+  let t = rota.saida, pos = dep, perna = 0;
   for (const c of rota.chegadas) {
-    segs.push({ tipo: "viagem", t0: t, t1: c.chegada, de: pos, para: c.id });
+    segs.push({ tipo: "viagem", t0: t, t1: c.chegada, de: pos, para: c.id, percurso: caminhoDaPerna(perna++, pos, c.id) });
     segs.push({ tipo: "parada", t0: c.chegada, t1: c.fim, id: c.id });
     t = c.fim;
     pos = c.id;
   }
-  segs.push({ tipo: "viagem", t0: t, t1: rota.retorno, de: pos, para: dep });
+  segs.push({ tipo: "viagem", t0: t, t1: rota.retorno, de: pos, para: dep, percurso: caminhoDaPerna(perna, pos, dep) });
   return segs;
 }
 
@@ -352,8 +389,7 @@ function posicaoEm(agenda, t) {
     if (t > s.t1) continue;
     if (s.tipo === "parada") return coord(s.id);
     const f = s.t1 > s.t0 ? (t - s.t0) / (s.t1 - s.t0) : 1;
-    const [a, b] = [coord(s.de), coord(s.para)];
-    return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f];
+    return pontoNoPercurso(s.percurso, f);
   }
   return coord(agenda[agenda.length - 1].para);
 }
@@ -699,11 +735,11 @@ const PASSOS_TOUR = [
   { titulo: "Bem-vindo ao RotaGrafo 👋",
     texto: "Este guia rápido mostra como planejar as rotas de entrega de um centro logístico. Use os botões ou as setas do teclado (Esc fecha)." },
   { alvo: "#sec-cenario", aba: "rotas", titulo: "O cenário",
-    texto: "Este é o grafo carregado: o depósito e os clientes são os vértices, e as ligações entre eles são as arestas, com distância e tempo. Marque “Mostrar arestas” para vê-las no mapa." },
+    texto: "Este é o grafo carregado, que é o mapa do local: o depósito, os clientes e as esquinas são os vértices, e os trechos de rua (com distância, tempo e sentido) são as arestas. Marque “Mostrar ruas” para vê-las no mapa." },
   { alvo: "#form-config", aba: "rotas", titulo: "Configure a frota",
     texto: "Escolha o número de veículos, a capacidade de cada um, o algoritmo que monta as rotas e se o 2-opt deve melhorar o resultado. Depois clique em “Calcular rotas”." },
   { alvo: "#mapa-wrap", titulo: "O mapa",
-    texto: "Cada cor é um veículo. 🏭 é o depósito e os círculos numerados são os clientes. Clique num cliente para ver a demanda, a janela de tempo e o horário de atendimento." },
+    texto: "Cada cor é um veículo, e cada rota segue as ruas pelo caminho mínimo (Dijkstra), respeitando a mão única. 🏭 é o depósito e os círculos numerados são os clientes. Clique num cliente para ver a demanda, a janela de tempo e o horário de atendimento." },
   { alvo: "#sec-metricas", aba: "rotas", titulo: "O resultado",
     texto: "Aqui ficam as métricas gerais e um cartão por veículo. Clique no nome de um veículo para destacar a rota dele e em “Ver entregas” para a lista de paradas." },
   { alvo: "#player", titulo: "Simule o dia ▶",
@@ -793,7 +829,8 @@ async function iniciar() {
   desenharArestas();
   desenharPontos();
   adicionarLegendaMapa();
-  mapa.fitBounds(L.latLngBounds(estado.grafo.vertices.map((v) => [v.lat, v.lon])).pad(0.1));
+  const paradas = estado.grafo.vertices.filter((v) => !ehEsquina(v));  // enquadra depósito e clientes
+  mapa.fitBounds(L.latLngBounds(paradas.map((v) => [v.lat, v.lon])).pad(0.1));
 
   if (!armazenamento.ler("rotagrafo-tour-visto")) iniciarTour();
 }

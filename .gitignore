@@ -19,3 +19,9 @@ venv/
 # Contas criadas pela tela de cadastro (nunca commitar)
 dados/usuarios.local.json
 dados/usuarios.local.json.tmp
+
+# Downloads brutos da Olist e do OpenStreetMap (refeitos por src/grafo/preparar_base.py)
+dados/brutos/
+
+# Configuração local do Claude Code (preview no navegador)
+.claude/
