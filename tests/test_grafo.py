@@ -11,6 +11,7 @@ import unittest
 
 from src.api.contrato import validar_grafo
 from src.grafo import ErroDados, Grafo, caminho, dijkstra, ler_grafo, matriz_custos
+from src.grafo.gerador import gerar_grafo, gerar_vertices
 
 CABECALHO_V = "id,nome,lat,lon,demanda,janela_inicio,janela_fim,prioridade,deposito\n"
 DEPOSITO_CSV = "0,CD,-19.92,-43.94,0,00:00,24:00,0,1\n"
@@ -30,6 +31,18 @@ def grafo_pequeno():
     for u, v, d in [(0, 1, 1), (1, 2, 2), (0, 2, 10), (2, 3, 1)]:
         g.adicionar_aresta(u, v, d, d * 2)
     return g
+
+
+def bellman_ford(grafo, origem, peso):
+    """Referência independente do Dijkstra."""
+    custo = {origem: 0.0}
+    for _ in range(grafo.num_vertices - 1):
+        for u, v, d, t in grafo.arestas():
+            w = d if peso == "distancia" else t
+            for a, b in ((u, v), (v, u)):
+                if a in custo and custo[a] + w < custo.get(b, float("inf")):
+                    custo[b] = custo[a] + w
+    return custo
 
 
 class TestGrafo(unittest.TestCase):
@@ -68,6 +81,58 @@ class TestGrafo(unittest.TestCase):
             g.deposito
 
 
+def ruas_mao_unica():
+    """Esquinas 1->2->3 em mão única; 3-1 de mão dupla por fora (mais longo); 4 só recebe arco."""
+    g = Grafo(direcionado=True)
+    for i in range(1, 5):
+        g.adicionar_vertice({"id": i, "lat": -23.5, "lon": -46.6 + i / 1000})
+    for u, v, d in [(1, 2, 1), (2, 3, 1), (3, 1, 5), (1, 3, 5), (3, 4, 2)]:
+        g.adicionar_aresta(u, v, d, d * 3)
+    return g
+
+
+class TestGrafoDirecionado(unittest.TestCase):
+    def test_arco_tem_um_sentido_so(self):
+        g = ruas_mao_unica()
+        self.assertTrue(g.direcionado)
+        self.assertEqual(g.num_arestas, 5)
+        self.assertEqual(g.aresta(1, 2), {"distancia": 1, "tempo": 3})
+        self.assertIsNone(g.aresta(2, 1))                     # contramão não existe
+        self.assertEqual(sorted(g.vizinhos(3)), [(1, 5), (4, 2)])
+        self.assertEqual(g.vizinhos(4), [])
+        self.assertEqual(len(list(g.arestas())), 5)           # cada arco aparece uma vez
+        self.assertIn("arcos", repr(g))
+
+    def test_ida_e_volta_podem_ter_pesos_diferentes(self):
+        g = ruas_mao_unica()
+        g.adicionar_aresta(2, 1, 4, 12)                       # a volta é outro arco
+        self.assertEqual(g.aresta(1, 2)["distancia"], 1)
+        self.assertEqual(g.aresta(2, 1)["distancia"], 4)
+        self.assertRaises(ValueError, g.adicionar_aresta, 1, 2, 1, 3)   # mesmo sentido repetido
+
+    def test_dijkstra_respeita_a_mao_unica(self):
+        g = ruas_mao_unica()
+        ida = dijkstra(g, 1)[0]
+        volta = dijkstra(g, 3)[0]
+        self.assertEqual(ida[3], 2)                           # 1->2->3
+        self.assertEqual(volta[1], 5)                         # 3->1 direto: não dá para voltar por 2
+        self.assertNotIn(1, dijkstra(g, 4)[0])                # do 4 não sai nenhum arco
+
+    def test_invertido_da_o_custo_ate_o_vertice(self):
+        g = ruas_mao_unica()
+        ate_3 = dijkstra(g.invertido(), 3)[0]                 # custo de cada esquina ATÉ a 3
+        for origem in (1, 2):
+            self.assertEqual(ate_3[origem], dijkstra(g, origem)[0][3])
+        self.assertIsNone(g.invertido().aresta(1, 2))
+        self.assertEqual(g.invertido().aresta(2, 1), {"distancia": 1, "tempo": 3})
+
+    def test_nao_direcionado_continua_igual(self):
+        g = grafo_pequeno()
+        self.assertFalse(g.direcionado)
+        self.assertEqual(g.invertido().para_contrato(), g.para_contrato())
+        self.assertRaises(ValueError, ruas_mao_unica().para_contrato)   # contrato é só do logístico
+
+
 class TestDijkstra(unittest.TestCase):
     def test_caminho_minimo(self):
         custo, anterior = dijkstra(grafo_pequeno(), 0)
@@ -80,11 +145,43 @@ class TestDijkstra(unittest.TestCase):
         self.assertEqual(dijkstra(grafo_pequeno(), 0, "tempo")[0][3], 8)
         self.assertRaises(KeyError, dijkstra, grafo_pequeno(), 42)
 
+    def test_confere_com_bellman_ford(self):
+        g = gerar_grafo(15, semente=3)
+        esparso = Grafo()   # tira arestas para o grafo deixar de ser completo
+        for i in g.ids():
+            esparso.adicionar_vertice(g.vertice(i))
+        for u, v, d, t in g.arestas():
+            if (u + v) % 3 != 0 or 0 in (u, v):
+                esparso.adicionar_aresta(u, v, d, t)
+        for peso in ("distancia", "tempo"):
+            for origem in esparso.ids():
+                with self.subTest(peso=peso, origem=origem):
+                    nosso, ref = dijkstra(esparso, origem, peso)[0], bellman_ford(esparso, origem, peso)
+                    self.assertEqual(nosso.keys(), ref.keys())
+                    for v in ref:
+                        self.assertAlmostEqual(nosso[v], ref[v], places=9)
+
     def test_matriz_aceita_dicionario_do_contrato(self):
         d = grafo_pequeno().para_contrato()
         m = matriz_custos(d, "distancia")
         self.assertEqual(m[3][0], 4)
         self.assertEqual(m, matriz_custos(Grafo.de_contrato(d)))
+
+
+class TestGerador(unittest.TestCase):
+    def test_mesma_semente_mesmo_resultado(self):
+        self.assertEqual(gerar_vertices(10, semente=5), gerar_vertices(10, semente=5))
+        self.assertNotEqual(gerar_vertices(10, semente=5), gerar_vertices(10, semente=6))
+
+    def test_instancia_cumpre_o_contrato(self):
+        g = gerar_grafo(12, semente=1)
+        self.assertEqual(validar_grafo(g.para_contrato()), [])
+        self.assertEqual((g.num_vertices, g.num_arestas), (13, 12 * 13 // 2))   # grafo completo
+        for i in g.clientes():
+            v = g.vertice(i)
+            self.assertIn(v["prioridade"], (1, 2, 3))
+            self.assertTrue(480 <= v["janela"][0] < v["janela"][1] <= 18 * 60)
+            self.assertTrue(5 <= v["demanda"] <= 30)
 
 
 class TestDados(unittest.TestCase):

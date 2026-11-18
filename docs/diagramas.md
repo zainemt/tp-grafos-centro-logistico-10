@@ -7,7 +7,7 @@ Os diagramas estão em [Mermaid](https://mermaid.js.org/), que o GitHub desenha 
 2. Clique em *Actions → PNG* (ou SVG).
 3. Salve em `relatorio/figuras/` com o nome indicado em cada seção.
 
-Os diagramas da **modelagem do grafo** (classes do grafo, casos de uso, atividades) são responsabilidade da Dupla 1.
+Os diagramas da **modelagem do grafo** (classes do grafo, casos de uso, atividades) são responsabilidade da Dupla 1 e ficam em [diagramas-grafo.md](diagramas-grafo.md).
 
 ---
 
