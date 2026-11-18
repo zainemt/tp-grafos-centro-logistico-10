@@ -1,11 +1,12 @@
 from src.grafo import Grafo, matriz_custos
 from .melhoria import dois_opt
-from .construcao import vizinho_mais_proximo
+from .construcao import clarke_wright, vizinho_mais_proximo
 
 
 INICIO_EXPEDIENTE = 480
 TEMPO_SERVICO = 10
-ALGORITMOS = {"nn": "Vizinho mais próximo"}
+ALGORITMOS = {"nn": "Vizinho mais próximo", "clarke_wright": "Clarke-Wright"}
+CONSTRUTORES = {"nn": vizinho_mais_proximo, "clarke_wright": clarke_wright}
 
 
 def calcular_horarios(rota, deposito, dist, tempo, janela, inicio_expediente, tempo_servico):
@@ -19,7 +20,7 @@ def calcular_horarios(rota, deposito, dist, tempo, janela, inicio_expediente, te
         chegada = relogio + tempo[origem][destino]
 
         if destino == deposito:
-            retorno = chegada
+            retorno = round(chegada, 1)
         else:
             if chegada < janela[destino][0]:
                 inicio = janela[destino][0]
@@ -27,7 +28,7 @@ def calcular_horarios(rota, deposito, dist, tempo, janela, inicio_expediente, te
                 inicio = chegada
 
             fim = inicio + tempo_servico
-            atrasado = inicio > janela[destino][1]
+            atrasado = round(inicio, 1) > janela[destino][1]
 
             chegadas.append({"id": destino, "chegada": round(chegada, 1),
                             "inicio": round(inicio, 1), "fim": round(fim, 1), "atrasado": atrasado})
@@ -39,9 +40,9 @@ def calcular_horarios(rota, deposito, dist, tempo, janela, inicio_expediente, te
     return caminho, chegadas, retorno, distancia, tempo_rota
 
 
-def _montar_solucao(clientes, deposito, dist, tempo, demanda, prioridade, janela, capacidade, veiculos, inicio_expediente, tempo_servico, usar_2opt):
+def _montar_solucao(clientes, deposito, dist, tempo, demanda, prioridade, janela, capacidade, veiculos, inicio_expediente, tempo_servico, usar_2opt, algoritmo):
 
-    viagens, nao_atendidos = vizinho_mais_proximo(
+    viagens, nao_atendidos = CONSTRUTORES[algoritmo](
         clientes, deposito, dist, demanda, capacidade, veiculos, prioridade)
 
     if usar_2opt:
@@ -84,4 +85,4 @@ def calcular_rotas(grafo, veiculos, capacidade, algoritmo, usar_2opt):
     dist = matriz_custos(g, "distancia")
     tempo = matriz_custos(g, "tempo")
 
-    return _montar_solucao(clientes, deposito, dist, tempo, demanda, prioridade, janela, capacidade, veiculos, INICIO_EXPEDIENTE, TEMPO_SERVICO, usar_2opt)
+    return _montar_solucao(clientes, deposito, dist, tempo, demanda, prioridade, janela, capacidade, veiculos, INICIO_EXPEDIENTE, TEMPO_SERVICO, usar_2opt, algoritmo)

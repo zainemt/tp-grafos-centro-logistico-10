@@ -29,12 +29,10 @@ from src.grafo import carregar_grafo  # noqa: E402
 carregar_grafo = mock.gerar_grafo
 # calcular_rotas = mock.calcular_rotas
 medir_desempenho = mock.medir_desempenho
-FONTE = "mock"
+FONTE = "real"
 
 TAMANHOS_PADRAO = [10, 25, 50, 100, 200]
 TAMANHO_MAXIMO = 500
-
-# ALGORITMOS = {"nn": "Vizinho mais próximo", "clarke_wright": "Clarke-Wright"}
 
 app = Flask(__name__, static_folder=os.path.join(
     RAIZ, "frontend"), static_url_path="")
