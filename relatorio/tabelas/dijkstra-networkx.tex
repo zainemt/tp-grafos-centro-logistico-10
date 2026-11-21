@@ -1,0 +1,25 @@
+% Gerado por benchmark/comparar_dijkstra.py em 18/11/2026 15:48 — não editar à mão.
+\begin{table}[ht]
+\centering
+\caption{Dijkstra a partir de uma origem (peso: distância): mediana do tempo por origem, em ms; $c$ = tempo do nosso / $((|V| + \text{arcos}) \log_2 |V|)$, em ns; Diverg.\ = custos diferentes do NetworkX (os dois pesos). Python 3.15.2, NetworkX 3.7, Apple M4; mediana de 5 execuções.}
+\label{tab:dijkstra-networkx}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Instância & $|V|$ & arcos & Nosso & NetworkX & NX/nosso & $c$ (ns) & Diverg. \\
+\midrule
+Mapa de SP (real) & 1\,550 & 2\,910 & 1{,}217 & 1{,}370 & 1{,}13 & 25{,}7 & 0 \\
+\midrule
+Grade 25x25 & 625 & 2\,400 & 0{,}634 & 0{,}756 & 1{,}19 & 22{,}6 & 0 \\
+Grade 50x50 & 2\,500 & 9\,800 & 2{,}947 & 3{,}413 & 1{,}16 & 21{,}2 & 0 \\
+Grade 100x100 & 10\,000 & 39\,600 & 12{,}804 & 15{,}896 & 1{,}24 & 19{,}4 & 0 \\
+Grade 200x200 & 40\,000 & 159\,200 & 59{,}250 & 66{,}236 & 1{,}12 & 19{,}5 & 0 \\
+Grade 300x300 & 90\,000 & 358\,800 & 111{,}846 & 131{,}626 & 1{,}18 & 15{,}1 & 0 \\
+\midrule
+Completo n=50 & 51 & 2\,550 & 0{,}344 & 0{,}507 & 1{,}48 & 23{,}3 & 0 \\
+Completo n=100 & 101 & 10\,100 & 1{,}022 & 1{,}619 & 1{,}58 & 15{,}0 & 0 \\
+Completo n=200 & 201 & 40\,200 & 4{,}129 & 6{,}587 & 1{,}60 & 13{,}4 & 0 \\
+Completo n=400 & 401 & 160\,400 & 21{,}905 & 34{,}368 & 1{,}57 & 15{,}8 & 0 \\
+Completo n=800 & 801 & 640\,800 & 106{,}105 & 180{,}105 & 1{,}70 & 17{,}1 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
