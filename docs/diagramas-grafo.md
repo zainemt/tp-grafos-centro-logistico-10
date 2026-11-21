@@ -133,24 +133,28 @@ Este diagrama mostra o fluxo de dados do problema modelado (CVRPTW), da leitura 
 solução final — complementar ao diagrama de classes (estrutura estática) e ao diagrama de sequência
 da interface (`diagramas.md`, que mostra a troca de mensagens entre API e front, não o algoritmo em si).
 
+Desenhado na horizontal, em duas faixas (preparação dos dados e cálculo das rotas), para
+ocupar pouca altura no relatório.
+
 ```mermaid
-flowchart TD
-    A([Início]) --> B[Ler vértices e arestas do CSV]
-    B --> C{Base válida?}
-    C -- não --> C1[Listar todos os erros\npor arquivo e linha] --> Z([Fim: API não sobe])
-    C -- sim --> D[Montar Grafo\nlista de adjacência]
-    D --> E[Dijkstra a partir de cada parada\nmatriz de custos: distância e tempo]
-    E --> F[Separar clientes com demanda > Q\ncomo não atendidos]
-    F --> G{Algoritmo escolhido}
-    G -- Vizinho Mais Próximo --> H1[Construir rotas gulosamente\npelo cliente mais próximo sem atraso]
-    G -- Clarke-Wright --> H2[Calcular economias e juntar rotas\naté a frota disponível]
-    H1 --> I{Usar 2-opt?}
-    H2 --> I
-    I -- sim --> J[Repetir trocas de arestas\nenquanto reduzir distância\nsem piorar atrasos]
-    I -- não --> K
-    J --> K[Calcular horários de cada parada\nchegada, início, fim, atrasado]
-    K --> L[Somar métricas da frota\ndistância, tempo, atrasos]
-    L --> M([Fim: rotas + não atendidos + métricas])
+flowchart TB
+    subgraph PREP["1 · Preparar os dados"]
+        direction LR
+        A([Início]) --> B[Ler vértices e<br/>arestas do CSV] --> C{Base<br/>válida?}
+        C -- sim --> D[Montar Grafo<br/>lista de adjacência] --> E[Dijkstra a partir de<br/>cada parada: matriz<br/>de distância e tempo] --> F[Separar clientes<br/>com demanda > Q<br/>como não atendidos]
+        C -- não --> C1[Listar todos os erros<br/>por arquivo e linha] --> Z([Fim: API<br/>não sobe])
+    end
+    subgraph ROTAS["2 · Calcular as rotas"]
+        direction LR
+        G{Algoritmo<br/>escolhido} -- Vizinho Mais Próximo --> H1[Rotas gulosas: cliente<br/>mais próximo sem atraso]
+        G -- Clarke-Wright --> H2[Calcular economias e<br/>juntar rotas até a frota]
+        H1 --> I{Usar<br/>2-opt?}
+        H2 --> I
+        I -- sim --> J[Trocar arestas enquanto<br/>reduzir a distância<br/>sem piorar atrasos] --> K
+        I -- não --> K[Calcular horários:<br/>chegada, início,<br/>fim, atrasado]
+        K --> L[Somar métricas:<br/>distância, tempo,<br/>atrasos] --> M([Fim: rotas, não<br/>atendidos e métricas])
+    end
+    PREP --> ROTAS
 ```
 
 **Decisões que o diagrama mostra**
