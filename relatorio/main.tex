@@ -103,13 +103,6 @@ Seção~\ref{sec:conclusao} conclui o trabalho.
 \section{Modelagem do Problema}\label{sec:modelagem}
 % [DUPLA 1]
 
-% TODO (Dupla 1):
-%  - definição formal: G = (V, E), V = {0 (depósito), 1..n (clientes)}, pesos d(u,v) e t(u,v)
-%  - atributos de cada vértice: demanda q_i, janela [a_i, b_i], prioridade p_i
-%  - justificativa da representação (lista de adjacência x matriz; grafo completo x rede viária)
-%  - diagramas UML: classes, casos de uso, atividades (figuras)
-%  - descrição da base de dados (origem/Kaggle, tamanho, tratamento)
-
 \subsection{Definição formal}
 A rede de entregas é modelada como um grafo ponderado $G=(V,E)$, em que $V=\{0\}\cup C\cup K$: $0$ representa o depósito, $C=\{1,\dots,n\}$ os clientes e $K$ as esquinas da malha viária. Cada cliente $i$ possui demanda $q_i\in\mathbb{Z}_{\geq 0}$, janela de atendimento
 $[a_i,b_i]$ e prioridade $p_i\in\{1,2,3\}$. As arestas armazenam distância $d(u,v)$, em km, e tempo de deslocamento $t(u,v)$, em minutos.
@@ -121,40 +114,36 @@ O problema corresponde a uma variante do
 (CVRPTW)~\cite{toth2014vehicle,solomon1987algorithms}, cujo objetivo é construir até $m$ rotas, iniciadas e finalizadas no depósito, minimizando a distância total percorrida. Cada cliente pode integrar no máximo uma rota e a demanda total de cada uma deve respeitar a capacidade $Q$ do veículo. As heurísticas também consideram as janelas de atendimento e as prioridades, especialmente quando a
 frota disponível não permite atender todos os clientes.
 
-\textbf{Representação escolhida.} A malha viária utiliza lista de adjacência, adequada ao grafo esparso de aproximadamente 1.550 vértices e 2.400 arcos, com grau médio próximo de 3. Essa estrutura requer $O(|V|+|E|)$ de memória, contra $O(|V|^2)$ de uma matriz de adjacência. Para as heurísticas, Dijkstra é executado a partir de cada parada, gerando uma matriz de custos entre o depósito e
-os clientes, de dimensão $31\times31$.
+\textbf{Representação escolhida.} A malha viária usa lista de adjacência, adequada ao grafo esparso de 1\,550 vértices e 2\,910 arcos (2\,408 trechos de rua, 79\,\% de mão única), com grau de saída médio de 1,88. Essa estrutura requer $O(|V|+|E|)$ de memória, contra $O(|V|^2)$ de uma matriz de adjacência, da qual só 0,12\,\% seria usada. Para as heurísticas, o Dijkstra roda a partir de cada parada e gera a matriz de custos $31\times31$ entre o depósito e os clientes; por causa da mão única, ida e volta entre duas paradas costumam ter custos diferentes.
 
 
 \subsection{Diagramas UML}
-O diagrama de classes da Figura~\ref{fig:uml-classes} mostra a estrutura do núcleo de grafos
-(\texttt{src/grafo}). A classe \texttt{Grafo} guarda o grafo não direcionado e ponderado em
-lista de adjacência: cada vértice aponta para seus vizinhos e para os pesos da aresta
-(\texttt{distancia}, em km, e \texttt{tempo}, em minutos), e a mesma estrutura de pesos é
-compartilhada pelos dois sentidos da aresta. \texttt{Vertice} e \texttt{Pesos} não são classes
-no código, e sim dicionários com os campos do contrato da API; aparecem como
-``estrutura'' para mostrar o que cada vértice e cada aresta carregam.
-Os módulos \texttt{dados} (leitura e validação dos CSV) e \texttt{dijkstra} (caminhos mínimos e
-matriz de custos) são conjuntos de funções que criam e percorrem o \texttt{Grafo}. O módulo
-\texttt{gerador} cria instâncias sintéticas, reprodutíveis pela semente, usadas apenas nos
-testes e na avaliação de desempenho.
+O diagrama de classes da Figura~\ref{fig:uml-classes} mostra o núcleo de grafos
+(\texttt{src/grafo}). A classe \texttt{Grafo} guarda o grafo ponderado em lista de
+adjacência, direcionado (o mapa, com ruas de mão única) ou não direcionado (as instâncias
+sintéticas): cada vértice aponta para os vizinhos e para os pesos do arco
+(\texttt{distancia}, em km, e \texttt{tempo}, em minutos). \texttt{Vertice} e \texttt{Pesos}
+são dicionários com os campos do contrato da API, representados como ``estrutura''. Os
+módulos \texttt{dados} (leitura e validação dos CSV), \texttt{dijkstra} (caminhos mínimos e
+matriz de custos) e \texttt{gerador} (instâncias sintéticas para testes e desempenho) criam
+e percorrem o \texttt{Grafo}.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=.8\textwidth]{figuras/uml-classes.png}
+  \includegraphics[width=.7\textwidth]{figuras/uml-classes.png}
   \caption{Diagrama de classes do núcleo de grafos.}
   \label{fig:uml-classes}
 \end{figure}
 
-O diagrama de atividades da Figura~\ref{fig:uml-atividades-rotas} mostra o fluxo de dados
-do problema em si (CVRPTW), da leitura e validação do grafo até a solução final:
-validação de todos os erros antes de montar o grafo, cálculo único da matriz de custos
-por Dijkstra, escolha da heurística de construção e, por fim, a melhoria opcional por
-2-opt — complementar ao diagrama de sequência da Figura~\ref{fig:uml-sequencia}, que
-mostra a troca de mensagens entre a interface e a API, não o algoritmo.
+O diagrama de atividades da Figura~\ref{fig:uml-atividades-rotas} mostra o fluxo do cálculo
+de rotas: validação do grafo, cálculo único da matriz de custos pelo Dijkstra, escolha da
+heurística de construção e melhoria opcional por 2-opt. Ele complementa o diagrama de
+sequência da Figura~\ref{fig:uml-sequencia}, que mostra a troca de mensagens entre a
+interface e a API.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=.75\textwidth]{figuras/uml-atividades-rotas.png}
+  \includegraphics[width=.6\textwidth,height=.7\textheight,keepaspectratio]{figuras/uml-atividades-rotas.png}
   \caption{Diagrama de atividades do cálculo de rotas.}
   \label{fig:uml-atividades-rotas}
 \end{figure}
@@ -177,23 +166,21 @@ pelo script \texttt{src/grafo/preparar\_base.py}:
         400\,m.
 \end{itemize}
 
-Como a Olist não registra janela de tempo nem prioridade de entrega, esses dois atributos
-são sorteados (mesma rotina usada para gerar instâncias sintéticas de teste,
-\texttt{src/grafo/gerador.py}), com janelas entre 08:00 e 18:00 e prioridade uniforme em
-$\{1, 2, 3\}$.
+Como a Olist não registra janela de tempo nem prioridade, esses atributos são
+\textbf{sorteados} pela rotina do gerador de instâncias (\texttt{src/grafo/gerador.py}): janelas
+entre 08:00 e 18:00 e prioridade em $\{1, 2, 3\}$, com 1 e 2 mais frequentes (15, 13 e 2
+clientes). A demanda total é de 521\,L.
 
-O resultado é um único grafo com 1\,550 vértices (1 depósito, 30 clientes, 1\,519
-esquinas) e 2\,408 arcos (1\,906 de mão única, 79\,\%). O tempo de cada trecho é a
-distância dividida por 60\,\% da velocidade máxima da via (fator de trânsito), com
-velocidades padrão por tipo de via quando o OSM não informa \texttt{maxspeed}
-(residencial 30\,km/h, terciária 40, primária 50). O depósito e cada cliente se ligam à
-rua mais próxima por um trecho de acesso a 15\,km/h (mediana de 39\,m). Para que nenhum
-cliente fique inalcançável por causa de uma rua de mão única sem saída, a base final fica
-restrita à componente em que se consegue ir \emph{e voltar} do depósito (componente
-fortemente conexa). As contagens, os parâmetros da geração e a data dos dados do OSM
-ficam registrados em \texttt{dados/base\_info.json}, e qualquer problema nos CSV (coluna
-faltando, demanda negativa, vértice duplicado etc.) é detectado na leitura, com a lista
-completa de erros por arquivo e linha (\texttt{src/grafo/dados.py}).
+O resultado é um único grafo com 1\,550 vértices (1 depósito, 30 clientes e 1\,519
+esquinas) e 2\,408 trechos de rua, dos quais 1\,906 (79\,\%) são de mão única. O tempo de
+cada trecho é a distância dividida por 60\,\% da velocidade máxima da via, com velocidades
+padrão por tipo de via quando o OSM não informa \texttt{maxspeed} (residencial 30\,km/h,
+terciária 40, primária 50). O depósito e cada cliente se ligam à rua mais próxima por um
+trecho de acesso a 15\,km/h (mediana de 39\,m), e a base fica restrita à componente
+fortemente conexa que contém o depósito, para que nenhum cliente fique preso numa rua de
+mão única sem saída. Os parâmetros ficam em \texttt{dados/base\_info.json}, e qualquer
+problema nos CSV é relatado na leitura, com a lista completa de erros por arquivo e linha
+(\texttt{src/grafo/dados.py}).
 
 % =====================================================================
 \section{Algoritmos}\label{sec:algoritmos}
@@ -214,7 +201,7 @@ mínimo até todos os vértices alcançáveis, com um \textit{heap} binário (m�
 \begin{lstlisting}
 dijkstra(G, origem, peso):
     custo[origem] = 0; fila = {(0, origem)}
-    enquanto fila não vazia:
+    enquanto fila nao vazia:
         (d, u) = remover menor de fila
         se d > custo[u]: continue        // entrada obsoleta na fila
         para cada (v, w) em vizinhos(u, peso):
@@ -224,14 +211,14 @@ dijkstra(G, origem, peso):
     devolver custo, anterior
 \end{lstlisting}
 
-Cada vértice entra na fila no máximo uma vez por aresta que o alcança, por isso a
-complexidade é $O((|V| + |E|)\log |V|)$. A rotina \texttt{matriz\_custos} aplica o
-Dijkstra uma vez a partir de cada parada (depósito e clientes) sobre o grafo viário
-completo e filtra o resultado só para as outras paradas, construindo a matriz
-$P \times P$ ($P = n + 1$) de custos entre paradas que as heurísticas de roteirização
-usam — uma por peso (\texttt{distancia} e \texttt{tempo}), $O(P \, (|V| + |E|)\log |V|)$
-no total. A Seção~\ref{sec:networkx} confirma essa implementação contra a do NetworkX,
-em corretude e em tempo de execução.
+Cada vértice entra na fila no máximo uma vez por arco que o alcança; por isso, o tempo é
+$O((|V| + |E|)\log |V|)$ e o espaço, contando a fila, $O(|V| + |E|)$. A rotina
+\texttt{matriz\_custos} roda o Dijkstra a partir de cada uma das $P = n + 1$ paradas sobre
+o mapa inteiro e guarda só os custos entre paradas, uma matriz por peso
+(\texttt{distancia} e \texttt{tempo}), em $O(P\,(|V| + |E|)\log |V|)$. O mesmo Dijkstra
+desenha as rotas pelas ruas (\texttt{src/grafo/mapa.py}) e, no grafo com os arcos invertidos,
+verifica se todos os vértices conseguem voltar ao depósito. A Seção~\ref{sec:networkx}
+confirma a implementação contra a do NetworkX.
 
 \subsection{Vizinho Mais Próximo}
 
@@ -322,7 +309,7 @@ Cada passagem avalia $O(n^2)$ pares de posições, com recálculo de segmentos d
 \toprule
 Algoritmo & Tempo & Espaço \\
 \midrule
-Dijkstra (heap binário) & $O((V+E)\log V)$ & $O(V)$ \\
+Dijkstra (heap binário) & $O((V+E)\log V)$ & $O(V+E)$ \\
 Vizinho Mais Próximo & $O(n^2)$ & $O(n)$ \\
 Clarke-Wright & $O(n^4)$ & $O(n^2)$ \\
 2-opt (por passagem) & $O(n^3)$ & $O(n)$ \\
@@ -347,9 +334,9 @@ A ferramenta segue uma arquitetura cliente-servidor em três camadas
         apresenta os resultados sobre um mapa do OpenStreetMap.
 \end{enumerate}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{figuras/arquitetura.png}
+  \includegraphics[width=.75\textwidth]{figuras/arquitetura.png}
   \caption{Arquitetura do RotaGrafo em três camadas.}
   \label{fig:arquitetura}
 \end{figure}
@@ -453,42 +440,45 @@ funcionalidades são:
 Os diagramas de componentes, de sequência e de estados da interface estão nas Figuras~\ref{fig:uml-componentes}, \ref{fig:uml-sequencia} e \ref{fig:uml-estados}.
 
 % Figuras geradas a partir de docs/diagramas.md (Mermaid).
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=.85\textwidth]{figuras/uml-componentes.png}
+  \includegraphics[width=.7\textwidth]{figuras/uml-componentes.png}
   \caption{Diagrama de componentes do RotaGrafo.}
   \label{fig:uml-componentes}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{figuras/uml-sequencia.png}
+  \includegraphics[width=.85\textwidth]{figuras/uml-sequencia.png}
   \caption{Diagrama de sequência do cálculo de rotas.}
   \label{fig:uml-sequencia}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=.7\textwidth]{figuras/uml-estados-simulacao.png}
+  \includegraphics[width=.5\textwidth]{figuras/uml-estados-simulacao.png}
   \caption{Diagrama de estados da simulação.}
   \label{fig:uml-estados}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{figuras/tela-principal.png}
+  \includegraphics[width=.85\textwidth]{figuras/tela-principal.png}
   \caption{Tela principal com as rotas calculadas (Clarke-Wright + 2-opt, instância real de São Paulo).}
   \label{fig:tela-principal}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{figuras/tela-simulacao.png}
-  \caption{Simulação do dia em andamento (10:01), com veículos em rota e a linha do tempo.}
-  \label{fig:tela-simulacao}
-\end{figure}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{figuras/tela-comparacao.png}
-  \caption{Comparação entre algoritmos, com Clarke-Wright + 2-opt destacado como melhor configuração.}
-  \label{fig:tela-comparacao}
+  \begin{minipage}[t]{.49\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figuras/tela-simulacao.png}
+    \caption{Simulação do dia em andamento (10:01), com veículos em rota e a linha do tempo.}
+    \label{fig:tela-simulacao}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.49\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figuras/tela-comparacao.png}
+    \caption{Comparação entre algoritmos, com Clarke-Wright + 2-opt destacado como melhor configuração.}
+    \label{fig:tela-comparacao}
+  \end{minipage}
 \end{figure}
 
 % =====================================================================
@@ -568,54 +558,31 @@ sintéticos; no mapa real, a malha viária é esparsa ($|E| \approx 2|V|$, Seç�
 % (metodologia completa em benchmark/README.md). No Overleaf, envie também as pastas
 % tabelas/ e figuras/ com os arquivos dijkstra-networkx.tex.
 
-Para validar a implementação própria do Dijkstra (\texttt{src/grafo/dijkstra.py}), ela foi
-comparada com a da biblioteca NetworkX~\cite{hagberg2008networkx}, em corretude e em
-tempo de execução. O NetworkX entra apenas nessa comparação, feita por um programa
-separado (\texttt{benchmark/comparar\_dijkstra.py}): a aplicação não o importa nem o lista
-entre suas dependências, e um teste automatizado falha se algum módulo de \texttt{src/}
-passar a importá-lo.
+O Dijkstra próprio foi comparado com o da biblioteca NetworkX~\cite{hagberg2008networkx},
+que entra apenas num programa separado (\texttt{benchmark/comparar\_dijkstra.py}); um teste
+automatizado falha se algum módulo de \texttt{src/} passar a importá-la. Cada instância é
+montada com a classe \texttt{Grafo} e copiada para o NetworkX com os mesmos vértices, arcos
+e pesos, fora do tempo medido. Foram usados o mapa real de São Paulo, grades de
+$25\times25$ a $300\times300$ esquinas (esparsas, $|E| \approx 2|V|$) e grafos completos de
+50 a 800 clientes, com 10 origens sorteadas e os dois pesos; reporta-se a mediana de cinco
+execuções após um aquecimento. Antes de medir, conferiu-se que as duas implementações
+alcançam os mesmos vértices com os mesmos custos (tolerância de $10^{-9}$).
 
-\paragraph{Metodologia.} Cada instância é montada uma vez com a classe \texttt{Grafo} e
-copiada para um \texttt{nx.DiGraph} (ou \texttt{nx.Graph}, se não direcionada), com os mesmos
-vértices, arcos e pesos; a conversão fica fora do tempo medido. Foram usadas três famílias
-de instâncias: (i)~o mapa real de São Paulo usado pela aplicação (1\,550 vértices e
-2\,910 arcos, com ruas de mão única); (ii)~grades de $25\times25$ a $300\times300$ esquinas,
-grafos esparsos como uma malha viária ($|E| \approx 2|V|$), com pesos sorteados por semente;
-e (iii)~grafos completos do gerador de instâncias, de 50 a 800 clientes
-($|E| \approx |V|^2/2$). Em cada instância e para os dois pesos (distância e tempo),
-sortearam-se 10 origens; o nosso \texttt{dijkstra} foi comparado com
-\texttt{dijkstra\_predecessor\_and\_distance} do NetworkX, já que as duas funções devolvem
-custos e predecessores. Também se comparou a matriz de custos entre as paradas, que é o
-uso real na aplicação. Antes de medir, verificou-se, para cada origem, que as duas
-implementações alcançam os mesmos vértices com os mesmos custos (tolerância de $10^{-9}$)
-e que o caminho reconstruído pela nossa implementação tem exatamente o custo informado.
-Cada caso foi executado uma vez como aquecimento e cinco vezes medido, com o coletor de
-lixo desligado; reporta-se a mediana.
-
-\paragraph{Resultados.} A Tabela~\ref{tab:dijkstra-networkx} e a
-Figura~\ref{fig:dijkstra-networkx} resumem as medições. Não houve nenhuma divergência de
-resultado em nenhuma instância. A nossa implementação foi de 1,1 a 1,2 vez mais rápida nos
-grafos esparsos e de 1,5 a 1,7 vez nos grafos completos. As duas usam o mesmo algoritmo
-(Dijkstra com heap binário); a diferença vem principalmente do custo da generalidade do
-NetworkX, que acessa o peso de cada aresta por meio de uma função e trata opções que o
-projeto não usa (várias origens, limite de custo, destino, listas de predecessores para
-empates). Na matriz de custos, em que a função do NetworkX devolve só as distâncias e a
-nossa também guarda os predecessores, a vantagem ficou entre 0,9 e 1,7 vez.
-
-A coluna $c$ da Tabela~\ref{tab:dijkstra-networkx} divide o tempo por
-$(|V| + \text{arcos}) \log_2 |V|$. Ela ficou entre 13 e 26\,ns em instâncias de 51 a
-90\,000 vértices, ou seja, aproximadamente constante, o que confirma empiricamente a
-complexidade $O((V+E)\log V)$ da Tabela~\ref{tab:complexidade}. No mapa real, um Dijkstra
-leva cerca de 1,2\,ms, e a matriz entre as 31 paradas, cerca de 40\,ms, um tempo
-desprezível diante do cálculo das rotas. As medições foram feitas numa única máquina, e
-tempos em Python oscilam de uma execução para outra; por isso a análise se apoia na
-mediana e na tendência entre tamanhos.
+Não houve nenhuma divergência (Tabela~\ref{tab:dijkstra-networkx}). A implementação
+própria foi de 1,1 a 1,2 vez mais rápida nos grafos esparsos e de 1,5 a 1,7 vez nos
+completos: o algoritmo é o mesmo, e a diferença vem da generalidade do NetworkX, que
+acessa o peso por uma função e trata opções que o projeto não usa. A coluna $c$, tempo
+dividido por $(|V| + \text{arcos}) \log_2 |V|$, ficou entre 13 e 26\,ns de 51 a 90\,000
+vértices, aproximadamente constante, o que confirma a complexidade $O((V+E)\log V)$
+(Figura~\ref{fig:dijkstra-networkx}). No mapa real, um Dijkstra leva cerca de 1,2\,ms e a
+matriz entre as 31 paradas, cerca de 40\,ms. As medições são de uma única máquina; por
+isso, a análise se apoia na mediana e na tendência entre tamanhos.
 
 \input{tabelas/dijkstra-networkx}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
-  \input{figuras/dijkstra-networkx}
+  \scalebox{.75}{\input{figuras/dijkstra-networkx}}
   \caption{Tempo do Dijkstra por origem em função de $|V| + \text{arcos}$ (escala
   log-log), nas grades (linhas cheias) e nos grafos completos (tracejadas).}
   \label{fig:dijkstra-networkx}
@@ -680,8 +647,8 @@ nenhum atraso de entrega.
 \toprule
 Dupla & Membro & Atividades \\
 \midrule
-1 & Zaine Mendes & Grafo direcionado (ruas de mão única); geração da base real a partir do Olist e do OpenStreetMap (\texttt{preparar\_base.py}); diagrama de classes; comparação de desempenho do Dijkstra com o NetworkX (\texttt{benchmark/}) \\
-1 & Bruna de Paula Anselmi & Classe \texttt{Grafo} em lista de adjacência; leitura e validação dos CSV (\texttt{carregar\_grafo}); Dijkstra com heap e matriz de custos; gerador de instâncias sintéticas \\
+1 & Zaine Mendes & Mapa real como grafo único (tipos de vértice, mão única no contrato e traçado das ruas); geração da base a partir do Olist e do OpenStreetMap (\texttt{preparar\_base.py}); diagrama de classes; comparação de desempenho do Dijkstra com o NetworkX (\texttt{benchmark/}) \\
+1 & Bruna de Paula Anselmi & Classe \texttt{Grafo} em lista de adjacência, inclusive a versão direcionada (ruas de mão única); leitura e validação dos CSV (\texttt{carregar\_grafo}); Dijkstra com heap e matriz de custos; gerador de instâncias sintéticas \\
 2 & Kethellen & Melhoria local 2-opt e priorização de entregas dentro da janela de tempo \\
 2 & Rafael Generoso & Vizinho Mais Próximo; Clarke-Wright; integração das heurísticas; priorização de entregas dentro da janela de tempo \\
 3 & Filipe Quaresma Pereira & Interface web: mapa, rotas, simulação do dia, linha do tempo e guia de uso; testes de corretude; relatório \\
