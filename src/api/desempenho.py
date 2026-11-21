@@ -4,8 +4,9 @@ Os grafos de cada tamanho vêm do gerador de instâncias da Dupla 1 (src/grafo/g
 com a semente igual ao tamanho, então a medição é repetível. O formato devolvido é o de
 GET /api/desempenho, validado por src/api/contrato.validar_desempenho.
 
-A série do NetworkX (comparação de desempenho do enunciado) ainda não está aqui: a Dupla 1
-a acrescenta como mais uma série, e a tela mostra o aviso até ela existir.
+A comparação do Dijkstra com o NetworkX (exigida no enunciado) não fica aqui: a aplicação
+não pode usar a biblioteca. Ela é feita à parte, para o relatório, em
+benchmark/comparar_dijkstra.py (metodologia em benchmark/README.md).
 """
 import time
 
