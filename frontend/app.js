@@ -724,7 +724,6 @@ function desenharDesempenho() {
   $("tabela-desempenho").innerHTML =
     `<tr><th>n</th>${series.map((s) => `<th>${esc(s.nome)}</th>`).join("")}</tr>` +
     ns.map((n) => `<tr><td>${n}</td>${series.map((s) => `<td>${s.pontos.find((p) => p.n === n)?.ms ?? "–"}</td>`).join("")}</tr>`).join("");
-  $("nota-networkx").hidden = series.some((s) => /networkx/i.test(s.nome));
 }
 
 // =====================================================================

@@ -123,3 +123,41 @@ classDiagram
 - **Exatamente um depósito**: a propriedade `deposito` falha se houver zero ou mais de um.
 - **Conversão pelo contrato** (`de_contrato` / `para_contrato`): o grafo entra e sai da API no mesmo
   formato JSON, então as outras duplas não dependem da classe por dentro.
+
+---
+
+## 2. Diagrama de atividades: cálculo de rotas (domínio do problema)
+Arquivo da figura: `figuras/uml-atividades-rotas.png`
+
+Este diagrama mostra o fluxo de dados do problema modelado (CVRPTW), da leitura do grafo até a
+solução final — complementar ao diagrama de classes (estrutura estática) e ao diagrama de sequência
+da interface (`diagramas.md`, que mostra a troca de mensagens entre API e front, não o algoritmo em si).
+
+```mermaid
+flowchart TD
+    A([Início]) --> B[Ler vértices e arestas do CSV]
+    B --> C{Base válida?}
+    C -- não --> C1[Listar todos os erros\npor arquivo e linha] --> Z([Fim: API não sobe])
+    C -- sim --> D[Montar Grafo\nlista de adjacência]
+    D --> E[Dijkstra a partir de cada parada\nmatriz de custos: distância e tempo]
+    E --> F[Separar clientes com demanda > Q\ncomo não atendidos]
+    F --> G{Algoritmo escolhido}
+    G -- Vizinho Mais Próximo --> H1[Construir rotas gulosamente\npelo cliente mais próximo sem atraso]
+    G -- Clarke-Wright --> H2[Calcular economias e juntar rotas\naté a frota disponível]
+    H1 --> I{Usar 2-opt?}
+    H2 --> I
+    I -- sim --> J[Repetir trocas de arestas\nenquanto reduzir distância\nsem piorar atrasos]
+    I -- não --> K
+    J --> K[Calcular horários de cada parada\nchegada, início, fim, atrasado]
+    K --> L[Somar métricas da frota\ndistância, tempo, atrasos]
+    L --> M([Fim: rotas + não atendidos + métricas])
+```
+
+**Decisões que o diagrama mostra**
+- A validação (`ErroDados`) acontece **antes** de montar o grafo, e lista todos os problemas de uma
+  vez (não para no primeiro erro) — é o que o teste `test_registros_invalidos_listados_todos` cobra.
+- A matriz de custos (Dijkstra) é calculada **uma única vez**, antes de escolher o algoritmo: as
+  heurísticas de construção e o 2-opt trabalham só sobre essa matriz entre paradas, nunca sobre o
+  grafo viário completo de novo.
+- O 2-opt é condicional e vem **depois** da construção, nunca embutido nela — é por isso que a
+  interface pode ligar e desligar o 2-opt sem trocar o algoritmo de construção.

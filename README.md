@@ -198,7 +198,7 @@ A API não depende de como o grafo e os algoritmos são feitos por dentro, só d
 
 - `FONTE` diz de onde vêm os **dados** (`"real"` ou `"mock"`) e controla o selo *dados de exemplo*; ela muda sozinha quando `dados/vertices.csv` é criado. Uma base inválida impede a API de subir, com a lista de erros por linha.
 - `FONTE_ALGORITMOS` diz se os algoritmos são os reais (hoje `"real"`).
-- Falta a **Dupla 1** acrescentar a série do NetworkX ao benchmark (mais uma série em `medir_desempenho`; a tela mostra um aviso até ela existir).
+- A comparação do Dijkstra com o **NetworkX** não passa pela API: a aplicação não pode usar a biblioteca. Ela fica em [`benchmark/`](benchmark/README.md) e gera a tabela e o gráfico do relatório.
 - Rode os testes (`python -m unittest discover tests -v`). Se passarem, a interface funciona sem nenhuma mudança.
 
 ## 🔌 Contrato da API
@@ -211,7 +211,7 @@ A API não depende de como o grafo e os algoritmos são feitos por dentro, só d
 | `GET /api/grafo` | o mapa: `{vertices: [{id, nome, lat, lon, demanda, janela:[ini,fim], prioridade, deposito, tipo}], arestas: [{u, v, distancia, tempo, mao_unica, nome, geometria}]}`. `tipo` é `deposito`, `cliente` ou `esquina` (esquina é só passagem); `mao_unica: true` vale só de `u` para `v`; `nome` e `geometria` (pontos `[lat, lon]` do trecho) servem para desenhar as ruas. Os três últimos campos das arestas e o `tipo` são opcionais |
 | `GET /api/algoritmos` | `{"nn": "Vizinho mais próximo", "clarke_wright": "Clarke-Wright"}` |
 | `POST /api/rotas` | recebe `{veiculos, capacidade, algoritmo, usar_2opt}` e devolve `{rotas: [{veiculo, paradas, chegadas, saida, retorno, distancia, tempo, carga, ocupacao}], nao_atendidos, metricas: {distancia_total, tempo_total, veiculos_usados, atrasos}, tempo_execucao_ms}` |
-| `GET /api/desempenho?tamanhos=10,50,100` | `{series: [{nome, pontos: [{n, ms}]}]}`: uma série por algoritmo. A Dupla 1 acrescenta as séries do Dijkstra nosso × NetworkX |
+| `GET /api/desempenho?tamanhos=10,50,100` | `{series: [{nome, pontos: [{n, ms}]}]}`: uma série por algoritmo |
 
 Entradas inválidas (por exemplo, 0 veículos ou um algoritmo inexistente) devolvem **400** com `{erro: "mensagem"}`.
 
@@ -283,8 +283,9 @@ src/algoritmos/   Dupla 2: vizinho mais próximo, Clarke-Wright, 2-opt e métric
 src/api/          Dupla 3: API Flask (app.py), login e sessão (auth.py), validador do contrato (contrato.py), benchmark da aba Desempenho (desempenho.py) e dados de exemplo (mock.py)
 frontend/         Dupla 3: interface (index.html, style.css, app.js) e telas de login e cadastro (login.*, registrar.*, logo.svg)
 tests/            testes de contrato, de corretude e de autenticação
+benchmark/        só para o relatório: comparação do nosso Dijkstra com o NetworkX (fora da aplicação; ver benchmark/README.md)
 dados/            base de dados (vertices.csv, arestas.csv: o mapa de São Paulo; ver dados/README.md) e usuários do login (usuarios.json; usuarios.local.json = contas criadas pela tela, fora do git)
-relatorio/        relatório LaTeX (template SBC): main.tex, referencias.bib, figuras/ e a prévia em PDF
+relatorio/        relatório LaTeX (template SBC): main.tex, referencias.bib, figuras/, tabelas/ e a prévia em PDF
 docs/             diagramas UML (diagramas.md), roteiro da apresentação e do vídeo, checklist de entrega
 ```
 
@@ -300,24 +301,24 @@ docs/             diagramas UML (diagramas.md), roteiro da apresentação e do v
 
 ## 📋 Andamento e pendências
 
-Entrega: **22/11**. Situação em 12/11 (as linhas de grafo, algoritmos, integração e testes foram atualizadas em 18/11):
+Entrega: **22/11**. Situação em 20/11:
 
 | Item | Situação | Responsável |
 |---|---|---|
-| Interface web, simulação, linha do tempo, comparação, desempenho | ✅ pronto (com dados de exemplo) | Dupla 3 |
+| Interface web, simulação, linha do tempo, comparação, desempenho | ✅ pronto (dados reais) | Dupla 3 |
 | API, contrato, login e cadastro | ✅ pronto | Dupla 3 |
-| Testes de contrato, de corretude e de autenticação | ✅ prontos (81 testes) | Dupla 3 |
+| Testes de contrato, de corretude, de autenticação e de integração | ✅ prontos (92 testes) | Dupla 3 |
 | Seção 4 do relatório (arquitetura, testes, acesso, interface) e diagramas UML | ✅ pronta, menos os prints | Dupla 3 |
-| **Classe do grafo, leitura do CSV e Dijkstra** (`src/grafo/`) | ✅ na `main` (falta o benchmark com NetworkX) | **Dupla 1** |
-| **Base de dados** em `dados/` + nota de origem (Kaggle) | ❌ falta o `vertices.csv` (origem em preparação: Olist VRP Benchmark) | **Dupla 1** |
-| **Vizinho mais próximo, Clarke-Wright e 2-opt** (`src/algoritmos/`) | ✅ na `main` | **Dupla 2** |
-| Integração (`src/api/app.py`) e rodar os testes | ⏳ algoritmos integrados; o grafo troca para a base real quando o `vertices.csv` existir | Todos |
-| Prints das telas no relatório (tirar os "Figura ??") | ⏳ depois da integração | Dupla 3 |
-| Seções 2, 3 e 5 do relatório (modelagem, algoritmos, resultados + NetworkX) | ❌ vazias | Duplas 1 e 2 |
-| Limitações, conclusão, nomes completos, instituição, tabela de responsabilidades | ❌ falta | Todos |
+| **Classe do grafo, leitura do CSV e Dijkstra** (`src/grafo/`) | ✅ na `main`, com a comparação com o NetworkX em [`benchmark/`](benchmark/README.md) | **Dupla 1** |
+| **Base de dados** em `dados/` + nota de origem (Kaggle) | ✅ mapa real de SP gerado (Olist VRP Benchmark + OpenStreetMap) | **Dupla 1** |
+| **Vizinho mais próximo, Clarke-Wright e 2-opt** (`src/algoritmos/`) | ✅ na `main`, priorizando janela de tempo | **Dupla 2** |
+| Integração (`src/api/app.py`) e rodar os testes | ✅ `FONTE` e `FONTE_ALGORITMOS` em `"real"` | Todos |
+| Prints das telas no relatório (tirar os "Figura ??") | ⏳ | Dupla 3 |
+| Seções 2, 3 e 5 do relatório (modelagem, algoritmos, resultados) | ⏳ em andamento | Duplas 1 e 2 |
+| Limitações, conclusão, nomes completos, instituição, tabela de responsabilidades | ⏳ em andamento | Todos |
 | Relatório com **12 a 15 páginas** (hoje: 7) | ⏳ | Todos |
 | Slides (10 min) e vídeo (12 a 18 min) | ❌ falta | Todos, ver [docs/apresentacao.md](docs/apresentacao.md) |
-| Commits de **todos** os 6 membros no Git | ⏳ hoje só 2 membros têm commits | Todos |
+| Commits de **todos** os 6 membros no Git | ✅ todos têm commits | Todos |
 
 ## 🆕 Últimas alterações (18/11)
 

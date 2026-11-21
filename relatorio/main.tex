@@ -16,6 +16,8 @@
 \usepackage{booktabs}
 \usepackage{listings}
 \usepackage{float}  % permite [H]: figura fica exatamente onde foi escrita
+\usepackage{pgfplots}  % gráfico da comparação com o NetworkX (figuras/dijkstra-networkx.tex)
+\pgfplotsset{compat=1.18}
 
 \lstset{basicstyle=\ttfamily\footnotesize, breaklines=true, frame=single}
 
@@ -23,10 +25,10 @@
 
 \title{RotaGrafo: Roteamento e Carga de Veículos em\\Centros Logísticos com Grafos}
 
-% TODO: nomes completos
-\author{Zaine\inst{1}, Bruna\inst{1}, Kethellen\inst{1}, Rafael\inst{1}, Filipe Quaresma Pereira\inst{1}, Vitor\inst{1}}
+% TODO: confirmar sobrenome completo de Kethellen
+\author{Zaine Mendes\inst{1}, Bruna de Paula Anselmi\inst{1}, Kethellen\inst{1}, Rafael Generoso\inst{1}, Filipe Quaresma Pereira\inst{1}, Vitor Luis Amaral\inst{1}}
 
-% TODO: instituição
+% TODO: instituição (nome da faculdade/universidade, curso, cidade e UF)
 \address{Instituição -- Curso -- Cidade, UF -- Brasil}
 
 \begin{document}
@@ -41,7 +43,10 @@ depot and the customers, and whose edges carry distance and travel time. Routes 
 built with the Nearest Neighbor and Clarke-Wright heuristics and refined with 2-opt,
 respecting vehicle capacity, time windows and delivery priority. A web interface with
 an interactive map allows configuring the fleet, visualizing the routes and comparing
-algorithms. % TODO: principal resultado numérico
+algorithms. On the real São Paulo instance (30 customers), Clarke-Wright with 2-opt
+produced the shortest route (47.17\,km, 10.2\% shorter than without the local search,
+zero late deliveries); our Dijkstra implementation was validated against NetworkX with
+no divergence and 1.1--1.7$\times$ the speed.
 \end{abstract}
 
 \begin{resumo}
@@ -52,7 +57,10 @@ distância e tempo de deslocamento. As rotas são construídas com as heurístic
 Vizinho Mais Próximo e de Clarke-Wright e refinadas com 2-opt, respeitando a
 capacidade dos veículos, as janelas de tempo e a prioridade das entregas. Uma
 interface web com mapa interativo permite configurar a frota, visualizar as rotas e
-comparar os algoritmos. % TODO: principal resultado numérico
+comparar os algoritmos. Na instância real de São Paulo (30 clientes), Clarke-Wright com
+2-opt obteve a rota mais curta (47,17\,km, 10,2\,\% menor que sem a melhoria local, sem
+nenhum atraso); o nosso Dijkstra foi validado contra o NetworkX sem nenhuma divergência
+e com 1,1 a 1,7 vez a velocidade.
 \end{resumo}
 
 % =====================================================================
@@ -109,7 +117,42 @@ Seção~\ref{sec:conclusao} conclui o trabalho.
 %  - descrição da base de dados (origem/Kaggle, tamanho, tratamento)
 
 \subsection{Definição formal}
-% TODO
+
+A rede de entregas é modelada como um grafo ponderado $G = (V, E)$. O conjunto de
+vértices é $V = \{0\} \cup C \cup K$, em que $0$ é o depósito, $C = \{1, \dots, n\}$ são
+os clientes e $K$ são as esquinas da malha viária (pontos de passagem, sem demanda). Cada
+cliente $i \in C$ tem três atributos: demanda $q_i \in \mathbb{Z}_{\geq 0}$, janela de
+tempo $[a_i, b_i]$ e prioridade $p_i \in \{1, 2, 3\}$; o depósito e as esquinas têm
+$q_i = p_i = 0$. Cada aresta $(u, v) \in E$ carrega dois pesos, distância $d(u, v)$ em km
+e tempo $t(u, v)$ em minutos.
+
+A malha viária é, em geral, \textbf{direcionada}: ruas de mão única viram um arco
+$u \to v$ só num sentido, de modo que $d(u, v) \neq d(v, u)$ é possível. A classe
+\texttt{Grafo} implementa os dois casos (direcionado e não direcionado) sobre a mesma
+estrutura de lista de adjacência, escolhendo o modo pela presença de arestas de mão
+única nos dados de entrada. Quando não há \texttt{arestas.csv} (dados sintéticos de
+teste e de benchmark), $G$ é completo e não direcionado, com $d(u, v)$ estimada pela
+distância em linha reta (fórmula de \textit{haversine}) multiplicada por um fator de
+correção para ruas (1,3), e $t(u, v) = d(u, v) / 30\text{km/h}$.
+
+O problema a resolver é uma variante do \textit{Capacitated Vehicle Routing Problem with
+Time Windows} (CVRPTW)~\cite{toth2014vehicle,solomon1987algorithms}: encontrar um conjunto
+de até $m$ rotas (uma por veículo), cada uma um ciclo que começa e termina em $0$, tais
+que (i)~cada cliente pertence a no máximo uma rota; (ii)~a soma das demandas atendidas em
+cada rota não excede a capacidade $Q$ do veículo; e (iii)~a distância total percorrida é
+mínima, dando preferência ao atendimento dentro da janela $[a_i, b_i]$ e aos clientes de
+maior prioridade $p_i$ quando a frota não é suficiente para atender todos. O VRP
+generaliza o Problema do Caixeiro Viajante (fazer $m = 1$ e $Q = \infty$ recupera o TSP) e
+é, portanto, NP-difícil; a ferramenta usa heurísticas construtivas e de melhoria local em
+vez de busca exaustiva (Seção~\ref{sec:algoritmos}).
+
+\textbf{Representação escolhida.} Lista de adjacência, e não matriz de adjacência: o
+grafo viário tem $|V| \approx 1\,550$ vértices mas é esparso ($|E| \approx 2\,400$ arcos,
+grau médio $\approx 3$, típico de malhas de rua), então a matriz gastaria
+$O(|V|^2)$ memória para guardar sobretudo zeros, contra $O(|V| + |E|)$ da lista. A
+Seção~\ref{sec:algoritmos} usa Dijkstra a partir de cada parada sobre essa lista para
+montar a matriz de custos \emph{entre paradas} (depósito e clientes apenas), que aí sim é
+densa e pequena ($31 \times 31$) e serve de entrada para as heurísticas de roteirização.
 
 \subsection{Diagramas UML}
 O diagrama de classes da Figura~\ref{fig:uml-classes} mostra a estrutura do núcleo de grafos
@@ -123,7 +166,6 @@ Os módulos \texttt{dados} (leitura e validação dos CSV) e \texttt{dijkstra} (
 matriz de custos) são conjuntos de funções que criam e percorrem o \texttt{Grafo}. O módulo
 \texttt{gerador} cria instâncias sintéticas, reprodutíveis pela semente, usadas apenas nos
 testes e na avaliação de desempenho.
-% TODO (Dupla 1): demais diagramas da modelagem (casos de uso, atividades), se forem entrar
 
 \begin{figure}[ht]
   \centering
@@ -132,8 +174,55 @@ testes e na avaliação de desempenho.
   \label{fig:uml-classes}
 \end{figure}
 
+O diagrama de atividades da Figura~\ref{fig:uml-atividades-rotas} mostra o fluxo de dados
+do problema em si (CVRPTW), da leitura e validação do grafo até a solução final:
+validação de todos os erros antes de montar o grafo, cálculo único da matriz de custos
+por Dijkstra, escolha da heurística de construção e, por fim, a melhoria opcional por
+2-opt — complementar ao diagrama de sequência da Figura~\ref{fig:uml-sequencia}, que
+mostra a troca de mensagens entre a interface e a API, não o algoritmo.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/uml-atividades-rotas.png}
+  \caption{Diagrama de atividades do cálculo de rotas.}
+  \label{fig:uml-atividades-rotas}
+\end{figure}
+
 \subsection{Base de dados}
-% TODO
+
+A rede viária e os clientes vêm de duas fontes públicas, combinadas em um único grafo
+pelo script \texttt{src/grafo/preparar\_base.py}:
+
+\begin{itemize}
+  \item \textbf{Clientes e depósito}: o \textit{Olist VRP Benchmark}~\cite{olistvrp} da
+        NVIDIA, construído a partir da base pública de e-commerce da Olist no
+        Kaggle\footnote{\url{https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce}}.
+        O depósito é o vendedor com mais pedidos num raio de 1,5\,km no CEP 01314 (Bela
+        Vista, São Paulo); os 30 clientes são pedidos sorteados (semente 42) nesse raio,
+        e a demanda de cada um é o volume do pedido, em litros;
+  \item \textbf{Malha viária}: ruas, sentido de circulação e velocidade máxima do
+        OpenStreetMap~\cite{osm}, obtidas pela API Overpass em 18/11/2026, restritas às
+        vias por onde um carro passa, num quadrado que cobre o raio dos clientes mais
+        400\,m.
+\end{itemize}
+
+Como a Olist não registra janela de tempo nem prioridade de entrega, esses dois atributos
+são sorteados (mesma rotina usada para gerar instâncias sintéticas de teste,
+\texttt{src/grafo/gerador.py}), com janelas entre 08:00 e 18:00 e prioridade uniforme em
+$\{1, 2, 3\}$.
+
+O resultado é um único grafo com 1\,550 vértices (1 depósito, 30 clientes, 1\,519
+esquinas) e 2\,408 arcos (1\,906 de mão única, 79\,\%). O tempo de cada trecho é a
+distância dividida por 60\,\% da velocidade máxima da via (fator de trânsito), com
+velocidades padrão por tipo de via quando o OSM não informa \texttt{maxspeed}
+(residencial 30\,km/h, terciária 40, primária 50). O depósito e cada cliente se ligam à
+rua mais próxima por um trecho de acesso a 15\,km/h (mediana de 39\,m). Para que nenhum
+cliente fique inalcançável por causa de uma rua de mão única sem saída, a base final fica
+restrita à componente em que se consegue ir \emph{e voltar} do depósito (componente
+fortemente conexa). As contagens, os parâmetros da geração e a data dos dados do OSM
+ficam registrados em \texttt{dados/base\_info.json}, e qualquer problema nos CSV (coluna
+faltando, demanda negativa, vértice duplicado etc.) é detectado na leitura, com a lista
+completa de erros por arquivo e linha (\texttt{src/grafo/dados.py}).
 
 % =====================================================================
 \section{Algoritmos}\label{sec:algoritmos}
@@ -143,16 +232,124 @@ testes e na avaliação de desempenho.
 % janela / prioridade, e complexidade de tempo e espaço.
 
 \subsection{Caminhos mínimos: Dijkstra}
-% TODO (Dupla 1)
+
+O Dijkstra (\texttt{src/grafo/dijkstra.py}) calcula, a partir de uma origem, o custo
+mínimo até todos os vértices alcançáveis, com um \textit{heap} binário (módulo
+\texttt{heapq}) como fila de prioridade:
+
+\begin{lstlisting}
+dijkstra(G, origem, peso):
+    custo[origem] = 0; fila = {(0, origem)}
+    enquanto fila não vazia:
+        (d, u) = remover menor de fila
+        se d > custo[u]: continue        // entrada obsoleta na fila
+        para cada (v, w) em vizinhos(u, peso):
+            se d + w < custo[v]:
+                custo[v] = d + w;  anterior[v] = u
+                inserir (custo[v], v) em fila
+    devolver custo, anterior
+\end{lstlisting}
+
+Cada vértice entra na fila no máximo uma vez por aresta que o alcança, por isso a
+complexidade é $O((|V| + |E|)\log |V|)$. A rotina \texttt{matriz\_custos} aplica o
+Dijkstra uma vez a partir de cada parada (depósito e clientes) sobre o grafo viário
+completo e filtra o resultado só para as outras paradas, construindo a matriz
+$P \times P$ ($P = n + 1$) de custos entre paradas que as heurísticas de roteirização
+usam — uma por peso (\texttt{distancia} e \texttt{tempo}), $O(P \, (|V| + |E|)\log |V|)$
+no total. A Seção~\ref{sec:networkx} confirma essa implementação contra a do NetworkX,
+em corretude e em tempo de execução.
 
 \subsection{Vizinho Mais Próximo}
-% TODO
+
+Constrói uma rota por vez (\texttt{src/algoritmos/construcao.py}): parte do depósito e,
+a cada passo, entre os clientes ainda não atendidos que cabem na capacidade restante do
+veículo, escolhe o que chegaria mais cedo sem atraso; sem opção sem atraso, o que atrasa
+menos; e, entre empates, o de maior razão prioridade/distância. A rota fecha quando
+nenhum cliente restante cabe na capacidade ou, havendo veículos livres, quando o próximo
+cliente só pode ser atendido com atraso — nesse caso ele fica para a próxima rota.
+
+\begin{lstlisting}
+vizinho_mais_proximo(clientes, deposito, dist, tempo, janela, Q, m):
+    pendentes = clientes com demanda <= Q
+    enquanto pendentes != vazio e rotas < m:
+        rota = []; atual = deposito; carga = 0; relogio = inicio_expediente
+        repita:
+            candidatos = {c em pendentes : demanda[c] + carga <= Q}
+            se candidatos == vazio: encerrar rota
+            proximo = candidato que chega mais cedo sem atraso
+                      (ou com menor atraso; desempate por dist/prioridade)
+            se proximo atrasaria e sobra veículo: encerrar rota sem incluir proximo
+            mover proximo de pendentes para rota; atualizar relogio e carga
+    devolver rotas, pendentes restantes (não atendidos)
+\end{lstlisting}
+
+A escolha gulosa a cada passo custa $O(|\text{pendentes}|)$, repetida até esvaziar os
+clientes: $O(n^2)$ no total, com $O(n)$ de espaço para as listas de pendentes e rotas.
 
 \subsection{Clarke-Wright (\textit{Savings})}
-% TODO
+
+Parte de uma rota dedicada a cada cliente e junta pares de rotas enquanto isso reduzir a
+distância total, usando a economia clássica de Clarke e
+Wright~\cite{clarke1964scheduling}: $s(i, j) = d(0, i) + d(0, j) - d(i, j)$, a distância
+que se deixa de percorrer ao visitar $i$ e $j$ na mesma viagem em vez de em viagens
+separadas que passam pelo depósito.
+
+\begin{lstlisting}
+clarke_wright(clientes, deposito, dist, tempo, janela, Q, m):
+    rotas = uma rota [c] para cada cliente c com demanda <= Q
+    economias = [(s(i,j), i, j) para todo par i,j], ordenadas por s decrescente
+    para exigir_sem_atraso em (verdadeiro, falso):     // 1ª passada: só sem atraso
+        se não exigir_sem_atraso e rotas <= m: pare      //   (só repete se ainda sobram rotas demais)
+        para (s, i, j) em economias, s > 0:
+            rota_i, rota_j = rotas que contêm i e j
+            se rota_i == rota_j: continue
+            se carga(rota_i) + carga(rota_j) > Q: continue
+            se i e j não são pontas de suas rotas: continue
+            combinada = melhor junção de rota_i e rota_j nas pontas i, j
+                        (a que atrasar menos clientes)
+            se exigir_sem_atraso e combinada atrasa alguém: continue
+            substituir rota_i pela combinada; remover rota_j
+    manter as m rotas de maior prioridade total; tentar reinserir os clientes das
+    demais rotas nas m mantidas, na posição de menor custo (atrasos, depois distância);
+    quem não couber fica não atendido
+\end{lstlisting}
+
+Calcular e ordenar as $O(n^2)$ economias custa $O(n^2 \log n)$; cada uma é testada uma vez
+contra as rotas atuais, $O(n^2)$ chamadas de custo $O(1)$ a $O(n)$ (procurar a rota de um
+cliente), então a junção domina em $O(n^2)$ a $O(n^3)$ no pior caso; a reinserção final
+testa cada cliente excedente em cada posição das rotas mantidas, $O(n^2)$. Na prática
+($n = 30$) o tempo medido (Tabela~\ref{tab:desempenho}) é muito menor que o pior caso.
 
 \subsection{Melhoria local: 2-opt}
-% TODO
+
+Recebe uma rota pronta e tenta removê-la de cruzamentos: para cada par de posições
+$(i, j)$ do caminho (depósito–clientes–depósito), inverte o trecho entre elas e aceita a
+troca se o novo trecho for mais curto. Repete até uma passada completa não encontrar
+nenhuma troca que melhore.
+
+\begin{lstlisting}
+dois_opt(rota, deposito, dist, tempo, janela):
+    caminho = [deposito] + rota + [deposito]
+    melhorou = verdadeiro
+    enquanto melhorou:
+        melhorou = falso
+        para cada 1 <= i < j <= fim(caminho):
+            trecho = caminho[i-1 .. j+1]
+            invertido = inverter só o miolo de trecho (pontas fixas)
+            se custo(invertido) < custo(trecho):
+                se atrasos(caminho com o trecho trocado) > atrasos(caminho atual):
+                    continue              // não piora atraso para ganhar distância
+                caminho = caminho com trecho substituído por invertido
+                melhorou = verdadeiro
+    devolver caminho sem as pontas do depósito
+\end{lstlisting}
+
+O custo de cada candidato recalcula \emph{todo} o trecho entre $i-1$ e $j+1$, e não só as
+duas arestas das pontas da fórmula clássica do 2-opt: com ruas de mão única,
+$d(u,v) \neq d(v,u)$, e inverter o miolo também inverte o sentido de cada arco interno —
+olhar só as pontas poderia aceitar uma troca que piora o trecho interno e nunca convergir.
+Cada passada testa $O(n^2)$ pares a custo $O(n)$ cada (recalcular o trecho), $O(n^3)$ por
+passada; na prática poucas passadas bastam até não haver mais troca que melhore.
 
 \subsection{Resumo das complexidades}
 % TODO: preencher a tabela
@@ -167,7 +364,7 @@ Algoritmo & Tempo & Espaço \\
 Dijkstra (heap binário)      & $O((V+E)\log V)$ & $O(V)$ \\
 Vizinho Mais Próximo         & $O(n^2)$         & $O(n)$ \\
 Clarke-Wright                & $O(n^2 \log n)$  & $O(n^2)$ \\
-2-opt (por iteração)         & $O(n^2)$         & $O(n)$ \\
+2-opt (por passada)          & $O(n^3)$         & $O(n)$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -259,8 +456,9 @@ verificar, em várias instâncias e configurações de frota, que:
 
 Dois testes adicionais avaliam a qualidade das heurísticas: o 2-opt nunca deve
 aumentar a distância total, e o Clarke-Wright com 2-opt deve ficar a no máximo 25\%
-do ótimo nas instâncias pequenas.
-% TODO (Duplas 1 e 2): confirmar que esses dois testes passam com o código real
+do ótimo nas instâncias pequenas. Com \texttt{FONTE\_ALGORITMOS = "real"}, as 92
+verificações do projeto (contrato, corretude, mapa, integração e autenticação) passam,
+incluindo essas duas.
 
 \subsection{Controle de acesso}
 
@@ -334,51 +532,222 @@ nas Figuras~\ref{fig:uml-componentes}, \ref{fig:uml-sequencia} e
   \label{fig:uml-estados}
 \end{figure}
 
-% TODO: prints das telas (tirar com o sistema integrado)
-% \begin{figure}[ht]
-%   \centering
-%   \includegraphics[width=\textwidth]{figuras/tela-principal.png}
-%   \caption{Tela principal com as rotas calculadas.}
-%   \label{fig:tela-principal}
-% \end{figure}
-% \begin{figure}[ht]
-%   \centering
-%   \includegraphics[width=\textwidth]{figuras/tela-simulacao.png}
-%   \caption{Simulação do dia com a linha do tempo.}
-%   \label{fig:tela-simulacao}
-% \end{figure}
-% \begin{figure}[ht]
-%   \centering
-%   \includegraphics[width=.6\textwidth]{figuras/tela-comparacao.png}
-%   \caption{Comparação entre algoritmos.}
-%   \label{fig:tela-comparacao}
-% \end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/tela-principal.png}
+  \caption{Tela principal com as rotas calculadas (Clarke-Wright + 2-opt, instância real de São Paulo).}
+  \label{fig:tela-principal}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/tela-simulacao.png}
+  \caption{Simulação do dia em andamento (10:01), com veículos em rota e a linha do tempo.}
+  \label{fig:tela-simulacao}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/tela-comparacao.png}
+  \caption{Comparação entre algoritmos, com Clarke-Wright + 2-opt destacado como melhor configuração.}
+  \label{fig:tela-comparacao}
+\end{figure}
 
 % =====================================================================
 \section{Resultados e Avaliação de Desempenho}\label{sec:resultados}
 % [DUPLAS 1 e 2]
 
-% TODO:
-%  - instâncias usadas (tamanhos)
-%  - tabela: algoritmo x distância total, veículos, atrasos, tempo de execução
-%  - efeito do 2-opt (ganho percentual)
-%  - gráfico de tempo de execução x número de vértices (validar a complexidade)
-%  - comparação de desempenho com o NetworkX (Dupla 1)
+\subsection{Comparação entre algoritmos}
+
+A Tabela~\ref{tab:comparacao} mostra as quatro combinações disponíveis na aba
+Comparação da interface (Vizinho Mais Próximo e Clarke-Wright, com e sem 2-opt),
+aplicadas à instância real: o mapa de São Paulo (Seção~\ref{sec:modelagem}), 30
+clientes com demanda total de 521\,L, 5 veículos de capacidade $Q = 160$\,L (mínimo
+teórico $\lceil 521/160 \rceil = 4$ veículos).
+
+\begin{table}[ht]
+\centering
+\caption{Comparação entre algoritmos na instância real (30 clientes, $Q=160$, 5 veículos).}
+\label{tab:comparacao}
+\begin{tabular}{lrrrrr}
+\toprule
+Configuração & Distância (km) & Tempo total (min) & Veículos & Atrasos & Exec.\ (ms) \\
+\midrule
+Vizinho Mais Próximo            & 65{,}73 & 1\,282{,}7 & 4 & 0 & 94{,}3  \\
+Vizinho Mais Próximo + 2-opt    & 58{,}12 & 1\,273{,}0 & 4 & 0 & 108{,}7 \\
+Clarke-Wright                   & 52{,}51 & 1\,729{,}2 & 5 & 0 & 94{,}2  \\
+\textbf{Clarke-Wright + 2-opt}  & \textbf{47{,}17} & 1\,739{,}9 & 5 & 0 & 100{,}9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Clarke-Wright parte de rotas melhor agrupadas por economia de distância e por isso já
+sai 20\,\% mais curto que o Vizinho Mais Próximo antes de qualquer melhoria local; o
+2-opt reduz a distância de ambos (11,6\,\% e 10,2\,\%, respectivamente) sem piorar
+nenhum horário (0 atrasos nas quatro configurações, porque a frota de 5 veículos tem
+folga sobre o mínimo de 4). A melhor configuração nesta instância é Clarke-Wright com
+2-opt, destacada na tabela e marcada com $\bigstar$ na aba Comparação da interface. O
+tempo de execução (95 a 110\,ms) é dominado pelo cálculo da matriz de custos entre as 31
+paradas (Seção~\ref{sec:algoritmos}), não pela heurística em si, e é o mesmo patamar nas
+quatro configurações.
+
+\subsection{Tempo de execução em função do tamanho}
+
+Para validar a complexidade teórica (Tabela~\ref{tab:complexidade}) com o comportamento
+real, a aba Desempenho mede o tempo de \texttt{calcular\_rotas} em instâncias sintéticas
+completas geradas por \texttt{src/grafo/gerador.py}, de 10 a 200 clientes (frota de um
+veículo por cliente, para que a frota nunca seja o fator limitante).
+
+\begin{table}[ht]
+\centering
+\caption{Tempo de execução de \texttt{calcular\_rotas} por tamanho da instância (melhor de 3 execuções, ms).}
+\label{tab:desempenho}
+\begin{tabular}{lrrrrr}
+\toprule
+Configuração & $n=10$ & $n=25$ & $n=50$ & $n=100$ & $n=200$ \\
+\midrule
+Vizinho Mais Próximo   & 0{,}42 & 3{,}72 & 27{,}48 & 226{,}1 & 2\,518{,}4 \\
+Clarke-Wright          & 0{,}51 & 4{,}56 & 30{,}01 & 242{,}1 & 2\,462{,}7 \\
+Clarke-Wright + 2-opt  & 0{,}50 & 4{,}64 & 29{,}54 & 249{,}1 & 2\,599{,}5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+As três configurações crescem praticamente juntas, porque o tempo é dominado não pela
+heurística de roteirização, mas pelo cálculo da matriz de custos: para $n$ clientes a
+instância é um grafo completo com $|V| = n+1$ e $|E| \approx n^2/2$, e
+\texttt{matriz\_custos} roda um Dijkstra a partir de cada uma das $n+1$ paradas sobre
+esse grafo completo, $O(n \cdot n^2 \log n) = O(n^3 \log n)$. Dobrar $n$ de 100 para 200
+multiplica o tempo medido por $\approx 11$, entre o $8\times$ de $n^3$ puro e o esperado
+com o fator $\log n$ — consistente com essa análise, e não com o $O(n^2)$ das
+heurísticas isoladas, que só domina quando a matriz de custos já está pronta (como na
+Tabela~\ref{tab:comparacao}, em que ela é calculada uma única vez fora da medição de cada
+algoritmo). Esse custo de $O(n^3 \log n)$ é consequência de medir em grafos completos
+sintéticos; no mapa real, a malha viária é esparsa ($|E| \approx 2|V|$, Seção~\ref{sec:modelagem}) e o mesmo cálculo roda em $1,2$\,ms por parada (Seção~\ref{sec:networkx}).
+
+\subsection{Comparação de desempenho com o NetworkX}\label{sec:networkx}
+% [DUPLA 1] Tabela e gráfico gerados por: python -m benchmark.comparar_dijkstra
+% (metodologia completa em benchmark/README.md). No Overleaf, envie também as pastas
+% tabelas/ e figuras/ com os arquivos dijkstra-networkx.tex.
+
+Para validar a implementação própria do Dijkstra (\texttt{src/grafo/dijkstra.py}), ela foi
+comparada com a da biblioteca NetworkX~\cite{hagberg2008networkx}, em corretude e em
+tempo de execução. O NetworkX entra apenas nessa comparação, feita por um programa
+separado (\texttt{benchmark/comparar\_dijkstra.py}): a aplicação não o importa nem o lista
+entre suas dependências, e um teste automatizado falha se algum módulo de \texttt{src/}
+passar a importá-lo.
+
+\paragraph{Metodologia.} Cada instância é montada uma vez com a classe \texttt{Grafo} e
+copiada para um \texttt{nx.DiGraph} (ou \texttt{nx.Graph}, se não direcionada), com os mesmos
+vértices, arcos e pesos; a conversão fica fora do tempo medido. Foram usadas três famílias
+de instâncias: (i)~o mapa real de São Paulo usado pela aplicação (1\,550 vértices e
+2\,910 arcos, com ruas de mão única); (ii)~grades de $25\times25$ a $300\times300$ esquinas,
+grafos esparsos como uma malha viária ($|E| \approx 2|V|$), com pesos sorteados por semente;
+e (iii)~grafos completos do gerador de instâncias, de 50 a 800 clientes
+($|E| \approx |V|^2/2$). Em cada instância e para os dois pesos (distância e tempo),
+sortearam-se 10 origens; o nosso \texttt{dijkstra} foi comparado com
+\texttt{dijkstra\_predecessor\_and\_distance} do NetworkX, já que as duas funções devolvem
+custos e predecessores. Também se comparou a matriz de custos entre as paradas, que é o
+uso real na aplicação. Antes de medir, verificou-se, para cada origem, que as duas
+implementações alcançam os mesmos vértices com os mesmos custos (tolerância de $10^{-9}$)
+e que o caminho reconstruído pela nossa implementação tem exatamente o custo informado.
+Cada caso foi executado uma vez como aquecimento e cinco vezes medido, com o coletor de
+lixo desligado; reporta-se a mediana.
+
+\paragraph{Resultados.} A Tabela~\ref{tab:dijkstra-networkx} e a
+Figura~\ref{fig:dijkstra-networkx} resumem as medições. Não houve nenhuma divergência de
+resultado em nenhuma instância. A nossa implementação foi de 1,1 a 1,2 vez mais rápida nos
+grafos esparsos e de 1,5 a 1,7 vez nos grafos completos. As duas usam o mesmo algoritmo
+(Dijkstra com heap binário); a diferença vem principalmente do custo da generalidade do
+NetworkX, que acessa o peso de cada aresta por meio de uma função e trata opções que o
+projeto não usa (várias origens, limite de custo, destino, listas de predecessores para
+empates). Na matriz de custos, em que a função do NetworkX devolve só as distâncias e a
+nossa também guarda os predecessores, a vantagem ficou entre 0,9 e 1,7 vez.
+
+A coluna $c$ da Tabela~\ref{tab:dijkstra-networkx} divide o tempo por
+$(|V| + \text{arcos}) \log_2 |V|$. Ela ficou entre 13 e 26\,ns em instâncias de 51 a
+90\,000 vértices, ou seja, aproximadamente constante, o que confirma empiricamente a
+complexidade $O((V+E)\log V)$ da Tabela~\ref{tab:complexidade}. No mapa real, um Dijkstra
+leva cerca de 1,2\,ms, e a matriz entre as 31 paradas, cerca de 40\,ms, um tempo
+desprezível diante do cálculo das rotas. As medições foram feitas numa única máquina, e
+tempos em Python oscilam de uma execução para outra; por isso a análise se apoia na
+mediana e na tendência entre tamanhos.
+
+\input{tabelas/dijkstra-networkx}
+
+\begin{figure}[ht]
+  \centering
+  \input{figuras/dijkstra-networkx}
+  \caption{Tempo do Dijkstra por origem em função de $|V| + \text{arcos}$ (escala
+  log-log), nas grades (linhas cheias) e nos grafos completos (tracejadas).}
+  \label{fig:dijkstra-networkx}
+\end{figure}
 
 % =====================================================================
 \section{Limitações}\label{sec:limitacoes}
 % [TODOS]
 
-% Pontos de partida (ajustar ao que foi de fato implementado):
-%  - heurísticas não garantem a solução ótima (o VRP é NP-difícil);
-%  - distâncias estimadas por linha reta com fator de correção, não pela malha viária real;
-%  - velocidade média constante (sem trânsito);
-%  - frota homogênea e um único depósito;
-%  - planejamento estático: não trata pedidos que chegam durante o dia.
+\begin{itemize}
+  \item \textbf{Otimalidade}: Vizinho Mais Próximo, Clarke-Wright e 2-opt são
+        heurísticas — nenhuma garante a rota ótima, só a testam contra o ótimo por
+        força bruta em instâncias pequenas (Seção~\ref{sec:resultados}). O 2-opt, em
+        particular, é uma busca local simples (troca de pares de arestas): fica preso
+        em ótimos locais que vizinhanças maiores (\textit{Or-opt}, 3-opt) ou
+        metaheurísticas (recozimento simulado, busca tabu) poderiam escapar.
+  \item \textbf{Trânsito constante}: o tempo de cada trecho da malha viária é a
+        distância dividida por uma fração fixa (60\,\%) da velocidade máxima da via
+        (Seção~\ref{sec:modelagem}); não há variação por horário do dia nem
+        congestionamento, então um trajeto às 08:00 e o mesmo às 17:00 custam o mesmo
+        tempo.
+  \item \textbf{Janela de tempo e prioridade sintéticas}: a base da Olist não registra
+        esses dois atributos, e eles são sorteados (Seção~\ref{sec:modelagem}); os
+        resultados de atraso e de atendimento por prioridade refletem esse sorteio, não
+        um padrão real de pedidos.
+  \item \textbf{Frota homogênea e um único depósito}: todo veículo tem a mesma
+        capacidade $Q$, e todas as rotas partem e retornam ao mesmo depósito. Uma frota
+        heterogênea ou múltiplos depósitos exigiriam uma formulação diferente (o
+        \textit{Multi-Depot VRP}).
+  \item \textbf{Planejamento estático}: as rotas são calculadas uma vez, no início do
+        expediente, para a demanda conhecida nesse momento; pedidos que chegassem durante
+        o dia (VRP dinâmico) não são reencaixados nas rotas em andamento.
+  \item \textbf{Custo da matriz de distâncias em grafos densos}: \texttt{matriz\_custos}
+        roda um Dijkstra a partir de cada parada sobre o grafo inteiro
+        ($O(n \cdot (V+E)\log V)$). No mapa real, esparso, isso é rápido (Seção~\ref{sec:networkx}); mas nas instâncias sintéticas completas usadas para medir desempenho
+        (Seção~\ref{sec:resultados}), o custo cresce com $n^3\log n$ e domina o tempo
+        total — por isso o benchmark da aba Desempenho evita tamanhos próximos do
+        limite de 500 clientes, que levariam minutos por medição.
+\end{itemize}
 
 % =====================================================================
 \section{Conclusão}\label{sec:conclusao}
-% [TODOS] — TODO
+% [TODOS]
+
+Este trabalho modelou o planejamento de rotas de um centro logístico como um problema
+de roteamento de veículos com capacidade e janelas de tempo (CVRPTW) sobre um grafo
+ponderado, e construiu, do zero, a estrutura de grafo, o Dijkstra e as heurísticas de
+roteirização (Vizinho Mais Próximo, Clarke-Wright e 2-opt) exigidas pelo enunciado, sem
+recorrer a bibliotecas prontas de grafos. A ferramenta roda sobre um mapa real (o centro
+de São Paulo, com 1\,550 vértices e 2\,408 arcos, incluindo ruas de mão única) e expõe o
+resultado numa interface web completa, com simulação do dia, linha do tempo e comparação
+entre algoritmos.
+
+A correção da solução foi verificada de duas formas independentes: testes de contrato,
+que conferem o formato das respostas da API, e testes de corretude, que recalculam os
+resultados com uma implementação de referência do Dijkstra (conferida contra
+Floyd-Warshall) e com o ótimo por força bruta em instâncias pequenas — as 92 verificações
+automatizadas do projeto passam com o código e os dados reais. A análise de complexidade
+teórica ($O((V+E)\log V)$ para o Dijkstra, $O(n^2)$ a $O(n^3)$ para as heurísticas,
+Tabela~\ref{tab:complexidade}) foi confrontada com o tempo de execução medido em
+instâncias de tamanho crescente (Seção~\ref{sec:resultados}) e com uma comparação direta
+do nosso Dijkstra contra o NetworkX (Seção~\ref{sec:networkx}), sem nenhuma divergência de
+resultado entre as duas implementações e com o nosso código entre 1,1 e 1,7 vez mais
+rápido, dependendo da densidade do grafo.
+
+Na instância real, Clarke-Wright com 2-opt obteve a menor distância total entre as
+quatro configurações testadas (47,17\,km, 10,2\,\% menor que sem a melhoria local), sem
+nenhum atraso de entrega. As limitações discutidas na Seção~\ref{sec:limitacoes} —
+sobretudo a ausência de trânsito variável, de múltiplos depósitos e de replanejamento
+dinâmico — apontam as extensões mais naturais para um trabalho futuro: uma metaheurística
+(busca tabu ou recozimento simulado) para escapar de ótimos locais do 2-opt, e um VRP
+dinâmico que reencaixe pedidos recebidos durante o próprio expediente.
 
 % =====================================================================
 \section{Divisão de Responsabilidades}
@@ -392,12 +761,12 @@ nas Figuras~\ref{fig:uml-componentes}, \ref{fig:uml-sequencia} e
 \toprule
 Dupla & Membro & Atividades \\
 \midrule
-1 & Zaine     & TODO \\
-1 & Bruna     & TODO \\
-2 & Kethellen & TODO \\
-2 & Rafael    & TODO \\
-3 & Filipe    & Interface web: mapa, rotas, simulação do dia, linha do tempo e guia de uso; relatório \\
-3 & Vitor     & API Flask, contrato e testes de integração, aba de desempenho, diagramas UML da arquitetura; login, cadastro de contas e controle de sessão \\
+1 & Zaine Mendes & Grafo direcionado (ruas de mão única); geração da base real a partir do Olist e do OpenStreetMap (\texttt{preparar\_base.py}); diagrama de classes; comparação de desempenho do Dijkstra com o NetworkX (\texttt{benchmark/}) \\
+1 & Bruna de Paula Anselmi & Classe \texttt{Grafo} em lista de adjacência; leitura e validação dos CSV (\texttt{carregar\_grafo}); Dijkstra com heap e matriz de custos; gerador de instâncias sintéticas \\
+2 & Kethellen & Melhoria local 2-opt \\
+2 & Rafael Generoso & Vizinho Mais Próximo; Clarke-Wright; integração das heurísticas em \texttt{calcular\_rotas}; priorização de entregas dentro da janela de tempo \\
+3 & Filipe Quaresma Pereira & Interface web: mapa, rotas, simulação do dia, linha do tempo e guia de uso; testes de corretude; relatório \\
+3 & Vitor Luis Amaral & API Flask, contrato e testes de integração, aba de desempenho, diagramas UML da arquitetura; login, cadastro de contas e controle de sessão \\
 \bottomrule
 \end{tabular}
 \end{table}
