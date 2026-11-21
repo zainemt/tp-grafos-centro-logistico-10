@@ -101,15 +101,52 @@ Seção~\ref{sec:conclusao} conclui o trabalho.
 \section{Modelagem do Problema}\label{sec:modelagem}
 % [DUPLA 1]
 
-% TODO (Dupla 1):
-%  - definição formal: G = (V, E), V = {0 (depósito), 1..n (clientes)}, pesos d(u,v) e t(u,v)
-%  - atributos de cada vértice: demanda q_i, janela [a_i, b_i], prioridade p_i
-%  - justificativa da representação (lista de adjacência x matriz; grafo completo x rede viária)
-%  - diagramas UML: classes, casos de uso, atividades (figuras)
-%  - descrição da base de dados (origem/Kaggle, tamanho, tratamento)
-
 \subsection{Definição formal}
-% TODO
+
+O mapa do local é modelado como um grafo direcionado e ponderado $G = (V, A)$. O conjunto
+de vértices é a união disjunta $V = \{0\} \cup C \cup E$, em que $0$ é o depósito (o centro
+de distribuição), $C = \{1, \dots, n\}$ são os clientes e $E$ são as esquinas
+(cruzamentos e pontas de rua), que servem apenas de passagem. Cada arco
+$(u, v) \in A$ é um trecho de rua percorrido de $u$ para $v$ e tem dois pesos não
+negativos: a distância $d(u, v)$, em quilômetros, e o tempo $t(u, v)$, em minutos. Uma rua
+de mão dupla gera os dois arcos $(u, v)$ e $(v, u)$; uma rua de mão única gera apenas um.
+
+Cada cliente $i \in C$ tem uma demanda $q_i$ (em litros), uma janela de tempo
+$[a_i, b_i]$ (em minutos desde 00:00), na qual a entrega deve começar, e uma prioridade
+$p_i \in \{1, 2, 3\}$, em que 3 é a mais urgente. O depósito tem $q_0 = 0$ e janela
+$[0, 1440]$, e as esquinas têm demanda zero. A frota tem $K$ veículos iguais, de
+capacidade $Q$, que saem do depósito às 8h.
+
+Os veículos só param no depósito e nos clientes, o conjunto de paradas
+$P = \{0\} \cup C$. O custo de ir de uma parada $i$ a outra $j$ é o do caminho mínimo
+no grafo: $c_{ij}$ é a menor soma de $d(u, v)$ entre todos os caminhos de $i$ até $j$, e
+$\tau_{ij}$ é a menor soma de $t(u, v)$, ambos calculados pelo algoritmo de Dijkstra
+(Seção~\ref{sec:dijkstra}). Por causa das ruas de mão única, $c_{ij}$ pode ser diferente
+de $c_{ji}$: na base usada, 928 dos 930 pares ordenados de paradas distintas têm ida e
+volta com distâncias diferentes. Com esses custos, os algoritmos da
+Seção~\ref{sec:algoritmos} dividem os clientes em no máximo $K$ rotas
+$0 \to i_1 \to \dots \to i_k \to 0$, cada uma com $\sum q_i \le Q$, buscando reduzir a
+distância total e o número de entregas que começam depois de $b_i$, com preferência para
+os clientes de maior prioridade.
+
+\paragraph{Justificativa da representação.} O grafo é guardado em \textbf{lista de
+adjacência}: cada vértice aponta só para os vizinhos que existem, com os dois pesos do
+arco. A rede de ruas é muito esparsa: o mapa tem 1\,550 vértices e 2\,910 arcos, com grau
+de saída médio de 1,88 (no máximo 4). Uma matriz de adjacência teria
+$1\,550^2 \approx 2{,}4$ milhões de posições, das quais só 0,12\% seriam usadas, e faria o
+Dijkstra examinar todas as colunas de cada linha, em $O(|V|^2)$. Com a lista, o espaço é
+$O(|V| + |A|)$, e o Dijkstra percorre apenas os arcos existentes, em
+$O((|V| + |A|) \log |V|)$.
+
+O grafo inclui as esquinas, e não só o depósito e os clientes, porque um grafo completo
+entre clientes com distâncias em linha reta ignoraria o traçado das ruas e o sentido
+do trânsito. Com a rede viária, o Dijkstra encontra o caminho que o veículo realmente pode
+fazer, e a interface desenha a rota pelas ruas. O grafo é direcionado porque 1\,906 dos
+2\,408 trechos de rua (79\%) são de mão única. Distância e tempo são pesos separados
+porque o caminho mais curto e o mais rápido podem ser diferentes. A mesma classe
+\texttt{Grafo} também representa grafos não direcionados, que são o padrão
+(\texttt{Grafo(direcionado=False)}) e são usados nas instâncias sintéticas dos testes e
+da avaliação de desempenho.
 
 \subsection{Diagramas UML}
 O diagrama de classes da Figura~\ref{fig:uml-classes} mostra a estrutura do núcleo de grafos
@@ -133,7 +170,76 @@ testes e na avaliação de desempenho.
 \end{figure}
 
 \subsection{Base de dados}
-% TODO
+
+A base combina duas fontes públicas (Tabela~\ref{tab:fontes}) e é gerada pelo programa
+\texttt{src/grafo/preparar\_base.py}, que usa apenas a biblioteca padrão do Python e grava
+\texttt{dados/vertices.csv} e \texttt{dados/arestas.csv}. Os clientes e o depósito vêm do
+\textit{Olist VRP Benchmark}~\cite{greenberg2025earli,olistvrp}, que a NVIDIA montou a
+partir da base pública de comércio eletrônico da Olist no Kaggle~\cite{olist2018kaggle},
+com cerca de 100 mil pedidos feitos no Brasil entre 2016 e 2018. As ruas vêm do
+OpenStreetMap, obtidas pela API Overpass.
+
+\begin{table}[ht]
+\centering
+\caption{Fontes da base de dados.}
+\label{tab:fontes}
+\begin{tabular}{p{4.2cm}p{6.2cm}p{2.6cm}}
+\toprule
+Dado & Fonte & Licença \\
+\midrule
+Clientes (posição e volume do pedido) e depósito (posição de um vendedor) &
+Olist VRP Benchmark: \texttt{coordinates\_sao\_paulo\_test.csv} e
+\texttt{sellers\_sao\_paulo.csv} & CC BY-NC-SA 4.0 \\
+Ruas, sentido e velocidade máxima & OpenStreetMap (API Overpass, dados de 18/11/2026) &
+ODbL 1.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+O tratamento segue estes passos:
+\begin{enumerate}
+  \item \textbf{Depósito:} o vendedor da Olist com mais pedidos num raio de 1,5\,km,
+        no bairro da Bela Vista, no centro de São Paulo.
+  \item \textbf{Clientes:} 30 pedidos sorteados, com semente fixa (42), entre os 178
+        pedidos desse raio, sem posições repetidas. A demanda é o volume do pedido em
+        litros, arredondado para cima: o total é de 521\,L, com pedidos de 1 a 96\,L
+        (mediana de 12,5\,L). A capacidade de referência, de 160\,L por veículo, é a
+        mesma do benchmark da NVIDIA; com ela, são necessários pelo menos 4 veículos.
+  \item \textbf{Janela de tempo e prioridade:} não existem na Olist e são
+        \textbf{sorteadas} com a mesma semente, pela regra do gerador de instâncias:
+        início às 8, 9, 10, 11, 13 ou 14\,h e duração de 2, 3 ou 4\,h (todas as janelas
+        ficam entre 8h e 18h); prioridade 1, 2 ou 3, com o 3 sendo o menos frequente
+        (15, 13 e 2 clientes, respectivamente).
+  \item \textbf{Ruas:} vias por onde passa um carro (sem calçadas, ciclovias,
+        estacionamentos ou vias privadas), num quadrado que cobre o raio dos clientes
+        mais 400\,m. O tempo de cada trecho é a distância dividida por 60\% da
+        velocidade máxima da via; quando o OpenStreetMap não informa a velocidade, usa-se
+        um valor padrão por tipo de via (por exemplo, 30\,km/h em ruas residenciais).
+  \item \textbf{Conexão:} o depósito e cada cliente são ligados à rua mais próxima onde
+        se pode parar por um trecho de acesso (mediana de 39\,m, no máximo 250\,m,
+        percorrido a 15\,km/h). Fica só a parte da rede em que se pode ir \textbf{e
+        voltar} do depósito (componente fortemente conexa), para nenhum cliente ficar
+        preso numa rua de mão única sem saída.
+  \item \textbf{Simplificação:} os pontos intermediários de cada rua viram o desenho
+        (\texttt{geometria}) do trecho, e permanecem como vértices só as esquinas.
+\end{enumerate}
+
+O resultado tem 1\,550 vértices (1 depósito, 30 clientes e 1\,519 esquinas) e 2\,408
+trechos de rua, dos quais 1\,906 são de mão única, o que dá 2\,910 arcos no grafo
+direcionado. Assim, a posição dos clientes, os volumes e as ruas são dados
+\textbf{reais}; as distâncias e os tempos entre paradas são \textbf{derivados} pelo
+Dijkstra; as janelas de tempo, as prioridades e os nomes dos clientes são
+\textbf{sintéticos}. A base não contém dados pessoais: dos pedidos, ficam só o volume e a
+posição, que a própria Olist já sorteia dentro da área do CEP. Fontes, parâmetros e
+contagens ficam registrados em \texttt{dados/base\_info.json}, e o comando
+\texttt{python -m src.grafo.preparar\_base} gera a mesma base de novo.
+
+Ao carregar a base (\texttt{carregar\_grafo}, em \texttt{src/grafo/dados.py}), cada linha
+dos CSV é validada: tipos, intervalos, janela coerente, exatamente um depósito, arcos entre
+vértices existentes e pesos não negativos. Todos os erros encontrados são relatados de uma
+vez, com o arquivo e a linha. O grafo também precisa passar pelas mesmas checagens do
+contrato da API (\texttt{src/api/contrato.py}), e todo vértice precisa ser alcançável a
+partir do depósito e ter caminho de volta até ele.
 
 % =====================================================================
 \section{Algoritmos}\label{sec:algoritmos}
@@ -142,8 +248,55 @@ testes e na avaliação de desempenho.
 % TODO: para cada algoritmo -> ideia, pseudocódigo curto, como trata capacidade /
 % janela / prioridade, e complexidade de tempo e espaço.
 
-\subsection{Caminhos mínimos: Dijkstra}
-% TODO (Dupla 1)
+\subsection{Caminhos mínimos: Dijkstra}\label{sec:dijkstra}
+
+O algoritmo de Dijkstra~\cite{dijkstra1959note,cormen2009introduction} calcula o custo
+mínimo de uma origem $s$ até todos os vértices de um grafo com pesos não negativos. Ele
+mantém uma estimativa de custo $D[v]$ para cada vértice e repete o passo: retira o vértice
+ainda não fechado com a menor estimativa e tenta melhorar a estimativa de cada vizinho
+passando por ele (relaxamento). Quando um vértice é retirado, o seu custo já é o mínimo,
+porque nenhum desvio por outro vértice pode ficar mais barato se não há pesos negativos.
+A implementação (\texttt{src/grafo/dijkstra.py}) usa um heap binário (\texttt{heapq}) e
+guarda, além do custo, o predecessor de cada vértice no caminho mínimo:
+
+\begin{lstlisting}
+dijkstra(G, s, peso):
+    D = {s: 0};  anterior = {};  heap = [(0, s)]
+    enquanto heap nao vazio:
+        (d, u) = retira o menor do heap
+        se d > D[u]: continua            # entrada antiga, ignorada
+        para cada (v, w) em vizinhos(u, peso):
+            se d + w < D.get(v, infinito):
+                D[v] = d + w;  anterior[v] = u
+                insere (D[v], v) no heap
+    devolve D, anterior
+\end{lstlisting}
+
+Em vez de diminuir a chave de um vértice já presente no heap, o algoritmo insere uma nova
+entrada e descarta as antigas quando elas saem (linha ``entrada antiga''). Cada arco
+produz no máximo uma inserção, então o tempo é $O((|V| + |A|) \log |V|)$ e o espaço é
+$O(|V| + |A|)$, contando o heap. Os vértices sem caminho a partir de $s$ ficam fora do
+resultado. A função \texttt{caminho} reconstrói a sequência de vértices seguindo os
+predecessores de trás para a frente, e \texttt{matriz\_custos} roda o Dijkstra uma vez a
+partir de cada parada e guarda só os custos entre paradas, com as esquinas atravessadas
+dentro dos caminhos. Para $|P|$ paradas, a matriz custa $O(|P| (|V| + |A|) \log |V|)$; na
+base usada ($|P| = 31$), foi calculada em cerca de 40\,ms.
+
+O mesmo Dijkstra é usado em três pontos da ferramenta: (i)~na matriz de custos, por
+distância e por tempo, que os algoritmos de roteirização consultam; (ii)~no desenho das
+rotas (\texttt{src/grafo/mapa.py}), que reaproveita a árvore de predecessores para
+transformar cada trecho entre paradas na sequência de ruas percorridas; e (iii)~na
+validação da base, que roda o Dijkstra a partir do depósito no grafo e no grafo com os
+arcos invertidos (\texttt{Grafo.invertido}). No grafo invertido, o custo de $s$ até $v$ é o
+custo de $v$ até $s$ no grafo original, o que permite verificar com uma única execução se
+todos os vértices conseguem voltar ao depósito.
+
+A corretude depende de os pesos não serem negativos, o que a classe \texttt{Grafo}
+garante ao recusar arcos com peso negativo. Os testes automatizados conferem o resultado
+com uma segunda implementação feita por outro método (Bellman-Ford), em grafos esparsos
+gerados por semente, e verificam casos com mão única, vértices inalcançáveis e
+reconstrução de caminhos. A comparação com o NetworkX, na
+Seção~\ref{sec:resultados}, confirma os mesmos custos em todas as instâncias medidas.
 
 \subsection{Vizinho Mais Próximo}
 % TODO
@@ -164,7 +317,8 @@ testes e na avaliação de desempenho.
 \toprule
 Algoritmo & Tempo & Espaço \\
 \midrule
-Dijkstra (heap binário)      & $O((V+E)\log V)$ & $O(V)$ \\
+Dijkstra (heap binário)      & $O((V+E)\log V)$ & $O(V+E)$ \\
+Matriz de custos ($P$ paradas) & $O(P\,(V+E)\log V)$ & $O(P^2 + V + E)$ \\
 Vizinho Mais Próximo         & $O(n^2)$         & $O(n)$ \\
 Clarke-Wright                & $O(n^2 \log n)$  & $O(n^2)$ \\
 2-opt (por iteração)         & $O(n^2)$         & $O(n)$ \\
@@ -259,8 +413,8 @@ verificar, em várias instâncias e configurações de frota, que:
 
 Dois testes adicionais avaliam a qualidade das heurísticas: o 2-opt nunca deve
 aumentar a distância total, e o Clarke-Wright com 2-opt deve ficar a no máximo 25\%
-do ótimo nas instâncias pequenas.
-% TODO (Duplas 1 e 2): confirmar que esses dois testes passam com o código real
+do ótimo nas instâncias pequenas. Com o grafo e os algoritmos reais integrados à API, os
+dois testes passam.
 
 \subsection{Controle de acesso}
 
@@ -393,7 +547,7 @@ nas Figuras~\ref{fig:uml-componentes}, \ref{fig:uml-sequencia} e
 Dupla & Membro & Atividades \\
 \midrule
 1 & Zaine     & TODO \\
-1 & Bruna     & TODO \\
+1 & Bruna     & Classe do grafo em lista de adjacência, inclusive a versão direcionada para ruas de mão única; Dijkstra com heap, reconstrução de caminhos e matriz de custos; leitura e validação dos CSV da base; gerador de instâncias sintéticas; testes do núcleo de grafos; seções de definição formal, base de dados e Dijkstra do relatório \\
 2 & Kethellen & TODO \\
 2 & Rafael    & TODO \\
 3 & Filipe    & Interface web: mapa, rotas, simulação do dia, linha do tempo e guia de uso; relatório \\
