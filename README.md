@@ -313,11 +313,11 @@ Entrega: **22/11**. Situação em 20/11:
 | **Base de dados** em `dados/` + nota de origem (Kaggle) | ✅ mapa real de SP gerado (Olist VRP Benchmark + OpenStreetMap) | **Dupla 1** |
 | **Vizinho mais próximo, Clarke-Wright e 2-opt** (`src/algoritmos/`) | ✅ na `main`, priorizando janela de tempo | **Dupla 2** |
 | Integração (`src/api/app.py`) e rodar os testes | ✅ `FONTE` e `FONTE_ALGORITMOS` em `"real"` | Todos |
-| Prints das telas no relatório (tirar os "Figura ??") | ⏳ | Dupla 3 |
-| Seções 2, 3 e 5 do relatório (modelagem, algoritmos, resultados) | ⏳ em andamento | Duplas 1 e 2 |
-| Limitações, conclusão, nomes completos, instituição, tabela de responsabilidades | ⏳ em andamento | Todos |
-| Relatório com **12 a 15 páginas** (hoje: 7) | ⏳ | Todos |
-| Slides (10 min) e vídeo (12 a 18 min) | ❌ falta | Todos, ver [docs/apresentacao.md](docs/apresentacao.md) |
+| Prints das telas no relatório (tirar os "Figura ??") | ✅ pronto | Dupla 3 |
+| Seções 2, 3 e 5 do relatório (modelagem, algoritmos, resultados) | ✅ pronto | Duplas 1 e 2 |
+| Limitações, conclusão, nomes completos, instituição, tabela de responsabilidades | ✅ pronto | Todos |
+| Relatório com **12 a 15 páginas** | ✅ pronto | Todos |
+| Slides (10 min) e vídeo (12 a 18 min) | ✅ prontos | Todos, ver [docs/apresentacao.md](docs/apresentacao.md) Slides:https://canva.link/oi258s1hs90nakg Vídeo:https://drive.google.com/file/d/1Geemu2sS1DH2H6Fn5lkMbP4qK2miAQoQ/view?usp=sharing|
 | Commits de **todos** os 6 membros no Git | ✅ todos têm commits | Todos |
 
 ## 🆕 Últimas alterações (18/11)
